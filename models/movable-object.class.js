@@ -4,10 +4,25 @@ class MovableObject {
     img;
     height = 150;
     width = 200;
+    
+    currentImage = 0;
+
+    imageCache = {
+
+    };
+
 
     loadImage(path){
-        this.img = new Image();
+        this.img = new Image(); // verglaichbar mit document.getElementById('')
         this.img.src = path;
+    }
+
+    loadImages(arr){
+        arr.forEach((path) => {
+        let img = new Image();
+        img.src = path;
+        this.imageCache[path]= img;
+      });
     }
 
 
@@ -17,7 +32,12 @@ class MovableObject {
     }
 
     moveLeft(){
-
+        setInterval(()=> {
+            this.x -= this.CloudSpeed
+            if (this.x < -this.width){
+                this.x = 800;
+            }
+        } ,50 )
     }
 
 }
