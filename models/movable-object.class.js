@@ -4,12 +4,9 @@ class MovableObject {
     img;
     height = 150;
     width = 200;
-    
     currentImage = 0;
-
-    imageCache = {
-
-    };
+    imageCache = { }; // bilder des charakters werden hier rein geladen 
+    otherDirection = false;
 
 
     loadImage(path){
