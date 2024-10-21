@@ -11,26 +11,30 @@ class Chicken extends MovableObject {
    ];
 
    
-
+  
+ 
+   
+  
+  
 
    constructor(){
     super().loadImage(this.images[0])
     this.x = 500 + Math.random() * 500;
-    
-    
     this.animateChicken();
+    this.chicken_Sound = new Audio('audio/chicken_1.mp3')
+    this.chicken_Sound.volume = 0.01;
     
    }
 
    animateChicken(){
       setInterval(() => {
-         this.currentImage= (this.currentImage+ 1) % this.images.length;
-         this.loadImage(this.images[this.currentImage]);
-      }, 130);
+         this.playEnemieAnimation(this.images)
+     }, 190);
 
       let randomSpeed =  0.15 + Math.random() * 0.8
 
       setInterval(() => {
+         /* this.chicken_Sound.play(); */
          this.x -= randomSpeed;
          if(this.x < this.width){
             this.x = 700;

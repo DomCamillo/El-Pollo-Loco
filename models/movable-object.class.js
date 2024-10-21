@@ -22,6 +22,19 @@ class MovableObject {
       });
     }
 
+    playAnimation(images){
+        let i = this.currentImage % this.images.length // let i = 0 % 6
+        let path = this.images[i];
+        this.img = this.imageCache[path];
+        this.currentImage ++;
+}
+
+ playEnemieAnimation(images){
+    this.currentImage= (this.currentImage+ 1) % this.images.length;
+    this.loadImage(this.images[this.currentImage]);
+
+ }
+
 
     moveright(){
         console.log('moving right');
