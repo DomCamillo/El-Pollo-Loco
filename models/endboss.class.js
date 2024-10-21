@@ -36,7 +36,7 @@ class Endboss extends MovableObject{
     animateBoss() {
         setInterval(() => {
             this.playEnemieAnimation(this.images)
-        }, 400);
+        }, 700);
         
     }
   
