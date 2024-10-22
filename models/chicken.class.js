@@ -34,14 +34,20 @@ class Chicken extends MovableObject {
       let randomSpeed =  0.15 + Math.random() * 0.8
 
       setInterval(() => {
-         /* this.chicken_Sound.play(); */
+         
          this.x -= randomSpeed;
          if(this.x < this.width){
             this.x = 700;
          }
       }, 10);
+
+      setInterval(() => {
+        /*  this.chicken_Sound.play(); */
+      }, 5500);
        
    }
+
+
 
    }
 

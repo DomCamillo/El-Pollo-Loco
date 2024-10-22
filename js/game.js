@@ -41,7 +41,8 @@ function init(){
 
 
 
-    console.log(e);
+   
+
 });
 
 
@@ -72,5 +73,5 @@ function init(){
 
 
 
-    console.log(e);
+   
 });

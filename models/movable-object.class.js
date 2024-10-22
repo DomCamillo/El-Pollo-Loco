@@ -7,7 +7,22 @@ class MovableObject {
     currentImage = 0;
     imageCache = { }; // bilder des charakters werden hier rein geladen 
     otherDirection = false;
+    speedY = 1;
+    acceleration = 2.5;
 
+    applyGravity(){
+        setInterval(() => {
+          
+            if (this.isAboveGround() || this.speedY > 0){
+                this.y -= this.speedY
+            this.speedY -= this.acceleration;
+            }  
+        }, 1000/25);
+    }
+
+    isAboveGround(){
+        return this.y < 130;
+    }
 
     loadImage(path){
         this.img = new Image(); // verglaichbar mit document.getElementById('')
@@ -23,8 +38,8 @@ class MovableObject {
     }
 
     playAnimation(images){
-        let i = this.currentImage % this.images.length // let i = 0 % 6
-        let path = this.images[i];
+        let i = this.currentImage % images.length // let i = 0 % 6
+        let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage ++;
 }
