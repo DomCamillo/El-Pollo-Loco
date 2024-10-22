@@ -14,15 +14,17 @@ class Chicken extends MovableObject {
   
  
    
-  
+   chicken_Sound = new Audio('audio/chicken_1.mp3')
+   chicken_Sound2= new Audio('audio/chicken_2.mp3')
   
 
    constructor(){
     super().loadImage(this.images[0])
     this.x = 500 + Math.random() * 500;
     this.animateChicken();
-    this.chicken_Sound = new Audio('audio/chicken_1.mp3')
+    
     this.chicken_Sound.volume = 0.01;
+    this.chicken_Sound2.volume = 0.01;
     
    }
 
@@ -41,9 +43,12 @@ class Chicken extends MovableObject {
          }
       }, 10);
 
-      setInterval(() => {
-        /*  this.chicken_Sound.play(); */
+     /*  setInterval(() => {
+         this.chicken_Sound.play();
       }, 5500);
+      setInterval(() => {
+         this.chicken_Sound2.play();
+      }, 20000); */
        
    }
 

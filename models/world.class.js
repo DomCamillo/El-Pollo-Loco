@@ -19,7 +19,7 @@ character = new Character();
     }
     
 
-
+ 
    
 
     draw(){
@@ -52,26 +52,26 @@ character = new Character();
     // mo = map Object 
     addToMap(mo) {
         this.ctx.save();  // speichert den aktuellen Zustand des Zeichenkontexts
-        
+       
+        mo.colisionOutline(this.ctx)
+
         if (mo.otherDirection) {  
-            this.ctx.translate(mo.x + mo.width, 0);  // verschiebe den Zeichenkontext auf die Position des Charakters
-            this.ctx.scale(-1, 1);  // spiegelt das bild
-            this.ctx.drawImage(mo.img, 0, mo.y, mo.width, mo.height);  // zeichne den Charakter an der korrekten Position
+           this.flipImage(mo, this.ctx) 
+
         } else {
-            this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);  // zeichne den Charakter ohne Spiegelung
+            mo.draw(this.ctx) // zeichne den Charakter ohne Spiegelung
         }
     
         this.ctx.restore();  // stelle den Zeichenkontext wieder her
     }
 
 
-
-    flipImage(mo) {
-     
-        this.ctx.translate(mo.x + mo.width, 0); 
-    
-        this.ctx.scale(-1, 1);  // spiegele das Bild horizontal
+    flipImage(mo,ctx){
+        this.ctx.translate(mo.x + mo.width, 0);  // verschiebe den Zeichenkontext auf die Position des Charakters
+        this.ctx.scale(-1, 1);  // spiegelt das bild
+       this.ctx.drawImage(mo.img, 0, mo.y, mo.width, mo.height);  // zeichne den Charakter an der korrekten Position
     }
 
+   
    
 }

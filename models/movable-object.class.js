@@ -8,7 +8,21 @@ class MovableObject {
     imageCache = { }; // bilder des charakters werden hier rein geladen 
     otherDirection = false;
     speedY = 1;
-    acceleration = 2.5;
+    acceleration = 1.5;
+
+
+
+    draw(ctx){
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height); 
+    }
+    colisionOutline(ctx){
+        ctx.beginPath();
+        ctx.linewidth = '5'
+        ctx.strokeStyle = "blue"
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+    }
+   
 
     applyGravity(){
         setInterval(() => {
@@ -50,13 +64,7 @@ class MovableObject {
 
  }
 
-
-    moveright(){
-        console.log('moving right');
-        
-    }
-
-    moveLeft(){
+    animateClouds(){
         setInterval(()=> {
             this.x -= this.CloudSpeed
             if (this.x < -this.width){
@@ -64,5 +72,21 @@ class MovableObject {
             }
         } ,50 )
     }
+
+    moveLeft(){
+        this.x -= this.speed;  
+        this.otherDirection = true;
+    }
+
+    jump(){
+        this.speedY = 25;
+       
+    }
+
+    moveRight(){
+        this.x += this.speed;
+        this.otherDirection = false; 
+    }
+
 
 }

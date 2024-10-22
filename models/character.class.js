@@ -5,7 +5,8 @@ class Character extends MovableObject {
     x = 0;
     y = 30;
     speed = 7;
-    jump = 20;
+    jumpHeight = 30;
+    
 
     images = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -29,7 +30,9 @@ class Character extends MovableObject {
     ];
 
     world;
-    walking_sound = new Audio('audio/walking.mp3');
+    walking_sound = new Audio('audio/mc-grass-walking.mp3');
+    jumping_sound = new Audio('audio/jump.mp3');
+    
     
     
     
@@ -39,31 +42,38 @@ class Character extends MovableObject {
         this.loadImages(this.imagesJump);
         this.loadImages(this.images);
         this.animateCharacter()
-
+        this.jumping_sound.volume = 0.1;
     }
 
+
+    
 
     animateCharacter(){
         // movement nach rechts und links
         setInterval(() => {
             this.walking_sound.pause();
+             
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end){
-                this.x += this.speed;
-                this.otherDirection = false; 
+                this.moveRight();
                 this.walking_sound.play();
             }
            
 
             if(this.world.keyboard.LEFT && this.x > -610){
-                this.x -= this.speed;  
-                this.otherDirection = true;
+                this.moveLeft();
                 this.walking_sound.play();
             }
 
+            if(this.y < 120){
+                this.walking_sound.pause()
+             
+            }  
+ 
           
             
-        if(this.world.keyboard.SPACE && this.y > 130){
-                this.speedY = 20;
+        if(this.world.keyboard.SPACE && !this.isAboveGround() ){
+               this.jump();
+               this.jumping_sound.play()
             } 
 
             this.world.camera_x = -this.x +100;
@@ -71,19 +81,19 @@ class Character extends MovableObject {
         }, 1000 / 60);
        
        // jump 
-        setInterval(() => {
-            if(this.world.keyboard.SPACE){
+       /*  setInterval(() => {
+            if(this.world.keyboard.SPACE  ){
                 this.y -= this.jump;  
             }
            
-        }, 1000 / 60); 
+        },200 );  */
 
         // go down 
-        setInterval(() => {
+        /* setInterval(() => {
             if(this.world.keyboard.DOWN){
                 this.y += this.jump;    
             }
-        }, 1000 / 60); 
+        }, 1000 / 60);  */
         
         // walk animation 
         setInterval(() => {
@@ -109,10 +119,7 @@ class Character extends MovableObject {
         
     }
 
-    jump(){
-       
-
-    }
+   
     
 }
 
