@@ -28,6 +28,7 @@ character = new Character();
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.backdrops);// elemnte werden zum canvis hinzugefügt 
         this.addToMap(this.character);         // reihenfolge bestimmt den z-index 
+        this.addObjectsToMap(this.level.items);                                
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);        // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet 
                                                   // werden darum wird this in eine varibale geschpeichert

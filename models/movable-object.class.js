@@ -57,7 +57,7 @@ class MovableObject {
         this.currentImage ++;
 }
 
- playEnemieAnimation(images){
+ playEnemieAnimation(arr){
     this.currentImage= (this.currentImage+ 1) % this.images.length;
     this.loadImage(this.images[this.currentImage]);
 

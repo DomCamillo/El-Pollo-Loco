@@ -4,8 +4,10 @@ class Character extends MovableObject {
     width = 200;
     x = 0;
     y = 30;
-    speed = 7;
+    speed = 5;
+    runSpeed = 5.5;
     jumpHeight = 30;
+    isRunning = false;
     
 
     images = [
@@ -45,13 +47,24 @@ class Character extends MovableObject {
         this.jumping_sound.volume = 0.1;
     }
 
-
+    runningRight(){
+        this.x += this.runSpeed;
+        this.otherDirection = false; 
+        this.isRunning = true;
+    }
+    runningLeft(){
+        this.x -= this.runSpeed;
+        this.otherDirection = true; 
+        this.isRunning = true;
+    }
     
 
     animateCharacter(){
         // movement nach rechts und links
         setInterval(() => {
             this.walking_sound.pause();
+
+            
              
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end){
                 this.moveRight();
@@ -68,6 +81,17 @@ class Character extends MovableObject {
                 this.walking_sound.pause()
              
             }  
+
+            //running
+
+            if(this.world.keyboard.SHIFT && this.world.keyboard.RIGHT ){
+                this.runningRight()
+            }
+            
+            if(this.world.keyboard.SHIFT && this.world.keyboard.LEFT ){
+                this.runningLeft()
+            }
+            
  
           
             
@@ -78,7 +102,7 @@ class Character extends MovableObject {
 
             this.world.camera_x = -this.x +100;
 
-        }, 1000 / 60);
+        }, 1000/60);
        
        // jump 
        /*  setInterval(() => {

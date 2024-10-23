@@ -20,7 +20,7 @@ class Chicken extends MovableObject {
 
    constructor(){
     super().loadImage(this.images[0])
-    this.x = 500 + Math.random() * 500;
+    this.x = 700 + Math.random() * 500;
     this.animateChicken();
     
     this.chicken_Sound.volume = 0.01;
