@@ -27,19 +27,20 @@ class Chicken extends MovableObject {
     this.chicken_Sound2.volume = 0.01;
     
    }
-
+   
    animateChicken(){
       setInterval(() => {
          this.playEnemieAnimation(this.images)
-     }, 190);
-
-      let randomSpeed =  0.15 + Math.random() * 0.8
+      }, 190);
+      
+      let randomSpeed =  0.8 + Math.random() * 0.8
+      
 
       setInterval(() => {
          
          this.x -= randomSpeed;
          if(this.x < this.width){
-            this.x = 700;
+            this.x = 2900;
          }
       }, 10);
 

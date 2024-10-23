@@ -24,9 +24,8 @@ class MovableObject {
     }
    
 
-    applyGravity(){
+    applyGravity(){            // function to applay gravity 
         setInterval(() => {
-          
             if (this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY
             this.speedY -= this.acceleration;
@@ -43,7 +42,7 @@ class MovableObject {
         this.img.src = path;
     }
 
-    loadImages(arr){
+    loadImages(arr){       // function to load imges into imagecache
         arr.forEach((path) => {
         let img = new Image();
         img.src = path;
