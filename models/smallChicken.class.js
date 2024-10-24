@@ -4,6 +4,7 @@ class smallChicken extends Chicken {
  y = 350;
 height = 80;
 width = 80;
+health = 50;
 
 images = [
    'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -19,6 +20,8 @@ constructor(){
     this.chicken_Sound.volume = 0.01;
     this.chicken_Sound2.volume = 0.01;
 }
+
+
 
 
 

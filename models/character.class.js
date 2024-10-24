@@ -9,6 +9,7 @@ class Character extends MovableObject {
     jumpHeight = 30;
     isRunning = false;
     
+    
 
     images = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -31,6 +32,22 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-39.png'
     ];
 
+    imagesHurt = [
+        'img/2_character_pepe/4_hurt/H-41.png',
+        'img/2_character_pepe/4_hurt/H-42.png',
+        'img/2_character_pepe/4_hurt/H-43.png',
+    ];
+
+    imagesDead = [
+        'img/2_character_pepe/5_dead/D-51.png',
+        'img/2_character_pepe/5_dead/D-52.png',
+        'img/2_character_pepe/5_dead/D-53.png',
+        'img/2_character_pepe/5_dead/D-54.png',
+        'img/2_character_pepe/5_dead/D-55.png',
+        'img/2_character_pepe/5_dead/D-56.png',
+        'img/2_character_pepe/5_dead/D-57.png',
+    ];
+
     world;
     walking_sound = new Audio('audio/mc-grass-walking.mp3');
     jumping_sound = new Audio('audio/jump.mp3');
@@ -41,8 +58,10 @@ class Character extends MovableObject {
     constructor(){
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.applyGravity();
-        this.loadImages(this.imagesJump);
         this.loadImages(this.images);
+        this.loadImages(this.imagesJump);
+        this.loadImage(this.imagesHurt)
+        this.loadImages(this.imagesDead);
         this.animateCharacter()
         this.jumping_sound.volume = 0.1;
     }
@@ -81,8 +100,7 @@ class Character extends MovableObject {
                 this.walking_sound.pause()
              
             }  
-
-            //running
+                                                            // changing the coordinates
 
             if(this.world.keyboard.SHIFT && this.world.keyboard.RIGHT ){
                 this.runningRight()
@@ -91,9 +109,7 @@ class Character extends MovableObject {
             if(this.world.keyboard.SHIFT && this.world.keyboard.LEFT ){
                 this.runningLeft()
             }
-            
- 
-          
+        
             
         if(this.world.keyboard.SPACE && !this.isAboveGround() ){
                this.jump();
@@ -103,25 +119,20 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x +100;
 
         }, 1000/60);
-       
-       // jump 
-       /*  setInterval(() => {
-            if(this.world.keyboard.SPACE  ){
-                this.y -= this.jump;  
-            }
-           
-        },200 );  */
-
-        // go down 
-        /* setInterval(() => {
-            if(this.world.keyboard.DOWN){
-                this.y += this.jump;    
-            }
-        }, 1000 / 60);  */
-        
-        // walk animation 
+                                                            
         setInterval(() => {
-            if(this.isAboveGround() ){
+                                                // changing the image 
+            /* if(this.hitDetection()){
+               
+               
+            } */
+
+            if(this.isDead()){
+                this.playAnimation(this.imagesDead)
+                return;
+            } 
+
+           if(this.isAboveGround() ){
                 this.playAnimation(this.imagesJump)
                 
                 
@@ -130,19 +141,16 @@ class Character extends MovableObject {
                     this.playAnimation(this.images);
                 }   
             }
-
+ 
            
         }, 120);
+
+
+     
        
     }
 
     
-
-
-    moveDirection(){
-        
-    }
-
    
     
 }

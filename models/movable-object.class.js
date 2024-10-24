@@ -9,19 +9,45 @@ class MovableObject {
     otherDirection = false;
     speedY = 1;
     acceleration = 1.5;
+    health = 100;
 
 
 
     draw(ctx){
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height); 
     }
+
+    isColliding(mo){
+        return this.x + this.width > mo.x &&
+        this.y + this.height > mo.y &&
+        this.x < mo.x &&
+        this.y < mo.y +mo.height;
+    }
+
+    hitDetection(){
+        this.health -= 5;
+        if (this.health < 0){
+          this.health = 0;
+        }
+    }
+
+    isDead(){
+        return this.health == 0;
+      }
+  
+
     colisionOutline(ctx){
+        if(this instanceof Character || this instanceof Chicken){
         ctx.beginPath();
         ctx.linewidth = '5'
         ctx.strokeStyle = "blue"
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
+        }
+        
     }
+
+    
    
 
     applyGravity(){            // function to applay gravity 
@@ -87,5 +113,15 @@ class MovableObject {
         this.otherDirection = false; 
     }
 
+   
+
+
+    /* isColliding (obj) {
+        return  (this.X + this.width) >= obj.X && this.X <= (obj.X + obj.width) && 
+                (this.Y + this.offsetY + this.height) >= obj.Y &&
+                (this.Y + this.offsetY) <= (obj.Y + obj.height) && 
+                obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+
+} */
 
 }

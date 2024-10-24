@@ -12,12 +12,28 @@ character = new Character();
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld(){
         this.character.world = this;
     }
     
+
+    checkCollisions(){
+        setInterval(() => {
+          this.level.enemies.forEach((enemy)=> {
+           if(this.character.isColliding(enemy)) {
+               console.log('enmey is coliding charcater health is',this.character.health );
+            this.character.hitDetection();
+           
+           }
+          });
+
+        }, 200);
+
+
+    }
 
  
    

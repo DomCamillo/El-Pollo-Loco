@@ -10,7 +10,7 @@ function init(){
     world = new World(canvas, keyboard);
 
     console.log('my character is', world.character );
-    console.log('enemies are', world.enemies );
+    console.log('enemies are', world.level.enemies );
     
 }
 
