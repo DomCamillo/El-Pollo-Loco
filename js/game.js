@@ -11,6 +11,7 @@ function init(){
 
     console.log('my character is', world.character );
     console.log('enemies are', world.level.enemies );
+
     
 }
 

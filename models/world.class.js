@@ -22,10 +22,11 @@ character = new Character();
 
     checkCollisions(){
         setInterval(() => {
-          this.level.enemies.forEach((enemy)=> {
+          this.level.enemies.forEach((enemy) => {
+
            if(this.character.isColliding(enemy)) {
-               console.log('enmey is coliding charcater health is',this.character.health );
-            this.character.hitDetection();
+          
+             this.character.hitDetection();
            
            }
           });

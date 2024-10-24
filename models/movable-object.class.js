@@ -10,6 +10,20 @@ class MovableObject {
     speedY = 1;
     acceleration = 1.5;
     health = 100;
+    lastHit = 0;
+
+    loadImage(path){
+        this.img = new Image(); // verglaichbar mit document.getElementById('')
+        this.img.src = path;
+    }
+
+    loadImages(arr){        // function to load imges into imagecache
+        arr.forEach((path) => {
+        let img = new Image();
+        img.src = path;
+        this.imageCache[path]= img;
+      });
+    }
 
 
 
@@ -28,12 +42,20 @@ class MovableObject {
         this.health -= 5;
         if (this.health < 0){
           this.health = 0;
+        }else {
+            this.lastHit = new Date().getTime();
         }
     }
 
     isDead(){
         return this.health == 0;
       }
+      
+    isHurt(){
+       let timepassed = new Date().getTime() -this.lastHit;    
+       timepassed = timepassed / 1000;
+       return timepassed < 0.5;
+    }
   
 
     colisionOutline(ctx){
@@ -63,18 +85,7 @@ class MovableObject {
         return this.y < 130;
     }
 
-    loadImage(path){
-        this.img = new Image(); // verglaichbar mit document.getElementById('')
-        this.img.src = path;
-    }
-
-    loadImages(arr){       // function to load imges into imagecache
-        arr.forEach((path) => {
-        let img = new Image();
-        img.src = path;
-        this.imageCache[path]= img;
-      });
-    }
+   
 
     playAnimation(images){
         let i = this.currentImage % images.length // let i = 0 % 6

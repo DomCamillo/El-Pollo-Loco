@@ -59,8 +59,8 @@ class Character extends MovableObject {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.applyGravity();
         this.loadImages(this.images);
+        this.loadImages(this.imagesHurt)
         this.loadImages(this.imagesJump);
-        this.loadImage(this.imagesHurt)
         this.loadImages(this.imagesDead);
         this.animateCharacter()
         this.jumping_sound.volume = 0.1;
@@ -121,27 +121,19 @@ class Character extends MovableObject {
         }, 1000/60);
                                                             
         setInterval(() => {
-                                                // changing the image 
-            /* if(this.hitDetection()){
-               
-               
-            } */
-
-            if(this.isDead()){
-                this.playAnimation(this.imagesDead)
-                return;
-            } 
-
-           if(this.isAboveGround() ){
-                this.playAnimation(this.imagesJump)
-                
-                
-            } else {
-                if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT  ){
-                    this.playAnimation(this.images);
-                }   
-            }
- 
+                                          // changing the image 
+       if (this.isDead()) {
+         this.playAnimation(this.imagesDead);
+         return;
+     } 
+     
+      else if (this.isHurt()) {
+         this.playAnimation(this.imagesHurt);
+     } else if (this.isAboveGround()) {
+         this.playAnimation(this.imagesJump);
+     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+         this.playAnimation(this.images);
+     }
            
         }, 120);
 
