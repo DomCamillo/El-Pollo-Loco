@@ -20,7 +20,7 @@ class Endboss extends MovableObject{
         super();
         this.loadImage(this.images[1]); 
         this.loadImages(this.images); // Lade das Array mit Bildern
-        this.x = 2000;
+        this.x = 4000;
         this.y = 70; 
        this.animateBoss();
     }

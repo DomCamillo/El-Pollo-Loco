@@ -25,7 +25,7 @@ y;
         this.loadImages( this.images_Bottle_Splash);
         this.playAnimation(this.images_Bottle);
         /* this.playAnimation(this.images_Bottle_Splash); */
-        this.x = 200 + Math.random() * (2200 - 200);
+        this.x = 200 + Math.random() * (4200 - 200);
         this.y = 50 + Math.random() * (450 - 380 ); 
     }
 

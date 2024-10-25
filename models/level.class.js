@@ -3,14 +3,16 @@ class Level {
     clouds;
     backdrops;
     items;
+    statusBars;
 
-    level_end = 2200;
+    level_end = 4100;
 
-    constructor(enemies,clouds,backdrops,items){
+    constructor(enemies,clouds,backdrops,items,statusBars){
         this.enemies = enemies;
         this.clouds = clouds;
         this.backdrops = backdrops;
         this.items = items;
+      /*   this.statusBars = statusBars; */
         
     }
 }

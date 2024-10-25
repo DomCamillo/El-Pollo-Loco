@@ -12,8 +12,13 @@ images = [
    'img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
 ];
 
+imageDead = [
+    'img/3_enemies_chicken/chicken_small/2_dead',
+]
+
 constructor(){
-    super().loadImage(this.images[0])
+    super().loadImages(this.images)
+    this.loadImages(this.imageDead)
     this.x = 2000 + Math.random() * 800;
     this.animateChicken();
     

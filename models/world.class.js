@@ -1,6 +1,6 @@
 class World {
+  level = level1;
 character = new Character();
- level = level1;
  ctx;
  canvas;
  keyboard;
@@ -47,6 +47,7 @@ character = new Character();
         this.addToMap(this.character);         // reihenfolge bestimmt den z-index 
         this.addObjectsToMap(this.level.items);                                
         this.addObjectsToMap(this.level.enemies);
+     /*    this.addObjectsToMap(this.level.statusBars); */
         this.ctx.translate(-this.camera_x, 0);        // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet 
                                                   // werden darum wird this in eine varibale geschpeichert
         let self = this;
