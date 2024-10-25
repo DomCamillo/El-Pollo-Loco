@@ -77,10 +77,10 @@ class Character extends MovableObject {
         this.isRunning = true;
     }
 
-    throw(){
-        
-          
-      }
+    
+   
+
+   
 
     
 
@@ -116,7 +116,7 @@ class Character extends MovableObject {
                 this.runningLeft()
             }
             
-            if(this.world.keyboard.THROW){
+            if(this.world.keyboard.F){
                 this.throw();
             }
         

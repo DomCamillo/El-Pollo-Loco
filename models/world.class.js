@@ -5,7 +5,8 @@ class World {
  canvas;
  keyboard;
  camera_x = 0;
-
+ trowableObjects = [];
+ 
  statusBarHealth = new Statusbar(this.iamgesStatsHealth)
  statusBarCoins = new Statusbar(this.imagesStatsCoin);
  statusBarBottles = new Statusbar(this.imagesStatsBottle);
@@ -17,7 +18,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld(){
@@ -25,22 +26,33 @@ class World {
     }
     
 
-    checkCollisions(){
+    run(){
         setInterval(() => {
-          this.level.enemies.forEach((enemy) => {
-
-           if(this.character.isColliding(enemy)) {
-          
-             this.character.hitDetection();
-             this.statusBarHealth.setPercentage(this.character.health)
-           
-           }
-          });
-
+            this.checkCollision();
+            this.checkthrowables();  
         }, 200);
-
-
+        
     }
+
+    checkthrowables(){
+      if (this.keyboard.F){
+        let bottle = new Bottle(this.character.x +100, this.character.y + 100)
+        this.trowableObjects.push(bottle) ;    
+     }
+        
+    }
+
+    checkCollision(){
+        
+     this.level.enemies.forEach((enemy) => {
+      if(this.character.isColliding(enemy)) {
+     
+        this.character.hitDetection();
+        this.statusBarHealth.setPercentage(this.character.health)
+      
+      }
+     });
+ }
 
  
    
@@ -62,7 +74,8 @@ class World {
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);        // reihenfolge bestimmt den z-index 
         this.addToMap(this.statusBarHealth);  
-        this.addObjectsToMap(this.level.items);                                
+        this.addObjectsToMap(this.level.Coin);                                
+        this.addObjectsToMap(this.level.Bottle);                               
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);        // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet 
                                                   // werden darum wird this in eine varibale geschpeichert
