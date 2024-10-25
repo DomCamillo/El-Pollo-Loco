@@ -51,12 +51,7 @@ const level1 = new Level(
       new Bottle(),
      ],
 
-     /* [
-      new Statusbar(),
-      new Statusbar(),
-      new Statusbar(),
-     ], */
-
+     
 
      
 

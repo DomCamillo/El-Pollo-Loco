@@ -76,6 +76,12 @@ class Character extends MovableObject {
         this.otherDirection = true; 
         this.isRunning = true;
     }
+
+    throw(){
+        
+          
+      }
+
     
 
     animateCharacter(){
@@ -109,12 +115,18 @@ class Character extends MovableObject {
             if(this.world.keyboard.SHIFT && this.world.keyboard.LEFT ){
                 this.runningLeft()
             }
+            
+            if(this.world.keyboard.THROW){
+                this.throw();
+            }
         
             
         if(this.world.keyboard.SPACE && !this.isAboveGround() ){
                this.jump();
                this.jumping_sound.play()
             } 
+
+           
 
             this.world.camera_x = -this.x +100;
 

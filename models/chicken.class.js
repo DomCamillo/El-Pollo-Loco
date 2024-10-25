@@ -40,7 +40,7 @@ class Chicken extends MovableObject {
          this.playEnemieAnimation(this.images)
       }, 190);
       
-      let randomSpeed =  0.8 + Math.random() * 0.8
+      let randomSpeed =  0.4 + Math.random() * 0.8
       
 
       setInterval(() => {

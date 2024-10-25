@@ -1,12 +1,17 @@
 class World {
-  level = level1;
-character = new Character();
+ character = new Character();
+ level = level1;
  ctx;
  canvas;
  keyboard;
  camera_x = 0;
 
-    constructor(canvas, keyboard){
+ statusBarHealth = new Statusbar(this.iamgesStatsHealth)
+ statusBarCoins = new Statusbar(this.imagesStatsCoin);
+ statusBarBottles = new Statusbar(this.imagesStatsBottle);
+
+
+    constructor(canvas, keyboard, ){
         this.ctx = canvas.getContext('2d'); // um den canvas zu bearbeiten 
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -27,6 +32,7 @@ character = new Character();
            if(this.character.isColliding(enemy)) {
           
              this.character.hitDetection();
+             this.statusBarHealth.setPercentage(this.character.health)
            
            }
           });
@@ -42,12 +48,22 @@ character = new Character();
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // canvas wird gelöscht 
         this.ctx.translate(this.camera_x, 0);
+
+           this.statusBarHealth.x = this.character.x -100;
+           this.statusBarCoins.x = this.character.x -100 ;
+           this.statusBarCoins.y = +30 ;
+           this.statusBarBottles.x = this.character.x - 100;
+           this.statusBarBottles.y =  + 60;
+       
+
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.backdrops);// elemnte werden zum canvis hinzugefügt 
-        this.addToMap(this.character);         // reihenfolge bestimmt den z-index 
+        this.addToMap(this.character); 
+        this.addToMap(this.statusBarCoins);
+        this.addToMap(this.statusBarBottles);        // reihenfolge bestimmt den z-index 
+        this.addToMap(this.statusBarHealth);  
         this.addObjectsToMap(this.level.items);                                
         this.addObjectsToMap(this.level.enemies);
-     /*    this.addObjectsToMap(this.level.statusBars); */
         this.ctx.translate(-this.camera_x, 0);        // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet 
                                                   // werden darum wird this in eine varibale geschpeichert
         let self = this;

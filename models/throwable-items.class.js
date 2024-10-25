@@ -2,6 +2,8 @@ class Bottle extends Items{
 
 height = 110;
 width = 110;
+speedY = 50;
+speedX = 30;
 x;
 y;
 
@@ -29,5 +31,6 @@ y;
         this.y = 50 + Math.random() * (450 - 380 ); 
     }
 
-
+    
+    
 }

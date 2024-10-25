@@ -39,6 +39,12 @@ function init(){
     if (e.keyCode == 16){
         keyboard.SHIFT = true;
     }
+    if (e.keyCode == 70){
+        keyboard.F = true;
+    }
+
+    
+    
 
 
 
@@ -71,7 +77,11 @@ function init(){
     if (e.keyCode == 16){
         keyboard.SHIFT = false;
     }
+    if (e.keyCode == 70){
+        keyboard.F = false;
+    } 
 
+ 
 
 
    
