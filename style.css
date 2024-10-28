@@ -4,9 +4,51 @@ body{
     flex-direction: column;
     align-items: center;
     margin: 0;
+    background-image: url('img/my_images/background1.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.backgroundImg{
+    z-index: -1;
 }
 
 
 canvas{
+   position: relative;
+   top: 140px;
+    display: block;
     background-image: linear-gradient(rgb(10, 173, 238), rgb(209, 145, 103), rgba(221, 224, 43, 0.849));
 }
+
+.title{
+    position: relative;
+    top: 140px;
+    margin: 0;
+    font-size: 63px;
+    font-weight: bold;
+    background: linear-gradient(to bottom, red, yellow);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+}
+
+@media only screen and (max-width: 720px){
+    canvas{
+        width: 100%;
+    }
+}
+
+
+
+
+@media only screen and (max-height: 480px){
+    canvas{
+        height: 100vh;
+    }
+}
+
+
+

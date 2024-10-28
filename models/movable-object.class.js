@@ -1,19 +1,11 @@
 class MovableObject extends DrawableObject {
    
     
-   
-    
     otherDirection = false;
     speedY = 1;
     acceleration = 1.5;
     health = 100;
     lastHit = 0;
-
-   
-
-    
-
-
 
     isColliding(mo){
         return this.x + this.width > mo.x &&
@@ -41,12 +33,6 @@ class MovableObject extends DrawableObject {
        return timepassed < 0.5;
     }
   
-
-    
-
-    
-   
-
     applyGravity(){            // function to applay gravity 
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0){
@@ -64,8 +50,6 @@ class MovableObject extends DrawableObject {
         }
         
     }
-
-   
 
     playAnimation(images){
         let i = this.currentImage % images.length // let i = 0 % 6
