@@ -87,6 +87,21 @@ class MovableObject extends DrawableObject {
         this.x += this.speed;
         this.otherDirection = false; 
     }
+
+
+    runningRight(){
+        this.x += this.runSpeed;
+        this.otherDirection = false; 
+        this.isRunning = true;
+       
+    }
+    runningLeft(){
+        this.x -= this.runSpeed;
+        this.otherDirection = true; 
+        this.isRunning = true;
+      
+       
+    }
     
 
    

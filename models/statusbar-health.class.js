@@ -1,6 +1,7 @@
 class StatusbarHealth extends  DrawableObject {
 
-
+    
+    
 
 
     imagesStatsHealth = [
@@ -30,12 +31,7 @@ class StatusbarHealth extends  DrawableObject {
         
     }
 
-    displayHealth(){
-        if(this.health < this.percentage){
-            
-        }
-    }
-
+   
     
     setPercentage(percentage){
         this.percentage = percentage

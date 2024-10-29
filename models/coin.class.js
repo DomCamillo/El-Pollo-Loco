@@ -18,8 +18,10 @@ class Coin extends MovableObject{
         this.playAnimation(this.images_Coin)
         this.x = 200 + Math.random() * (4200 - 200);
         this.y = 130 + Math.random() * (450 - 180 - this.height); 
+       
     }
 
+  
     
 
 }

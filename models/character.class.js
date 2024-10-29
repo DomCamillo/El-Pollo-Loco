@@ -20,6 +20,15 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-26.png'
     ];
 
+    imagesRunning = [
+        'img/2_character_pepe/2_walk/W-21.png',
+        'img/2_character_pepe/2_walk/W-22.png',
+        'img/2_character_pepe/2_walk/W-23.png',
+        'img/2_character_pepe/2_walk/W-24.png',
+        'img/2_character_pepe/2_walk/W-25.png',
+        'img/2_character_pepe/2_walk/W-26.png'
+    ];
+
     imagesJump = [
         'img/2_character_pepe/3_jump/J-31.png',
         'img/2_character_pepe/3_jump/J-32.png',
@@ -58,23 +67,26 @@ class Character extends MovableObject {
     constructor(){
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.applyGravity();
+        this.loadImages(this.imagesRunning)
         this.loadImages(this.images);
         this.loadImages(this.imagesHurt)
         this.loadImages(this.imagesJump);
         this.loadImages(this.imagesDead);
         this.animateCharacter()
+      /*   this.checkRunning(); */
         this.jumping_sound.volume = 0.1;
     }
 
-    runningRight(){
-        this.x += this.runSpeed;
-        this.otherDirection = false; 
-        this.isRunning = true;
-    }
-    runningLeft(){
-        this.x -= this.runSpeed;
-        this.otherDirection = true; 
-        this.isRunning = true;
+   
+
+    checkRunning(){
+        if(!this.isRunning){
+            setInterval(()=> {
+                this.playAnimation(this.images)
+            },200);
+        } else{
+
+        }
     }
 
     
@@ -145,10 +157,22 @@ class Character extends MovableObject {
          this.playAnimation(this.imagesJump);
      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
          this.playAnimation(this.images);
-     }
-           
+     } else if (this.world.keyboard.SHIFT && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
+        this.isRunning = true; 
+    } else {
+        this.isRunning = false; 
+    }
+       
         }, 120);
 
+        setInterval(()=> {
+            if(this.isRunning){
+                this.playAnimation(this.imagesRunning)
+            }
+        }, 100);
+       
+
+       
 
      
        

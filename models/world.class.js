@@ -10,7 +10,8 @@ class World {
     bottleBar = new statusBarBottles();
     healthBar = new StatusbarHealth();
     coinBar = new StatusbarCoin();
-     
+    collectingCoinSound = new Audio('audio/collect-coin.mp3')
+  
   
 
        constructor(canvas, keyboard, ){
@@ -20,6 +21,8 @@ class World {
            this.draw();
            this.setWorld();
            this.run();
+           console.log("StatusbarCoin initialized:", this.coinBar);
+           this.collectingCoinSound.volume = 0.2;
        }
    
        setWorld(){
@@ -31,6 +34,7 @@ class World {
            setInterval(() => {
                this.checkCollision();
                this.checkthrowables();  
+               this.checkCollisionCoin();
            }, 200);
            
        }
@@ -50,10 +54,33 @@ class World {
         
            this.character.hitDetection();
            this.healthBar.setPercentage(this.character.health)
+          
          
          }
         });
+     }
+
+     checkCollisionCoin() {
+        
+        this.level.Coin.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                this.coinBar.collectedCoins.push(coin); // Verwende `coinBar` statt `StatusbarCoin`
+                this.coinBar.setCoinStats(this.coinBar.collectedCoins.length);
+                this.collectingCoinSound.play();
+                console.log(this.coinBar.collectedCoins);
+                console.log('character is colliding with coin');
+            }
+        });
     }
+   
+       checkCollisionBottles(){
+           
+        this.level.Bottle.forEach((bottle) => {
+         if(this.character.isColliding(bottle)) {
+           this.bottleBar.setPercentage(this.statusBarBottles.collectedBottles)
+         }
+        });
+     }
    
     
       
@@ -86,11 +113,15 @@ class World {
        }
 
        setStatusbar(){
+
+            setInterval(() => {
            this.healthBar.x = this.character.x -100;
            this.coinBar.x = this.character.x -100 ;
-           this.coinBar.y = + 30 ;
+           this.coinBar.y = + 35 ;
            this.bottleBar.x = this.character.x - 100;
-           this.bottleBar.y =  + 60;     
+           this.bottleBar.y =  + 70;     
+            }, 100);
+           
        }
    
    

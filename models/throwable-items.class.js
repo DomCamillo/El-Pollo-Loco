@@ -26,7 +26,7 @@ y;
         super().loadImages(this.images_Bottle);
         this.loadImages( this.images_Bottle_Splash);
         this.playAnimation(this.images_Bottle);
-        this.throw();
+        /* this.throw(); */
         this.x = x;
         this.y = y;
         /* this.playAnimation(this.images_Bottle_Splash); */
@@ -35,7 +35,7 @@ y;
     }
 
 
-    throw(x,y){
+   /*  throw(x,y){
      this.x = x;
      this.y = y;
      this.speedY = 50;  
@@ -46,6 +46,6 @@ y;
      }, 25);
           
     }
-    
+     */
     
 }
