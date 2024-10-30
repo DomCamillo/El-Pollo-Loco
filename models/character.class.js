@@ -99,7 +99,7 @@ class Character extends MovableObject {
     animateCharacter(){
         // movement nach rechts und links
         setInterval(() => {
-            this.walking_sound.pause();
+           /*  this.walking_sound.pause(); */
 
             
              
@@ -120,11 +120,11 @@ class Character extends MovableObject {
             }  
                                                             // changing the coordinates
 
-            if(this.world.keyboard.SHIFT && this.world.keyboard.RIGHT ){
+            if(this.world.keyboard.SHIFT && this.world.keyboard.RIGHT&&!this.isAboveGround() ){
                 this.runningRight()
             }
             
-            if(this.world.keyboard.SHIFT && this.world.keyboard.LEFT ){
+            if(this.world.keyboard.SHIFT && this.world.keyboard.LEFT&& !this.isAboveGround() ){
                 this.runningLeft()
             }
             

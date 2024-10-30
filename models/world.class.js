@@ -54,6 +54,8 @@ class World {
         
            this.character.hitDetection();
            this.healthBar.setPercentage(this.character.health)
+           console.log('character got hit');
+           
           
          
          }
