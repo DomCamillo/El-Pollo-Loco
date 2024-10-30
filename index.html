@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="img/4_enemie_boss_chicken/1_walk/G1.png">
     <title>El Pollo Loco</title>
+    <script src="js/title-screen.js"></script>
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
     <script src="models/keyboard.class.js"></script>
@@ -26,14 +27,96 @@
     <script src="models/world.class.js"></script>
     
     <script src="js/game.js"></script>
+    
+
+    
 </head>
-<body  onload="init()"> 
+<body  > 
+
+
+    <div class="titleScreen" id="title-screen">
   
     <h1 class="title">El Pollo Loco</h1>
     
-    <canvas id="canvas" width="720" height="480">
+   <div> <canvas id="canvas" width="720" height="480">
 
-    </canvas>
+   </canvas></div> 
+    <img id="title-img" class="titleImg" src="img/9_intro_outro_screens/start/startscreen_1.png" alt="">
+
+    <div class="startButtonSection"><button onclick="startGame()" class="startButton">Start</button>
+    </div>
+
+
+    <div class="menueButtonSection ">
+
+        <button onclick="openStory()" class="storyButton">Story</button>
+
+        <button onclick="openControls()" class="optionsButton">Controls</button>
+
+        <button onclick="openLegal()" class="legalButton">Legal</button>
+
+    </div>
+
+    <div id="story-container" class="storyContainer display-None">
+        <h1 class="storyHeadline">Die Legende von Pepe, dem Hühnerjäger</h1>
+
+<p class="text">In den weiten, trockenen Ebenen Mexikos lebte einst ein Cowboy namens Pepe. 
+    Er war kein gewöhnlicher Cowboy – Pepe war bekannt für seinen feurigen Charakter und seine legendäre Liebe zu scharfer Sauce. Eines Tages, 
+    während er gemütlich an seinem Lagerfeuer saß und seine neueste Flasche Hot Sauce probierte, passierte etwas Unerwartetes: Eine wilde Bande Hühner begann das Land zu terrorisieren. 
+    Diese Hühner waren nicht harmlos – sie waren mutiert, riesig, und gierten nach Chaos!</p>
+
+<p class="text">Pepe, ausgestattet mit einem unvergleichlichen Mut und seiner schärfsten Sauce, entschloss sich, die Bedrohung zu bekämpfen. "Kein Huhn wird mein Land unsicher machen!" rief er aus.
+     Von diesem Moment an war Pepe bekannt als der <em>Hühnerjäger</em>. Mit seiner Hot Sauce als Waffe zog er von Dorf zu Dorf und bekämpfte die wilden Hühner, 
+     die seine Heimat bedrohten. Die Menschen nannten ihn bald „El Pollo Loco“ – den verrückten Hühnerjäger.</p>
+
+<p class="text">Heute sagt man, dass Pepe in den Wüsten Mexikos immer noch unterwegs ist, bereit, jedes Huhn mit einer scharfen Dosis Hot Sauce zu besiegen.</p>
+
+        
+    </div>
+
+    <div id="option-container" class="optionsContainer display-None">
+        <h2 class="optionHeadline">How to Move</h2>
+        <p class="optionText" >Move Left:  ................ A</p>
+        <p class="optionText" >Move Right:  ...............           D</p>
+        <p class="optionText" >Run: ..................... SHIFT</p>
+        <p class="optionText" >Jump: .................. SPACE</p>
+        <p class="optionText" >Throw: ....................... F</p>
+
+    </div>
+
+    <div id="legal-container" class="legalContainer display-None">
+        <h1 class="legalHeadline">Legal Notice</h1>
+
+        <p class="text"><strong>Game Developer:</strong> Dominic Mörth</p>
+        <p class="text"><strong>Copyright:</strong> © 2024 Dominic Mörth. All rights reserved.</p>
+        <p class="text"><strong>Version:</strong> [0.9 beta]</p>
+    
+        <h2 class="legalHeadline">Disclaimer:</h2>
+        <p class="text">
+            Dieses Spiel verwendet Bilder, Grafiken und andere Inhalte, die Eigentum Dritter sein können und entsprechend lizenziert wurden.
+            Dominic Mörth ist nicht Eigentümer dieser Inhalte und beansprucht kein Urheberrecht an ihnen. Jegliche Vervielfältigung,
+            Verbreitung oder Veränderung des Spiels oder seiner Bestandteile ist ohne vorherige schriftliche Zustimmung des Entwicklers
+            und gegebenenfalls der Rechteinhaber untersagt.
+        </p>
+    
+        <h2>Haftungsausschluss:</h2>
+        <p class="text">
+            Dominic Mörth übernimmt keine Verantwortung für Schäden, die durch die Nutzung dieses Spiels entstehen könnten.
+            Die Installation und Nutzung erfolgt auf eigene Gefahr.
+        </p>
+    
+        <h2 class="legalHeadline">Kontakt:</h2>
+        <p class="text">Bei Fragen oder Anmerkungen zum Spiel können Sie sich an dominicmoerth@gmail.com wenden.</p>
+    
+
+    </div>
+
+
+
+
+
+
+   </div>
     
 </body>
 </html>
