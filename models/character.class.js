@@ -4,7 +4,7 @@ class Character extends MovableObject {
   x = 0;
   y = 30;
   speed = 5;
-  runSpeed = 5.5;
+  runSpeed = 5.2;
   jumpHeight = 30;
   isRunning = false;
 

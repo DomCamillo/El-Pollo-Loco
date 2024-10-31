@@ -5,7 +5,7 @@ class World {
     canvas;
     keyboard;
     camera_x = 0;
-    trowableObjects = [];
+    throwableObjects = [];
 
     bottleBar = new statusBarBottles();
     healthBar = new StatusbarHealth();
@@ -44,7 +44,7 @@ class World {
        checkthrowables(){
          if (this.keyboard.F){
            let bottle = new Bottle(this.character.x +100, this.character.y + 100)
-           this.trowableObjects.push(bottle) ;    
+           this.throwableObjects.push(bottle) ;    
         }
            
        }
