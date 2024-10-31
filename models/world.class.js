@@ -5,7 +5,7 @@ class World {
     canvas;
     keyboard;
     camera_x = 0;
-    throwableObjects = [];
+    throwableObjects = [new Bottle()];
 
     bottleBar = new statusBarBottles();
     healthBar = new StatusbarHealth();
@@ -41,13 +41,13 @@ class World {
            
        }
    
-       checkthrowables(){
-         if (this.keyboard.F){
-           let bottle = new Bottle(this.character.x +100, this.character.y + 100)
-           this.throwableObjects.push(bottle) ;    
+       checkthrowables() {
+        if (this.keyboard.F) {
+            let bottle = new Bottle(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(bottle);
+            bottle.throw();  
         }
-           
-       }
+    }
    
        checkCollision(){
            
@@ -108,6 +108,7 @@ class World {
            this.addObjectsToMap(this.level.Bottle);                               
            this.addObjectsToMap(this.level.Coin);                                
            this.addObjectsToMap(this.level.enemies);
+           this.addObjectsToMap(this.throwableObjects); 
            this.ctx.translate(-this.camera_x, 0);        // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet 
            this.setStatusbar();  
            

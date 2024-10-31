@@ -146,7 +146,8 @@ class Character extends MovableObject {
       }
 
       if (this.world.keyboard.F) {
-        this.throw();
+       /*  this.world.checkthrowables(); */
+        isMoving = true;
       }
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {

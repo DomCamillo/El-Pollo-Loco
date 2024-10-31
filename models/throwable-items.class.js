@@ -28,26 +28,30 @@ y;
         super().loadImages(this.images_Bottle);
         this.loadImages( this.images_Bottle_Splash);
         this.playAnimation(this.images_Bottle);
-       /*  this.throw() */
+       
         this.x = x;
         this.y = y;
-        this.playAnimation(this.images_Bottle);
+       
         
     }
-    throw(x, y){
-        this.x = this.character.x;
-        this.y = this.character.y;
-        this.speedY = 30;  
-        this.speedX = 30;
-        this.applyGravity() 
+
+
+    throw() {
+        this.speedY = 15;  
+        this.speedX = 10;  
+        this.applyGravity();  
+  
         setInterval(() => {
-           this.x += 10;
-        }, 50);
-             
-       }
+            this.x += this.speedX;
+            this.y -= this.speedY;
+            this.speedY -= 1;  
+        }, 25);
+    }
 
 
-    
-    
-    
 }
+
+
+    
+    
+    
