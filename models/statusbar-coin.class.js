@@ -33,19 +33,19 @@ class StatusbarCoin extends StatusbarHealth{
     }
 
     resolveImageIndex(){ 
-        if(this.numberOfCoins >= 5){
+        if(this.numberOfCoins >= 10){
             return 5;
 
-        } else if (this.numberOfCoins >= 4){
+        } else if (this.numberOfCoins >= 8){
             return 4;
 
-        } else if (this.numberOfCoins >= 3){
+        } else if (this.numberOfCoins >= 6){
             return 3;
 
-        } else if (this.numberOfCoins >= 2){
+        } else if (this.numberOfCoins >= 4){
             return 2;
 
-        } else if (this.numberOfCoins >= 1){
+        } else if (this.numberOfCoins >= 2){
             return 1;
 
         } else {

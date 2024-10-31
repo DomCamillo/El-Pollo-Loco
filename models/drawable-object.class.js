@@ -11,7 +11,8 @@ class DrawableObject {
     colisionOutline(ctx){
         if(this instanceof Character || 
         this instanceof Chicken ||
-         this instanceof Coin){
+         this instanceof Coin ||
+        this instanceof Bottle){
         ctx.beginPath();
         ctx.linewidth = '5'
         ctx.strokeStyle = "blue"

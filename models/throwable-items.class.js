@@ -7,6 +7,8 @@ speedX = 20;
 x = 100;
 y;
 
+  
+
     images_Bottle = [
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -22,14 +24,14 @@ y;
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ];
 
-    constructor(x, y ){
+    constructor(x, y){
         super().loadImages(this.images_Bottle);
         this.loadImages( this.images_Bottle_Splash);
         this.playAnimation(this.images_Bottle);
         /* this.throw(); */
         this.x = x;
         this.y = y;
-        /* this.playAnimation(this.images_Bottle_Splash); */
+        this.playAnimation(this.images_Bottle);
         /* this.x = 200 + Math.random() * (4200 - 200);
         this.y = 50 + Math.random() * (450 - 380 );  */
     }

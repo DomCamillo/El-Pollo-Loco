@@ -11,6 +11,7 @@ class World {
     healthBar = new StatusbarHealth();
     coinBar = new StatusbarCoin();
     collectingCoinSound = new Audio('audio/collect-coin.mp3')
+    collectingBottlesSound = new Audio('audio/collectBottles.mp3')
   
   
 
@@ -21,8 +22,8 @@ class World {
            this.draw();
            this.setWorld();
            this.run();
-           console.log("StatusbarCoin initialized:", this.coinBar);
            this.collectingCoinSound.volume = 0.2;
+           this.collectingBottlesSound.volume = 0.2;
        }
    
        setWorld(){
@@ -35,6 +36,7 @@ class World {
                this.checkCollision();
                this.checkthrowables();  
                this.checkCollisionCoin();
+               this.checkCollisionBottles();
            }, 200);
            
        }
@@ -64,25 +66,31 @@ class World {
 
      checkCollisionCoin() {
         
-        this.level.Coin.forEach((coin) => {
+        this.level.Coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.coinBar.collectedCoins.push(coin); // Verwende `coinBar` statt `StatusbarCoin`
                 this.coinBar.setCoinStats(this.coinBar.collectedCoins.length);
                 this.collectingCoinSound.play();
                 console.log(this.coinBar.collectedCoins);
                 console.log('character is colliding with coin');
+                this.level.Coin.splice(index, 1);
             }
         });
     }
    
        checkCollisionBottles(){
            
-        this.level.Bottle.forEach((bottle) => {
-         if(this.character.isColliding(bottle)) {
-           this.bottleBar.setPercentage(this.statusBarBottles.collectedBottles)
-         }
+        this.level.Bottle.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.bottleBar.collectedBottles.push(bottle); 
+                this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
+                this.collectingBottlesSound.play();
+                console.log(this.bottleBar.collectedBottles);
+                console.log('character is colliding with bottle');
+                this.level.Bottle.splice(index, 1);
+            }
         });
-     }
+    }
    
     
       
@@ -91,17 +99,14 @@ class World {
            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // canvas wird gelöscht 
            this.ctx.translate(this.camera_x, 0);
    
-            
-          
-   
            this.addObjectsToMap(this.level.clouds);
            this.addObjectsToMap(this.level.backdrops);
            this.addToMap(this.healthBar);                                                // elemnte werden zum canvis hinzugefügt 
            this.addToMap(this.bottleBar)                                     // reih enfolge bestimmt den z-index 
            this.addToMap(this.coinBar)                                     // reih enfolge bestimmt den z-index 
            this.addToMap(this.character); 
-           this.addObjectsToMap(this.level.Coin);                                
            this.addObjectsToMap(this.level.Bottle);                               
+           this.addObjectsToMap(this.level.Coin);                                
            this.addObjectsToMap(this.level.enemies);
            this.ctx.translate(-this.camera_x, 0);        // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet 
            this.setStatusbar();  

@@ -15,41 +15,40 @@ class statusBarBottles extends StatusbarHealth{
 
     
     constructor(){
-        super().loadImage(this.imagesStatsBottle[0]);
+        super();
+        this.loadImages(this.imagesStatsBottle); 
+        this.img = this.imageCache[this.imagesStatsBottle[0]]; 
+        this.setBottleStat(this.numberOfBottles); 
        
-        /* this.setPercentage(100,) */
+        
         
         
         
     }
 
-   /*  displayBottles(){
-        if(this.collectedBottles < this.percentage){
-            
-        }
-    }
+   
 
     
-    setPercentage(percentage){
-        this.percentage = percentage
+    setBottleStat(numberOfBottles){
+        this.numberOfBottles = numberOfBottles
         let path = this.imagesStatsBottle[this.resolveImageIndex()]
         this.img = this.imageCache[path];
     }
 
     resolveImageIndex(){ 
-        if(this.percentage == 100){
+        if(this.numberOfBottles == 5){
             return 5;
 
-        } else if (this.percentage > 80){
+        } else if (this.numberOfBottles > 4){
             return 4;
 
-        } else if (this.percentage > 60){
+        } else if (this.numberOfBottles > 3){
             return 3;
 
-        } else if (this.percentage > 40){
+        } else if (this.numberOfBottles > 2){
             return 2;
 
-        } else if (this.percentage > 20){
+        } else if (this.numberOfBottles >= 1){
             return 1;
 
         } else {
@@ -57,6 +56,6 @@ class statusBarBottles extends StatusbarHealth{
         }
 
 
-    } */
+    } 
 
 }
