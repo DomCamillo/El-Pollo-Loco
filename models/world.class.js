@@ -30,27 +30,23 @@ class World {
            this.character.world = this;
        }
        
-   
-       run(){
-           setInterval(() => {
-               this.checkCollision();
-               this.checkthrowables();  
-               this.checkCollisionCoin();
-               this.checkCollisionBottles();
-           }, 200);
-           
-       }
-   
-       checkthrowables() {
-        if (this.keyboard.F) {
-            let bottle = new Bottle(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
-            bottle.throw();  
-        }
+
+       
+    run(){
+        setInterval(() => {
+            this.checkCollision();
+            this.checkthrowables();  
+            this.checkCollisionCoin();
+            this.checkCollisionBottles();
+            this.checkEnemyHit();
+          
+            
+        }, 200);
+        
     }
-   
-       checkCollision(){
-           
+
+
+    checkCollision(){ 
         this.level.enemies.forEach((enemy) => {
          if(this.character.isColliding(enemy)) {
         
@@ -58,21 +54,38 @@ class World {
            this.healthBar.setPercentage(this.character.health)
            console.log('character got hit');
            
-          
-         
          }
         });
      }
 
-     checkCollisionCoin() {
+
+     checkEnemyHit() {
+        this.throwableObjects.forEach((bottle, bottleIndex) => {
+        this.level.enemies.forEach((enemy, enemyIndex) => {
+            if (bottle.isColliding(enemy)) {
+         enemy.hitDetection(); 
+         console.log('Enemy got hit by bottle');
+         
         
+         this.throwableObjects.splice(bottleIndex, 1); 
+         
+          if (enemy.CheckIfEnemyIsDead() ) {
+           
+             this.level.enemies.splice(enemyIndex, 1); 
+             this.playAnimation(this.enemies.imageDead); 
+         }
+            }
+        });
+           });
+       }
+
+       
+     checkCollisionCoin() {
         this.level.Coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.coinBar.collectedCoins.push(coin); // Verwende `coinBar` statt `StatusbarCoin`
                 this.coinBar.setCoinStats(this.coinBar.collectedCoins.length);
                 this.collectingCoinSound.play();
-                console.log(this.coinBar.collectedCoins);
-                console.log('character is colliding with coin');
                 this.level.Coin.splice(index, 1);
             }
         });
@@ -85,12 +98,24 @@ class World {
                 this.bottleBar.collectedBottles.push(bottle); 
                 this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
                 this.collectingBottlesSound.play();
-                console.log(this.bottleBar.collectedBottles);
-                console.log('character is colliding with bottle');
                 this.level.Bottle.splice(index, 1);
             }
         });
     }
+   
+     
+   
+       checkthrowables() {
+        if (this.keyboard.F && this.bottleBar.collectedBottles.length > 0) {
+            let bottle = new Bottle(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(bottle);
+            this.bottleBar.collectedBottles.pop(); 
+            bottle.throw();  
+            this.bottleBar.setBottleStat();
+            
+        }
+    }
+   
    
     
       
@@ -101,8 +126,8 @@ class World {
    
            this.addObjectsToMap(this.level.clouds);
            this.addObjectsToMap(this.level.backdrops);
-           this.addToMap(this.healthBar);                                                // elemnte werden zum canvis hinzugefügt 
-           this.addToMap(this.bottleBar)                                     // reih enfolge bestimmt den z-index 
+           this.addToMap(this.healthBar);                                      // elemnte werden zum canvis hinzugefügt 
+           this.addToMap(this.bottleBar)                                     // reihenfolge bestimmt den z-index 
            this.addToMap(this.coinBar)                                     // reih enfolge bestimmt den z-index 
            this.addToMap(this.character); 
            this.addObjectsToMap(this.level.Bottle);                               

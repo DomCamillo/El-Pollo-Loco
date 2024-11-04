@@ -4,7 +4,7 @@ class smallChicken extends Chicken {
  y = 350;
 height = 80;
 width = 80;
-health = 50;
+ChickenHealth = 1;
 
 images = [
    'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',

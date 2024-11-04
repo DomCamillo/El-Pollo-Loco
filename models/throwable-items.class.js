@@ -2,7 +2,7 @@ class Bottle extends MovableObject{
 
 height = 110;
 width = 110;
-speedY = 30;
+speedY = 40;
 speedX = 20;
 x = 100;
 y;
@@ -37,8 +37,8 @@ y;
 
 
     throw() {
-        this.speedY = 15;  
-        this.speedX = 10;  
+        this.speedY = 20;  
+        this.speedX = 15;  
         this.applyGravity();  
   
         setInterval(() => {

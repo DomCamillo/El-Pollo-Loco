@@ -19,14 +19,10 @@ class statusBarBottles extends StatusbarHealth{
         this.loadImages(this.imagesStatsBottle); 
         this.img = this.imageCache[this.imagesStatsBottle[0]]; 
         this.setBottleStat(this.numberOfBottles); 
-       
-        
-        
-        
         
     }
 
-   
+
 
     
     setBottleStat(numberOfBottles){
