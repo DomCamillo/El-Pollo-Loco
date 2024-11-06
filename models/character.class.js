@@ -90,7 +90,6 @@ class Character extends MovableObject {
     this.loadImages(this.imagesJump);
     this.loadImages(this.imagesDead);
     this.animateCharacter();
-    /*   this.checkRunning(); */
     this.jumping_sound.volume = 0.1;
   }
 

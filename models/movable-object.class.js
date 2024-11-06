@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 1.5;
     health = 100;
     lastHit = 0;
+    ChickenHealth = 1;
 
     
 
@@ -20,10 +21,26 @@ class MovableObject extends DrawableObject {
         
     }
 
+    CheckIfEnemyIsDead() {
+        if (this.ChickenHealth <= 0) {
+            this.playAnimation(this.imageDead); 
+            this.speedY = 0;
+        }
+    }
+
     hitDetection(){
         this.health -= 5;
         if (this.health < 0){
           this.health = 0;
+        }else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    enemyHitDetection(){
+        this.ChickenHealth -= 5;
+        if (this.ChickenHealth < 0){
+          this.ChickenHealth = 0;
         }else {
             this.lastHit = new Date().getTime();
         }
