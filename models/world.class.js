@@ -6,8 +6,7 @@ class World {
   keyboard;
   camera_x = 0;
   throwableObjects = [new Bottle()];
-  /*   endBoss = new Endboss() */
-    deadChicken = [];
+   deadChicken = [];
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
   coinBar = new StatusbarCoin();
@@ -22,7 +21,7 @@ class World {
     this.setWorld();
     this.run();
     this.collectingCoinSound.volume = 0.2;
-    this.collectingBottlesSound.volume = 0.2;
+    this.collectingBottlesSound.volume = 0;
   }
 
   setWorld() {
@@ -93,7 +92,7 @@ class World {
       if (this.character.isColliding(bottle)) {
         this.bottleBar.collectedBottles.push(bottle);
         this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
-        this.collectingBottlesSound.play();
+        this.collectingBottlesSound.volume = 0.1;
         this.level.Bottle.splice(index, 1);
       }
     });
@@ -119,7 +118,7 @@ class World {
     this.addToMap(this.bottleBar); // reihenfolge bestimmt den z-index
     this.addToMap(this.coinBar);
     this.addToMap(this.character);
-    /*  this.addObjectsToMap(this.level.endBoss); */
+    this.addToMap(this.level.endBoss);
     this.addObjectsToMap(this.level.Bottle);
     this.addObjectsToMap(this.level.Coin);
     this.addObjectsToMap(this.level.enemies);

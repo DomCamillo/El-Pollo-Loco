@@ -3,7 +3,7 @@ const level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),      // enemies
-        
+       /*  new Endboss(), */
         new smallChicken(3000),
         new smallChicken(3000),
         new smallChicken(3000),
@@ -71,9 +71,9 @@ const level1 = new Level(
       new Bottle(3900,320),
      ],
 
-     [
+     
       new Endboss(),
-     ],
+     
 
 
      
