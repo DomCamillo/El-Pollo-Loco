@@ -28,7 +28,7 @@ class Chicken extends MovableObject {
     this.loadImages(this.imageDead)
     this.x = 1200 + Math.random() * 500;
     this.animateChicken();
-    this.CheckIfEnemyIsDead();
+    this.ifEnemyIsDead();
    
     this.chicken_Sound.volume = 0.01;
     this.chicken_Sound2.volume = 0.01;

@@ -21,11 +21,13 @@ class MovableObject extends DrawableObject {
         
     }
 
-    CheckIfEnemyIsDead() {
+    ifEnemyIsDead() {
         if (this.ChickenHealth <= 0) {
             this.playAnimation(this.imageDead); 
             this.speedY = 0;
+            return true;
         }
+        return false;
     }
 
     hitDetection(){

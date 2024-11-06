@@ -6,7 +6,7 @@ class World {
   keyboard;
   camera_x = 0;
   throwableObjects = [new Bottle()];
-   deadChicken = [];
+
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
   coinBar = new StatusbarCoin();
@@ -49,31 +49,38 @@ class World {
   }
 
   checkEnemyHit() {
+    const deadEnemies = []; // Liste für tote Gegner
+
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         if (bottle.isColliding(enemy)) {
           enemy.enemyHitDetection();
           console.log("Enemy got hit by bottle");
           enemy.ChickenHealth -= 1;
+
           this.throwableObjects.splice(bottleIndex, 1);
 
-          if (enemy.ChickenHealth <= 0) {
-            enemy.CheckIfEnemyIsDead();
-            setTimeout(() => {
-              console.log("Enemy should disappear");
-              this.deadChicken.push(this.level.enemy)
-              for (let i = 0; i < this.deadChicken.length; i++) {
-                this.level.enemies.splice(enemyIndex, 1);
-                
-              }
-             
-            }, 1000);
-          }
-
           
+          if (enemy.ifEnemyIsDead()) {
+            deadEnemies.push(enemyIndex); 
+          }
         }
       });
     });
+
+    this.removeDeadEnemies(deadEnemies);
+}
+ 
+ 
+removeDeadEnemies(enemyIndex) {
+    setTimeout(() => {
+      for (const index of enemyIndex) {
+        console.log("Removing dead enemy at index", index);
+        this.level.enemies[index] = null; 
+      }
+      
+      this.level.enemies = this.level.enemies.filter(enemy => enemy !== null);
+    }, 500);
   }
 
   checkCollisionCoin() {
