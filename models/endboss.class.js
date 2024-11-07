@@ -39,7 +39,21 @@ class Endboss extends MovableObject{
         }, 700);
         
     }
+
+    throwSmallChicken() {
+        let direction = this.x > character.x ? -1 : 1;  
+        let smallChicken = new smallChicken(this.x, this.y);  
+        smallChicken.throwAsProjectile(direction);  
+       /*  world.throwableObjects.push(smallChicken);   */
+    }
+
+    throwInterval() {
+        setInterval(() => {
+            this.throwSmallChicken();
+        }, 5000); // Wirft alle 2 Sekunden
+    }
   
+    
 
 
 }

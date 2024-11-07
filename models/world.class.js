@@ -6,7 +6,7 @@ class World {
   keyboard;
   camera_x = 0;
   throwableObjects = [new Bottle()];
-
+ 
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
   coinBar = new StatusbarCoin();
@@ -21,7 +21,7 @@ class World {
     this.setWorld();
     this.run();
     this.collectingCoinSound.volume = 0.2;
-    this.collectingBottlesSound.volume = 0;
+    this.collectingBottlesSound.volume = 0.1;
   }
 
   setWorld() {
@@ -107,13 +107,14 @@ removeDeadEnemies(enemyIndex) {
 
   checkthrowables() {
     if (this.keyboard.F && this.bottleBar.collectedBottles.length > 0) {
-      let bottle = new Bottle(this.character.x + 100, this.character.y + 100);
-      this.throwableObjects.push(bottle);
-      this.bottleBar.collectedBottles.pop();
-      bottle.throw();
-      this.bottleBar.setBottleStat();
-    }
-  }
+        let direction = this.character.otherDirection ? -1 : 1; 
+        let bottle = new Bottle(this.character.x + 40 * direction + 10, this.character.y + 100, direction);
+        this.throwableObjects.push(bottle);
+        this.bottleBar.collectedBottles.pop(); 
+        bottle.throw();
+        this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
+    } 
+}
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // canvas wird gelöscht

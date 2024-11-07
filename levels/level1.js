@@ -59,12 +59,12 @@ const level1 = new Level(
 
      [
       new Bottle(300,320),
-      new Bottle(300,320),
-      new Bottle(300,320),
-      new Bottle(300,320),
-      new Bottle(300,320),
+      new Bottle(400,320),
+      new Bottle(500,320),
       new Bottle(600,320),
-      new Bottle(600,320),
+      new Bottle(700,320),
+      new Bottle(800,320),
+      new Bottle(900,320),
       new Bottle(2200,320),
       new Bottle(2800,320),
       new Bottle(3300,320),

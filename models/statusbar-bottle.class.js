@@ -32,19 +32,19 @@ class statusBarBottles extends StatusbarHealth{
     }
 
     resolveImageIndex(){ 
-        if(this.numberOfBottles == 5){
+        if(this.numberOfBottles == 10){
             return 5;
 
-        } else if (this.numberOfBottles > 4){
+        } else if (this.numberOfBottles > 8){
             return 4;
 
-        } else if (this.numberOfBottles > 3){
+        } else if (this.numberOfBottles > 6){
             return 3;
 
-        } else if (this.numberOfBottles > 2){
+        } else if (this.numberOfBottles > 4){
             return 2;
 
-        } else if (this.numberOfBottles >= 1){
+        } else if (this.numberOfBottles >= 2){
             return 1;
 
         } else {

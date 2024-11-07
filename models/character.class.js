@@ -6,7 +6,6 @@ class Character extends MovableObject {
   speed = 5;
   runSpeed = 5.2;
   jumpHeight = 30;
-  isRunning = false;
 
   images = [
     "img/2_character_pepe/2_walk/W-21.png",
@@ -101,7 +100,7 @@ class Character extends MovableObject {
     } else {
     }
   }
-
+  isRunning = false;
   animateCharacter() {
     let idleTimeout = null;
 
@@ -142,12 +141,13 @@ class Character extends MovableObject {
       ) {
         this.runningLeft();
         isMoving = true;
+        this.isRunning = true;
       }
 
-      if (this.world.keyboard.F) {
-       /*  this.world.checkthrowables(); */
+      /* if (this.world.keyboard.F) {
+        this.world.checkthrowables();
         isMoving = true;
-      }
+      } */
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
@@ -164,7 +164,6 @@ class Character extends MovableObject {
           }, 3000);
         }
       } else {
-       
         clearTimeout(idleTimeout);
         idleTimeout = null;
       }
