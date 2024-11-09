@@ -6,7 +6,7 @@ height = 80;
 width = 80;
 
 
-images = [
+imagesSmallChickenWalking = [
    'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
    'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
    'img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
@@ -17,7 +17,7 @@ imageDead = [
 ]
 
 constructor(x, y){
-    super().loadImages(this.images)
+    super().loadImages(this.imagesSmallChickenWalking)
     this.loadImages(this.imageDead)
     this.x = x || 2000 + Math.random() * 800;
     this.y = y || 350;

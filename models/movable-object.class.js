@@ -88,8 +88,8 @@ class MovableObject extends DrawableObject {
 }
 
 playEnemieAnimation(arr){
-    this.currentImage= (this.currentImage+ 1) % this.images.length;
-    this.loadImage(this.images[this.currentImage]);
+    this.currentImage = (this.currentImage + 1) % arr.length;
+    this.loadImage(arr[this.currentImage]);
 
  }  
 

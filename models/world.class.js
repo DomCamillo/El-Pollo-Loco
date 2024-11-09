@@ -6,7 +6,7 @@ class World {
   keyboard;
   camera_x = 0;
   throwableObjects = [new Bottle()];
-
+  endBoss = new Endboss()
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
   coinBar = new StatusbarCoin();
@@ -54,7 +54,7 @@ class World {
   }
 
   checkCollisionBoss() {
-    if (this.character.isColliding(this.level.endBoss)) {
+    if (this.character.isColliding(this.endBoss)) {
       this.character.hitDetection();
       this.healthBar.setPercentage(this.character.health);
       console.log("character got hit by endboss");
@@ -63,10 +63,10 @@ class World {
 
   checkBossHit() {
     this.throwableObjects.forEach((bottle, bottleIndex) => {
-      if (bottle.isColliding(this.level.endBoss)) {
-        this.level.endBoss.enemyHitDetection();
-        this.level.endBoss.health -= 20;
-        this.bossBar.setPercentage(this.level.endBoss.health);
+      if (bottle.isColliding(this.endBoss)) {
+        this.endBoss.enemyHitDetection();
+        this.endBoss.health -= 20;
+        this.bossBar.setPercentage(this.endBoss.health);
         this.throwableObjects.splice(bottleIndex, 1);
         console.log("Boss got hit by bottle");
       }
@@ -154,7 +154,7 @@ class World {
     this.addToMap(this.bossBar);
 
     this.addToMap(this.character);
-    this.addToMap(this.level.endBoss);
+    this.addToMap(this.endBoss);
     this.addObjectsToMap(this.level.Bottle);
     this.addObjectsToMap(this.level.Coin);
     this.addObjectsToMap(this.level.enemies);
@@ -176,7 +176,7 @@ class World {
       this.coinBar.y = +35;
       this.bottleBar.x = this.character.x - 100;
       this.bottleBar.y = +70;
-      this.bossBar.x = this.level.endBoss.x;
+      this.bossBar.x = this.endBoss.x;
     }, 100);
   }
 
