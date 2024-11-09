@@ -6,7 +6,7 @@ class World {
   keyboard;
   camera_x = 0;
   throwableObjects = [new Bottle()];
-  endBoss = new Endboss()
+  endBoss = new Endboss(this.character)
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
   coinBar = new StatusbarCoin();

@@ -2,6 +2,7 @@ class Endboss extends MovableObject{
     height = 400;
     width = 400;
     health = 100;
+    isCharacterNear = false;
 
     
     imagesBossAlert = [
@@ -48,7 +49,7 @@ class Endboss extends MovableObject{
     ];
    
 
-    constructor() {
+    constructor(character) {
         super();
         this.loadImage(this.imagesBossAlert[1]); 
         this.loadImages(this.imagesBossAlert); // Lade das Array mit Bildern
@@ -59,22 +60,35 @@ class Endboss extends MovableObject{
         this.x = 4000;
         this.y = 70; 
         this.animateBoss();
-       
+        this.character = character;
     }
 
 
-
+  
     
 
     animateBoss() {
-        setInterval(() => {
-           
-                this.playEnemieAnimation(this.imagesBossAlert)
-            
-            
-        }, 700);
+        
+        setInterval(()=>{
+            this.alertChicken();
+        },700);
         
     }
+
+    checkIfCharacterIsNear(){
+        if (this.character.x < 2900){
+           return true;
+        }
+    }
+
+    alertChicken(){
+
+            if (this.checkIfCharacterIsNear()) {
+                this.playEnemieAnimation(this.imagesBossAlert);
+                console.log(this.character.x);
+            }
+    }
+
 
     throwSmallChicken() {
         let direction = this.x > character.x ? -1 : 1;  

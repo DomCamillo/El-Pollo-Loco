@@ -4,6 +4,9 @@ class smallChicken extends Chicken {
  y = 350;
 height = 80;
 width = 80;
+smallchicken_Sound = new Audio('audio/chicken_1.mp3')
+smallchicken_Sound2= new Audio('audio/chicken_2.mp3')
+
 
 
 imagesSmallChickenWalking = [
@@ -17,7 +20,8 @@ imageDead = [
 ]
 
 constructor(x, y){
-    super().loadImages(this.imagesSmallChickenWalking)
+    super()
+    this.loadImages(this.imagesSmallChickenWalking)
     this.loadImages(this.imageDead)
     this.x = x || 2000 + Math.random() * 800;
     this.y = y || 350;
@@ -37,14 +41,35 @@ throwAsProjectile(direction){
     },200);
 }
 
+animateChicken() {
+    let randomSpeed = 0.4 + Math.random() * 0.8;
+
+    this.moveInterval = setInterval(() => {
+        if (this.ChickenHealth > 0) {
+            this.x -= randomSpeed;
+            if (this.x < -200) {
+                this.x = 4400; 
+            }
+        }
+    }, 10);
+
+    this.animationInterval = setInterval(() => {
+        if (this.ChickenHealth > 0) {
+            this.playEnemieAnimation(this.imagesSmallChickenWalking);
+        } else {
+            this.playAnimation(this.imageDead); 
+            clearInterval(this.moveInterval);    
+            clearInterval(this.animationInterval); 
+        }
+    }, 190);
+}
+}
 
 
-smallchicken_Sound = new Audio('audio/chicken_1.mp3')
-smallchicken_Sound2= new Audio('audio/chicken_2.mp3')
 
 
    
-}
+
 
 
 
