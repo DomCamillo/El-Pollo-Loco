@@ -6,10 +6,12 @@ class World {
   keyboard;
   camera_x = 0;
   throwableObjects = [new Bottle()];
- 
+
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
   coinBar = new StatusbarCoin();
+  bossBar = new statusBarBossHealth();
+
   collectingCoinSound = new Audio("audio/collect-coin.mp3");
   collectingBottlesSound = new Audio("audio/collectBottles.mp3");
 
@@ -27,6 +29,7 @@ class World {
   setWorld() {
     this.character.world = this;
   }
+ 
 
   run() {
     setInterval(() => {
@@ -35,6 +38,8 @@ class World {
       this.checkCollisionCoin();
       this.checkCollisionBottles();
       this.checkEnemyHit();
+      this.checkCollisionBoss();
+      this.checkBossHit();
     }, 200);
   }
 
@@ -43,14 +48,33 @@ class World {
       if (this.character.isColliding(enemy)) {
         this.character.hitDetection();
         this.healthBar.setPercentage(this.character.health);
-        console.log("character got hit");
+        console.log("character got hit by chicken");
+      }
+    });
+  }
+
+  checkCollisionBoss() {
+    if (this.character.isColliding(this.level.endBoss)) {
+      this.character.hitDetection();
+      this.healthBar.setPercentage(this.character.health);
+      console.log("character got hit by endboss");
+    }
+  }
+
+  checkBossHit() {
+    this.throwableObjects.forEach((bottle, bottleIndex) => {
+      if (bottle.isColliding(this.level.endBoss)) {
+        this.level.endBoss.enemyHitDetection();
+        this.level.endBoss.health -= 20;
+        this.bossBar.setPercentage(this.level.endBoss.health);
+        this.throwableObjects.splice(bottleIndex, 1);
+        console.log("Boss got hit by bottle");
       }
     });
   }
 
   checkEnemyHit() {
-    const deadEnemies = []; // Liste für tote Gegner
-
+    const deadEnemies = [];
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         if (bottle.isColliding(enemy)) {
@@ -60,26 +84,24 @@ class World {
 
           this.throwableObjects.splice(bottleIndex, 1);
 
-          
           if (enemy.ifEnemyIsDead()) {
-            deadEnemies.push(enemyIndex); 
+            deadEnemies.push(enemyIndex);
           }
         }
       });
     });
 
     this.removeDeadEnemies(deadEnemies);
-}
- 
- 
-removeDeadEnemies(enemyIndex) {
+  }
+
+  removeDeadEnemies(enemyIndex) {
     setTimeout(() => {
       for (const index of enemyIndex) {
         console.log("Removing dead enemy at index", index);
-        this.level.enemies[index] = null; 
+        this.level.enemies[index] = null;
       }
-      
-      this.level.enemies = this.level.enemies.filter(enemy => enemy !== null);
+
+      this.level.enemies = this.level.enemies.filter((enemy) => enemy !== null);
     }, 500);
   }
 
@@ -107,14 +129,18 @@ removeDeadEnemies(enemyIndex) {
 
   checkthrowables() {
     if (this.keyboard.F && this.bottleBar.collectedBottles.length > 0) {
-        let direction = this.character.otherDirection ? -1 : 1; 
-        let bottle = new Bottle(this.character.x + 40 * direction + 10, this.character.y + 100, direction);
-        this.throwableObjects.push(bottle);
-        this.bottleBar.collectedBottles.pop(); 
-        bottle.throw();
-        this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
-    } 
-}
+      let direction = this.character.otherDirection ? -1 : 1;
+      let bottle = new Bottle(
+        this.character.x + 40 * direction + 10,
+        this.character.y + 100,
+        direction
+      );
+      this.throwableObjects.push(bottle);
+      this.bottleBar.collectedBottles.pop();
+      bottle.throw();
+      this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
+    }
+  }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // canvas wird gelöscht
@@ -125,6 +151,8 @@ removeDeadEnemies(enemyIndex) {
     this.addToMap(this.healthBar); // elemnte werden zum canvis hinzugefügt
     this.addToMap(this.bottleBar); // reihenfolge bestimmt den z-index
     this.addToMap(this.coinBar);
+    this.addToMap(this.bossBar);
+
     this.addToMap(this.character);
     this.addToMap(this.level.endBoss);
     this.addObjectsToMap(this.level.Bottle);
@@ -148,6 +176,7 @@ removeDeadEnemies(enemyIndex) {
       this.coinBar.y = +35;
       this.bottleBar.x = this.character.x - 100;
       this.bottleBar.y = +70;
+      this.bossBar.x = this.level.endBoss.x;
     }, 100);
   }
 

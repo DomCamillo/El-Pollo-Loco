@@ -51,6 +51,10 @@ class MovableObject extends DrawableObject {
     isDead(){
         return this.health == 0;
       }
+
+      isBossDead(){
+        return this.level.endboss.health == 0;
+      }
       
     isHurt(){
        let timepassed = new Date().getTime() -this.lastHit;    
@@ -83,11 +87,11 @@ class MovableObject extends DrawableObject {
         this.currentImage ++;
 }
 
- playEnemieAnimation(arr){
+playEnemieAnimation(arr){
     this.currentImage= (this.currentImage+ 1) % this.images.length;
     this.loadImage(this.images[this.currentImage]);
 
- }
+ }  
 
     animateClouds(){
         setInterval(()=> {

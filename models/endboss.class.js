@@ -1,6 +1,7 @@
 class Endboss extends MovableObject{
     height = 400;
     width = 400;
+    health = 100;
 
     
     images = [
@@ -14,6 +15,13 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/2_alert/G12.png',
         
     ];
+
+    imagesBossWalking = [
+        'img/4_enemie_boss_chicken/1_walk/G1.png',
+        'img/4_enemie_boss_chicken/1_walk/G2.png',
+        'img/4_enemie_boss_chicken/1_walk/G3.png',
+        'img/4_enemie_boss_chicken/1_walk/G4.png',
+    ];
    
 
     constructor() {
@@ -22,16 +30,10 @@ class Endboss extends MovableObject{
         this.loadImages(this.images); // Lade das Array mit Bildern
         this.x = 4000;
         this.y = 70; 
-       this.animateBoss();
+        this.animateBoss();
     }
 
-    loadImages(images) {
-        images.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
+    
 
     animateBoss() {
         setInterval(() => {

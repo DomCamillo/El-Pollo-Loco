@@ -29,6 +29,7 @@ class StatusbarCoin extends StatusbarHealth{
     setCoinStats(numberOfCoins){
         this.numberOfCoins = numberOfCoins
         let path = this.imagesStatsCoin[this.resolveImageIndex()]
+        
         this.img = this.imageCache[path];
     }
 
