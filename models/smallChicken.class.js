@@ -1,6 +1,6 @@
 
 
-class smallChicken extends Chicken {
+class smallChicken extends MovableObject {
  y = 350;
 height = 80;
 width = 80;
@@ -20,25 +20,28 @@ imageDead = [
 ]
 
 constructor(x, y){
-    super()
-    this.loadImages(this.imagesSmallChickenWalking)
+    super();
+    this.loadImage(this.imagesSmallChickenWalking[0]);
+    this.loadImages(this.imagesSmallChickenWalking);
     this.loadImages(this.imageDead)
     this.x = x || 2000 + Math.random() * 800;
     this.y = y || 350;
     this.animateChicken();
     
-    this.chicken_Sound.volume = 0.01;
-    this.chicken_Sound2.volume = 0.01;
+    /* this.chicken_Sound.volume = 0.01;
+    this.chicken_Sound2.volume = 0.01; */
+
 }
 
 throwAsProjectile(direction){
-    this.speedY = 15;
-    this.speedX = 10 * direction;
+    this.speedY = 15 * Math.random() * 1;
+    this.speedX = 12 * direction; 
+    this.applyGravity();
 
     setInterval(()=> {
         this.x += this.speedX;
         this.y -= this.speedY;
-    },200);
+    },50);
 }
 
 animateChicken() {

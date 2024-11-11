@@ -5,6 +5,7 @@ class World {
   canvas;
   keyboard;
   camera_x = 0;
+  throwableChicken = [new smallChicken()];
   throwableObjects = [new Bottle()];
   endBoss = new Endboss(this.character, world)
 
@@ -62,6 +63,14 @@ class World {
       this.healthBar.setPercentage(this.character.health);
       console.log("character got hit by endboss");
     }
+    this.throwableChicken.forEach((chicken) => {
+      if (this.character.isColliding(chicken)) {
+          this.character.hitDetection();
+          this.healthBar.setPercentage(this.character.health);
+          console.log("Character got hit by thrown chicken");
+      }
+  });
+    
   }
 
   checkBossHit() {
@@ -70,6 +79,7 @@ class World {
         this.endBoss.registerHit();
        
         this.endBoss.health -= 20;
+        
         this.bossBar.setPercentage(this.endBoss.health);
         this.throwableObjects.splice(bottleIndex, 1);
         console.log("Boss got hit by bottle");
@@ -84,6 +94,7 @@ class World {
     const deadEnemies = [];
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       this.level.enemies.forEach((enemy, enemyIndex) => {
+
         if (bottle.isColliding(enemy)) {
           enemy.enemyHitDetection();
           console.log("Enemy got hit by bottle");
@@ -141,6 +152,7 @@ class World {
         this.character.x + 40 * direction + 10,
         this.character.y + 100,
         direction
+      
       );
       this.throwableObjects.push(bottle);
       this.bottleBar.collectedBottles.pop();
@@ -166,6 +178,7 @@ class World {
     this.addObjectsToMap(this.level.Coin);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.throwableObjects);
+    this.addObjectsToMap(this.throwableChicken);
     this.ctx.translate(-this.camera_x, 0); // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet
     this.setStatusbar();
 

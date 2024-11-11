@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
   height = 400;
   width = 400;
   health = 100;
+ 
   isCharacterNear = false;
   walking = 10;
   direction = 1;
@@ -61,11 +62,13 @@ class Endboss extends MovableObject {
     this.loadImages(this.imagesBossAttacking);
     this.loadImages(this.imagesBossHurt);
     this.loadImages(this.imagesBossDead);
-    this.x = 4000; // 4000
+    this.x = 400; // 4000
     this.y = 70;
     this.animateBoss();
     this.moveBoss();
     this.character = character;
+    this.maxHealth = 100;  
+    this.health = this.maxHealth; 
   }
 
 
@@ -81,7 +84,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.imagesBossDead);
       } else if (this.bossState === "attacking") {
         this.playAnimation(this.imagesBossAttacking);
-        this.throwSmallChicken();
+        this.throwInterval();
       }
       console.log(this.bossState);
       
@@ -101,13 +104,7 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
-  
- /* bossAttacking(){
-    if(this.bossState === "attacking"){
-        this.x =- walking;
-    }
- }
- */
+ 
   moveBossLeftAndRight() {
     if (this.bossState === "walking") {
         if (this.x >= 4300) {
@@ -127,7 +124,7 @@ registerHit() {
         this.hurtTimeoutID = setTimeout(() => {
             this.bossState = "attacking"; 
             this.hurtTimeoutID = null;
-        }, 1000); 
+        }, 1500); 
     }
 }
 
@@ -141,7 +138,7 @@ registerHit() {
     let direction = this.x > this.character.x ? -1 : 1;
     let smallChickenInstance = new smallChicken(this.x, this.y);
     smallChickenInstance.throwAsProjectile(direction);
-    world.throwableObjects.push(smallChickenInstance);
+    world.throwableChicken.push(smallChickenInstance);
   }
   
 
@@ -149,7 +146,7 @@ registerHit() {
     if (!this.throwIntervalID) {
         this.throwIntervalID = setInterval(() => {
             this.throwSmallChicken();
-        }, 2000); 
+        }, 3000); 
     }
 }
 
