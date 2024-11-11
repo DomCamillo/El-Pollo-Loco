@@ -6,7 +6,8 @@ class World {
   keyboard;
   camera_x = 0;
   throwableObjects = [new Bottle()];
-  endBoss = new Endboss(this.character)
+  endBoss = new Endboss(this.character, world)
+
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
   coinBar = new StatusbarCoin();
@@ -24,6 +25,8 @@ class World {
     this.run();
     this.collectingCoinSound.volume = 0.2;
     this.collectingBottlesSound.volume = 0.1;
+    
+    
   }
 
   setWorld() {
@@ -64,7 +67,8 @@ class World {
   checkBossHit() {
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       if (bottle.isColliding(this.endBoss)) {
-        this.endBoss.enemyHitDetection();
+        this.endBoss.registerHit();
+       
         this.endBoss.health -= 20;
         this.bossBar.setPercentage(this.endBoss.health);
         this.throwableObjects.splice(bottleIndex, 1);
@@ -72,6 +76,9 @@ class World {
       }
     });
   }
+
+  
+  
 
   checkEnemyHit() {
     const deadEnemies = [];
