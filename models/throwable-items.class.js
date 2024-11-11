@@ -10,8 +10,8 @@ direction;
   
 
     images_Bottle = [
-        'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
+        'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ];
@@ -38,14 +38,32 @@ direction;
 
     throw() {
         this.speedY = 20;  
-        this.speedX = 15 * this.direction;  
-    
+        this.speedX = 15 * this.direction; 
+        
+        this.rotateBottle();
+
         setInterval(() => {
             this.x += this.speedX;
             this.y -= this.speedY;
             this.speedY -= 1.8 ; 
         }, 25);
     }
+
+    rotateBottle() {
+        setInterval(() => {
+            this.playAnimation(this.images_Bottle)
+        }, 100);
+    }
+    
+    breakBottle() {
+     setInterval(() => {
+        this.playAnimation(this.images_Bottle_Splash); 
+     }, 100);
+        
+    }
+
+  
+    
 
 
 }

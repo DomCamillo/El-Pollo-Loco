@@ -97,9 +97,9 @@ class World {
 
         if (bottle.isColliding(enemy)) {
           enemy.enemyHitDetection();
-          console.log("Enemy got hit by bottle");
+        console.log("Enemy got hit by bottle");
           enemy.ChickenHealth -= 1;
-
+          bottle.breakBottle();
           this.throwableObjects.splice(bottleIndex, 1);
 
           if (enemy.ifEnemyIsDead()) {
