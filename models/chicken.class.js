@@ -3,6 +3,7 @@ class Chicken extends MovableObject {
    y = 320;
    height = 100;
    width = 100;
+   isAlreadyDead = false;
    
 
    imagesChickenWalking = [
@@ -26,7 +27,7 @@ class Chicken extends MovableObject {
    constructor(){
     super().loadImage(this.imagesChickenWalking[0])
     this.loadImages(this.imageDead)
-    this.x = 1200 + Math.random() * 500;
+    this.x = 1800 + Math.random() * 800;
     this.animateChicken();
     this.ifEnemyIsDead();
    

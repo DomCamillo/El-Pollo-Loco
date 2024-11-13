@@ -4,6 +4,7 @@ class smallChicken extends MovableObject {
  y = 350;
 height = 80;
 width = 80;
+isAlreadyDead = false;
 smallchicken_Sound = new Audio('audio/chicken_1.mp3')
 smallchicken_Sound2= new Audio('audio/chicken_2.mp3')
 

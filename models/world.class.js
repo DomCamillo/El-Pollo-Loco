@@ -5,9 +5,9 @@ class World {
   canvas;
   keyboard;
   camera_x = 0;
-  throwableChicken = [new smallChicken()];
+  throwableChicken = [];
   throwableObjects = [new Bottle()];
-  endBoss = new Endboss(this.character, world)
+  endBoss = new Endboss(this.character, world);
 
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
@@ -26,14 +26,11 @@ class World {
     this.run();
     this.collectingCoinSound.volume = 0.2;
     this.collectingBottlesSound.volume = 0.1;
-    
-    
   }
 
   setWorld() {
     this.character.world = this;
   }
- 
 
   run() {
     setInterval(() => {
@@ -44,6 +41,7 @@ class World {
       this.checkEnemyHit();
       this.checkCollisionBoss();
       this.checkBossHit();
+      
     }, 200);
   }
 
@@ -65,21 +63,20 @@ class World {
     }
     this.throwableChicken.forEach((chicken) => {
       if (this.character.isColliding(chicken)) {
-          this.character.hitDetection();
-          this.healthBar.setPercentage(this.character.health);
-          console.log("Character got hit by thrown chicken");
+        this.character.hitDetection();
+        this.healthBar.setPercentage(this.character.health);
+        console.log("Character got hit by thrown chicken");
       }
-  });
-    
+    });
   }
 
   checkBossHit() {
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       if (bottle.isColliding(this.endBoss)) {
         this.endBoss.registerHit();
-       
+
         this.endBoss.health -= 20;
-        
+
         this.bossBar.setPercentage(this.endBoss.health);
         this.throwableObjects.splice(bottleIndex, 1);
         console.log("Boss got hit by bottle");
@@ -88,40 +85,47 @@ class World {
   }
 
   
-  
-
   checkEnemyHit() {
     const deadEnemies = [];
+    const usedBottles = [];
+
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       this.level.enemies.forEach((enemy, enemyIndex) => {
-
-        if (bottle.isColliding(enemy)) {
+        if (bottle.isColliding(enemy) && !enemy.isAlreadyDead) {
+          enemy.isAlreadyDead = true;
           enemy.enemyHitDetection();
-        console.log("Enemy got hit by bottle");
+          console.log("Enemy got hit by bottle");
           enemy.ChickenHealth -= 1;
           bottle.breakBottle();
-          this.throwableObjects.splice(bottleIndex, 1);
-
-          if (enemy.ifEnemyIsDead()) {
-            deadEnemies.push(enemyIndex);
-          }
+          deadEnemies.push(enemyIndex);
+          usedBottles.push(bottleIndex);
         }
       });
     });
+    this.removeDeadEnemies(deadEnemies, usedBottles);
+  };
+  
 
-    this.removeDeadEnemies(deadEnemies);
+  removeDeadEnemies(deadEnemies, usedBottles) {
+  
+    usedBottles.reverse().forEach(bottleIndex => {
+      console.log('Removing used bottle');
+      setTimeout(()=>{
+        this.throwableObjects.splice(bottleIndex, 1);
+      },500)
+      
+    });
+
+    deadEnemies.reverse().forEach(enemyIndex => {
+      console.log('Removing dead enemy');
+      setTimeout(()=>{
+        this.level.enemies.splice(enemyIndex, 1);
+      },200)
+      
+    });
   }
 
-  removeDeadEnemies(enemyIndex) {
-    setTimeout(() => {
-      for (const index of enemyIndex) {
-        console.log("Removing dead enemy at index", index);
-        this.level.enemies[index] = null;
-      }
-
-      this.level.enemies = this.level.enemies.filter((enemy) => enemy !== null);
-    }, 500);
-  }
+  
 
   checkCollisionCoin() {
     this.level.Coin.forEach((coin, index) => {
@@ -152,7 +156,6 @@ class World {
         this.character.x + 40 * direction + 10,
         this.character.y + 100,
         direction
-      
       );
       this.throwableObjects.push(bottle);
       this.bottleBar.collectedBottles.pop();
@@ -174,9 +177,9 @@ class World {
 
     this.addToMap(this.character);
     this.addToMap(this.endBoss);
+    this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.Bottle);
     this.addObjectsToMap(this.level.Coin);
-    this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.throwableChicken);
     this.ctx.translate(-this.camera_x, 0); // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet

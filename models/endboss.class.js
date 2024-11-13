@@ -86,7 +86,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.imagesBossAttacking);
         this.throwInterval();
       }
-      console.log(this.bossState);
+    
       
     }, 200);
   }
@@ -112,7 +112,7 @@ class Endboss extends MovableObject {
         } else if (this.x <= 4000) {
             this.direction = 1;
         }this.x += this.direction * this.walking;
-        console.log(this.x);
+       
         
     }
 }
