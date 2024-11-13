@@ -96,6 +96,7 @@ class Endboss extends MovableObject {
         this.moveBossLeftAndRight();
         if (this.health <= 0) {
             this.bossState = "dead";
+             this.Endboss.remove()
         } else if (this.checkIfCharacterIsNear() && !this.hasBeenHit) {
             this.bossState = "alert";
         } else if (this.bossState !== "hurt" && this.hasBeenHit) {

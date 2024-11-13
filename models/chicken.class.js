@@ -24,10 +24,11 @@ class Chicken extends MovableObject {
    chicken_Sound2= new Audio('audio/chicken_2.mp3')
   
 
-   constructor(){
+   constructor(x){
     super().loadImage(this.imagesChickenWalking[0])
     this.loadImages(this.imageDead)
-    this.x = 1800 + Math.random() * 800;
+    this.x = x;
+    /* this.x = 1800 + Math.random() * 800; */
     this.animateChicken();
     this.ifEnemyIsDead();
    

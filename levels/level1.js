@@ -14,7 +14,10 @@ const level1 = new Level(
       ],
 
       [
-        new Cloud()         // clouds
+        new Cloud(500),  
+        new Cloud(1500) ,      // clouds
+        new Cloud(3000)  ,     
+        new Cloud(4200)   ,    // clouds
       ],
 
      [
@@ -24,15 +27,15 @@ const level1 = new Level(
          new Backdrop('img/5_background/layers/3_third_layer/1.png', 0),
          new Backdrop('img/5_background/layers/2_second_layer/1.png', 0),
          new Backdrop('img/5_background/layers/1_first_layer/1.png', 0),
-         new Backdrop('img/5_background/layers/3_third_layer/2.png', 720), // backdrop
-         new Backdrop('img/5_background/layers/2_second_layer/2.png', 720),
-         new Backdrop('img/5_background/layers/1_first_layer/2.png', 720),
-         new Backdrop('img/5_background/layers/3_third_layer/1.png', 1440),
-         new Backdrop('img/5_background/layers/2_second_layer/1.png', 1440),
-         new Backdrop('img/5_background/layers/1_first_layer/1.png', 1440),
-         new Backdrop('img/5_background/layers/3_third_layer/2.png', 2160),
-         new Backdrop('img/5_background/layers/2_second_layer/2.png', 2160),
-         new Backdrop('img/5_background/layers/1_first_layer/2.png', 2160),
+         new Backdrop('img/5_background/layers/3_third_layer/2.png', 719), // backdrop
+         new Backdrop('img/5_background/layers/2_second_layer/2.png', 719),
+         new Backdrop('img/5_background/layers/1_first_layer/2.png', 719),
+         new Backdrop('img/5_background/layers/3_third_layer/1.png', 1440 -1),
+         new Backdrop('img/5_background/layers/2_second_layer/1.png', 1440 -1),
+         new Backdrop('img/5_background/layers/1_first_layer/1.png', 1440 -1),
+         new Backdrop('img/5_background/layers/3_third_layer/2.png', 2160 -1),
+         new Backdrop('img/5_background/layers/2_second_layer/2.png', 2160 -1),
+         new Backdrop('img/5_background/layers/1_first_layer/2.png', 2160 -1),
          new Backdrop('img/5_background/layers/3_third_layer/1.png', 2880),
          new Backdrop('img/5_background/layers/2_second_layer/1.png', 2880),
          new Backdrop('img/5_background/layers/1_first_layer/1.png', 2880),
@@ -45,19 +48,19 @@ const level1 = new Level(
      ],
 
      [
-      new Coin(900, 50), 
-      new Coin(1050, 20), 
-      new Coin(1200, 50),
+      new Coin(900, 200), 
+      new Coin(1050, 140), 
+      new Coin(1200, 200),
 
-      new Coin(2100, 50), 
-      new Coin(2350, 40), 
-      new Coin(2500, 50),
+      new Coin(2100, 200), 
+      new Coin(2350, 140), 
+      new Coin(2500, 200),
 
-      new Coin(3200, 100), 
-      new Coin(3450, 50), 
-      new Coin(3550, 100),
+      new Coin(3200, 200), 
+      new Coin(3450, 140), 
+      new Coin(3550, 200),
       
-      new Coin(3800, 30),
+      new Coin(3800, 200),
       
      ],
 

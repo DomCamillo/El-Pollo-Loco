@@ -63,3 +63,11 @@ function startGame(){
    
 
 }
+
+ function restartGame() {
+    window.location.reload();
+  }
+
+
+
+

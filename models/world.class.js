@@ -1,16 +1,21 @@
 class World {
   character = new Character();
   level = level1;
+  world;
   ctx;
   canvas;
   keyboard;
   camera_x = 0;
   throwableChicken = [];
   throwableObjects = [new Bottle()];
-  endBoss = new Endboss(this.character, world);
+  endBoss = new Endboss(this.character, this);
+  intervalId;
 
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
+
+
+
   coinBar = new StatusbarCoin();
   bossBar = new statusBarBossHealth();
 
@@ -28,12 +33,51 @@ class World {
     this.collectingBottlesSound.volume = 0.1;
   }
 
+  CheckGameOver() {
+    let winScreen = document.getElementById("youWin-screen");
+    let loseScreen = document.getElementById("youLose-screen");
+    if (this.character.health == 0) {
+      loseScreen.classList.remove("display-None");
+      this.clearAllIntervals();
+    } else if (this.endBoss.health == 0) {
+      winScreen.classList.remove("display-None");
+      this.clearAllIntervals();
+    }
+  }
+
+  /* cloneLevel(level) {
+    return new Level(
+      [...level.enemies],
+      [...level.clouds],
+      [...level.backdrops],
+      [...level.Coin],
+      [...level.Bottle]
+    );
+  }
+
+  restartGame() {
+    this.clearAllIntervals();
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    world = new World(this.canvas, this.keyboard);
+    world.level = this.cloneLevel(level1);
+
+    document.getElementById("youWin-screen").classList.add("display-None");
+    document.getElementById("youLose-screen").classList.add("display-None");
+  }
+
+  clearAllIntervals() {
+     clearInterval(this.intervalId);
+    this.intervalId = null;
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+  } */
+
   setWorld() {
     this.character.world = this;
   }
 
   run() {
-    setInterval(() => {
+      this.intervalId = setInterval(() => {
       this.checkCollision();
       this.checkthrowables();
       this.checkCollisionCoin();
@@ -41,10 +85,9 @@ class World {
       this.checkEnemyHit();
       this.checkCollisionBoss();
       this.checkBossHit();
-      
+      this.CheckGameOver();
     }, 200);
   }
-
   checkCollision() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
@@ -84,7 +127,6 @@ class World {
     });
   }
 
-  
   checkEnemyHit() {
     const deadEnemies = [];
     const usedBottles = [];
@@ -103,29 +145,23 @@ class World {
       });
     });
     this.removeDeadEnemies(deadEnemies, usedBottles);
-  };
-  
-
-  removeDeadEnemies(deadEnemies, usedBottles) {
-  
-    usedBottles.reverse().forEach(bottleIndex => {
-      console.log('Removing used bottle');
-      setTimeout(()=>{
-        this.throwableObjects.splice(bottleIndex, 1);
-      },500)
-      
-    });
-
-    deadEnemies.reverse().forEach(enemyIndex => {
-      console.log('Removing dead enemy');
-      setTimeout(()=>{
-        this.level.enemies.splice(enemyIndex, 1);
-      },200)
-      
-    });
   }
 
-  
+  removeDeadEnemies(deadEnemies, usedBottles) {
+    usedBottles.reverse().forEach((bottleIndex) => {
+      console.log("Removing used bottle");
+      setTimeout(() => {
+        this.throwableObjects.splice(bottleIndex, 1);
+      }, 500);
+    });
+
+    deadEnemies.reverse().forEach((enemyIndex) => {
+      console.log("Removing dead enemy");
+      setTimeout(() => {
+        this.level.enemies.splice(enemyIndex, 1);
+      }, 200);
+    });
+  }
 
   checkCollisionCoin() {
     this.level.Coin.forEach((coin, index) => {
@@ -213,7 +249,7 @@ class World {
   addToMap(mo) {
     this.ctx.save(); // speichert den aktuellen Zustand des Zeichenkontexts
 
-    mo.colisionOutline(this.ctx);
+    /*  mo.colisionOutline(this.ctx); */
 
     if (mo.otherDirection) {
       this.flipImage(mo, this.ctx);

@@ -44,7 +44,7 @@ body{
     display: flex;
     flex-direction: column;
     margin-top: 100px;
-    height: 800px;
+    height: 900px;
     width: 720px;
     background-image: url('img/my_images/cowboytitlescreen.jpg');
     background-position: center;
@@ -55,11 +55,18 @@ body{
 }
 
 .titleImg{
+   min-height: 480px;
+   max-width: 720px;
+    position: fixed;
+    top:230px;
+   
+}
+
+.Endscreen{
     height: 480px;
     width: 720px;
     position: fixed;
     top:230px;
-   
 }
 
 .display-None{
@@ -94,8 +101,27 @@ body{
     display: flex;
     justify-content: center;
 }
+.controlButtonSection{
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    display: flex;
+    align-items: flex-start;
+}
 
-.storyButton ,.optionsButton ,.legalButton, .startButton{
+.rightBTN, .jumpBTN ,.leftBTN, .throwBTN{
+    font-family: 'quentin';
+    width: 150px;
+    font-size: 26px;
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    color: white;
+    
+}
+
+
+
+.storyButton ,.optionsButton ,.legalButton, .startButton,.restartButton{
     font-weight: 800;
     height: 50px;
     width: fit-content;
@@ -107,7 +133,7 @@ body{
     transition: color 0.2s ease;
     letter-spacing: 3px;
 }
-.storyButton:hover ,.optionsButton:hover ,.legalButton:hover, .startButton:hover{
+.storyButton:hover ,.optionsButton:hover ,.legalButton:hover, .startButton:hover, .restartButton:hover{
     color: rgb(241, 207, 14);
     animation: shake 0.5s ease;
 }
@@ -127,7 +153,7 @@ body{
 
 .startButtonSection{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-bottom: 30px;
     margin-top: 30px;
 }

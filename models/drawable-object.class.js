@@ -8,7 +8,7 @@ class DrawableObject {
     currentImage = 0;
 
 
-    colisionOutline(ctx){
+    /* colisionOutline(ctx){
         if(this instanceof Character || 
         this instanceof Chicken ||
          this instanceof Coin ||
@@ -21,7 +21,7 @@ class DrawableObject {
         ctx.stroke();
         }
         
-    }
+    } */
 
     loadImage(path){
         this.img = new Image(); // verglaichbar mit document.getElementById('')

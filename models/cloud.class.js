@@ -6,13 +6,13 @@ class Cloud extends MovableObject{
     CloudSpeed = 0.45
 
 
-    constructor(){
+    constructor(x){
         super().loadImage('img/5_background/layers/4_clouds/1.png')
 
         this.height = 700
         this.width = 700
-      
-        this.x = 250 + Math.random() * 500;
+        this.x = x;
+    /*     this.x = 250 + Math.random() * 500; */
         this.moveClouds();
       
        }
