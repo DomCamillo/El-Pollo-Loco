@@ -15,6 +15,8 @@ function init(){
     
 }
 
+
+
  
 
  document.addEventListener('keydown', (e) => {
@@ -83,8 +85,7 @@ function init(){
         keyboard.F = false;
     } 
 
- 
-
-
-   
 });
+
+  
+

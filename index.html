@@ -27,9 +27,11 @@
     <script src="levels/level1.js"></script>
     <script src="models/world.class.js"></script>
     
-    <script src="js/game.js"></script>
     
-
+    
+<script>
+    
+</script>
     
 </head>
 <body> 
@@ -49,10 +51,10 @@
 
     <div class="controlButtonSection">
 
-            <button class="leftBTN">Left</button>
-            <button class="jumpBTN">jump</button>
-            <button class="throwBTN">Throw</button>
-            <button class="rightBTN">Right</button>
+        <button id="left-BTN" class="leftBTN" ontouchstart="keyboard.LEFT = true" ontouchend="keyboard.LEFT = false">Left</button>
+        <button id="jump-BTN" class="jumpBTN" ontouchstart="keyboard.SPACE = true" ontouchend="keyboard.SPACE = false">Jump</button>
+        <button id="throw-BTN" class="throwBTN" ontouchstart="keyboard.F = true" ontouchend="keyboard.F = false">Throw</button>
+        <button id="right-BTN" class="rightBTN" ontouchstart="keyboard.RIGHT = true" ontouchend="keyboard.RIGHT = false">Right</button>
 
     </div>
 
@@ -140,4 +142,5 @@
    </div>
     
 </body>
+<script src="js/game.js"></script>
 </html>

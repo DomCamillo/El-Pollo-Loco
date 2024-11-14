@@ -68,6 +68,9 @@ function startGame(){
     window.location.reload();
   }
 
+ 
+
+
 
 
 

@@ -7,6 +7,13 @@ class Character extends MovableObject {
   runSpeed = 5.2;
   jumpHeight = 30;
 
+  
+ MobileRightBTN = document.getElementById('right-BTN');
+ MobileLeftBTN = document.getElementById('left-BTN');
+ MobileJumpBTN = document.getElementById('jump-BTN');
+ MobilethrowBTN = document.getElementById('throw-BTN');
+
+
   images = [
     "img/2_character_pepe/2_walk/W-21.png",
     "img/2_character_pepe/2_walk/W-22.png",
@@ -97,10 +104,12 @@ class Character extends MovableObject {
       setInterval(() => {
         this.playAnimation(this.images);
       }, 200);
-    } else {
     }
   }
   isRunning = false;
+
+
+
   animateCharacter() {
     let idleTimeout = null;
 
@@ -109,13 +118,13 @@ class Character extends MovableObject {
 
       let isMoving = false;
 
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end) {
+      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end ) {
         this.moveRight();
         this.walking_sound.play();
         isMoving = true;
       }
 
-      if (this.world.keyboard.LEFT && this.x > -610) {
+      if (this.world.keyboard.LEFT && this.x > -610   ) {
         this.moveLeft();
         this.walking_sound.play();
         isMoving = true;
@@ -191,3 +200,8 @@ class Character extends MovableObject {
     }, 120);
   }
 }
+
+
+
+ 
+

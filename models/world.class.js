@@ -37,15 +37,21 @@ class World {
     let winScreen = document.getElementById("youWin-screen");
     let loseScreen = document.getElementById("youLose-screen");
     if (this.character.health == 0) {
-      loseScreen.classList.remove("display-None");
-      this.clearAllIntervals();
+      setTimeout(() => {
+        loseScreen.classList.remove("display-None");
+        this.clearAllIntervals();
+      }, 500);
+      
     } else if (this.endBoss.health == 0) {
-      winScreen.classList.remove("display-None");
-      this.clearAllIntervals();
+      setTimeout(()=>{
+        winScreen.classList.remove("display-None");
+        this.clearAllIntervals();
+      },500)
+    
     }
   }
 
-  /* cloneLevel(level) {
+ /*  cloneLevel(level) {
     return new Level(
       [...level.enemies],
       [...level.clouds],
@@ -64,13 +70,24 @@ class World {
 
     document.getElementById("youWin-screen").classList.add("display-None");
     document.getElementById("youLose-screen").classList.add("display-None");
-  }
+  } */
+
+    /*  restartGame() {
+      cancelAnimationFrame(world.animationFrameId);
+      clearAllIntervals();
+      clearAllTimeouts();
+      initLevel();
+      world = new World();
+      world.level = 
+      world.run();
+      document.getElementById('end-game-buttons').style.display = 'none';
+  } */
 
   clearAllIntervals() {
-     clearInterval(this.intervalId);
-    this.intervalId = null;
+    /*  clearInterval(this.intervalId);
+    this.intervalId = null; */
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
-  } */
+  }
 
   setWorld() {
     this.character.world = this;
