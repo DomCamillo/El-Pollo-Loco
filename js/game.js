@@ -15,9 +15,19 @@ function init(){
     
 }
 
-
-
+function mutePage() {
+    const muteIMG = document.getElementById('mute-img');
+    const isMuted = muteIMG.src.includes('volume-off-solid_.png'); 
+    
+    document.querySelectorAll("video, audio").forEach((elem) => {
+        elem.muted = isMuted; 
+    });
+    
  
+    muteIMG.src = isMuted ? 'img/my_images/volume-up-solid_.png' : 'img/my_images/volume-off-solid_.png'
+}
+
+
 
  document.addEventListener('keydown', (e) => {
     

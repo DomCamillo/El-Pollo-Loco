@@ -80,6 +80,19 @@ body{
 .backgroundImg{
     z-index: -1;
 }
+.muteContainer{
+    width: 100%;
+    z-index: 999;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.muteButton{
+    height: 35px;
+    width: 35px;
+    
+ 
+}
 
 .backButton{
     font-weight: 800;
@@ -103,9 +116,9 @@ body{
 }
 .controlButtonSection{
     height: 80px;
-    display: flex;
+    display: none;
     justify-content: space-around;
-    display: flex;
+
     align-items: flex-start;
 }
 
@@ -262,8 +275,8 @@ body{
 
 
 canvas{
-    
-  
+    position: fixed;
+    top:230px;
     display: block;
     background-image: linear-gradient(rgb(10, 173, 238), rgb(209, 145, 103), rgba(221, 224, 43, 0.849));
 }
@@ -298,6 +311,9 @@ canvas{
 
 @media (pointer:none), (pointer:coarse) {
     .rightBTN, .jumpBTN ,.leftBTN, .throwBTN{
+        display: flex;
+    }
+    .controlButtonSection{
         display: flex;
     }
 }
