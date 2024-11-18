@@ -1,12 +1,12 @@
 const level1 = new Level(
   [
-      new smallChicken(800),
+      new smallChicken(1000),
       
       new smallChicken(1200),
 
-        new Chicken(1300),
+        new Chicken(1500),
         new Chicken(3000),
-        new Chicken(1800),      // enemies
+        new Chicken(2000),      // enemies
         new Chicken(4200),      // enemies
         new Chicken(2600),      // enemies
        

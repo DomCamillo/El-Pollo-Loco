@@ -29,15 +29,33 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+  
     margin: 0;
     background-image: url('img/my_images/desert2.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-   font-family: 'gringo';
-   overflow-y: hidden;
-   backdrop-filter: grayscale(40%);;
+    font-family: 'gringo';
+    overflow-y: hidden;
+    backdrop-filter: grayscale(40%);;
 }
+
+canvas{
+    position: relative;
+    top:-35px;
+    display: block;
+    background-image: linear-gradient(rgb(10, 173, 238), rgb(209, 145, 103), rgba(221, 224, 43, 0.849));
+}
+
+.canvasContainer{
+    max-height: 720px;
+    max-width: 420px;
+}
+.canvasFiller{
+    max-height: 720px;
+    max-width: 420px;
+}
+
 
 
 .titleScreen{
@@ -55,11 +73,29 @@ body{
 }
 
 .titleImg{
-   min-height: 480px;
-   max-width: 720px;
+    height: 480px;
+    max-width: 720px;
     position: fixed;
-    top:230px;
+    top:262px;
+}
+
+.turnDevice{
+    min-height: 200%;
+    min-width: 180%;
+    display: none;
+   color: white;
+    background-color: rgba(0, 0, 0, 0.932);
+    z-index: 9999;
+    justify-content: center;
    
+    font-size: 30px;
+    
+}
+
+.turnDeviceText{
+    margin-top: 300px;
+    margin-left: 130px;
+
 }
 
 .Endscreen{
@@ -283,12 +319,6 @@ body{
 
 
 
-canvas{
-    position: fixed;
-    top:230px;
-    display: block;
-    background-image: linear-gradient(rgb(10, 173, 238), rgb(209, 145, 103), rgba(221, 224, 43, 0.849));
-}
 
 .title{
     display: flex;
@@ -305,7 +335,7 @@ canvas{
 
 @media only screen and (max-width: 720px){
     canvas{
-        width: 100%;
+     
     }
 }
 
@@ -314,7 +344,7 @@ canvas{
 
 @media only screen and (max-height: 480px){
     canvas{
-        height: 100vh;
+      
     }
 }
 
@@ -327,8 +357,10 @@ canvas{
     }
 }
 
-@media screen and (orientation:portrait) {
-
+@media screen and (orientation:portrait) and (pointer:coarse)  {
+    .turnDevice{
+        display: flex;
+    }
 }
 @media screen and (orientation:landscape) {
 
@@ -337,25 +369,87 @@ canvas{
 
 @media (max-width: 1000px) and (orientation:landscape){
     .titleScreen{
-        display: none;
+        background-image: none;
+        margin: 0px;
+        flex-direction: column;
+       height: 30px !important;
+       position: absolute;
+       top: 00px;
+    }
+    .title{
+       display: none !important;
+    }
+
+    .titleImg{
+        max-height: 430px !important;
+        max-width: 720px;
+        position: absolute;
+        top: 0px;
+    }
+
+    .endScreenImgContainer{
+        max-height: 300px !important;
     }
 
   
-    body{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+   
     .Canvasfiller{
         justify-content: center;
         align-items: center;
+        
 
     }
 
     .canvas{
-        justify-content: center;
-        align-items: center;
+        max-width: 900px !important;
+        max-height: 100vh;
+        z-index: 99999;
+        max-width: fit-content;
+        
     }
+
+    .canvasContainer{
+        max-height: 600px;
+        position: absolute;
+        top: 00px;
+    }
+
+    .muteContainer{
+        position: absolute;
+        left: -20px;
+    }
+
+    .menueButtonSection{
+       height: 20px;
+    }
+
+    .startButtonSection{
+        height: 20px;
+        z-index: 99;
+        position: absolute;
+        left: 230px;
+        top: -30px;
+    }
+
+    .controlButtonSection{
+        height: 20px;
+        z-index: 99;
+        position: absolute;
+        left: 90px;
+        top: 380px;
+    }
+
+   
+    .startButton, .restartButton{
+        height: 30px;
+        font-size: 18px;
+    }
+
+    .turnDevice{
+
+    }
+
+    
 }
 
 

@@ -216,6 +216,10 @@ class World {
       if(this.coinBar.collectedCoins.length == 10){
         this.extraLifeSound.play();
         this.character.health += 25; 
+        console.log(this.character.health);
+        
+        this.healthBar.setPercentage(this.character.health);
+        
       }
     });
   }
