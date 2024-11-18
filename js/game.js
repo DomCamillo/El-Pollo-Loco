@@ -1,12 +1,14 @@
 let canvas;
 let world;
 let keyboard = new Keyboard()
-
+let  isMuted = false;
+ allSounds = [];  // array für alle sounds
 
 function init(){
 
     canvas = document.getElementById('canvas');
-
+    
+    
     world = new World(canvas, keyboard);
 
     console.log('my character is', world.character );
@@ -16,15 +18,16 @@ function init(){
 }
 
 function mutePage() {
-    const muteIMG = document.getElementById('mute-img');
-    const isMuted = muteIMG.src.includes('volume-off-solid_.png'); 
+    let muteIMG = document.getElementById('mute-img');
+    isMuted = muteIMG.src.includes('volume-off-solid_.png'); 
+    muteIMG.src = isMuted ? 'img/my_images/volume-up-solid_.png' : 'img/my_images/volume-off-solid_.png';
     
-    document.querySelectorAll("video, audio").forEach((elem) => {
-        elem.muted = isMuted; 
+    isMuted = !isMuted;
+    allSounds.forEach(sound => {
+        if (sound instanceof Audio) { 
+            sound.muted = isMuted;
+        }
     });
-    
- 
-    muteIMG.src = isMuted ? 'img/my_images/volume-up-solid_.png' : 'img/my_images/volume-off-solid_.png'
 }
 
 

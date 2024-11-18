@@ -18,8 +18,8 @@ class Coin extends MovableObject{
         this.playAnimation(this.images_Coin)
         this.x = x;
         this.y = y;
+        
 
-       
        
     }
 

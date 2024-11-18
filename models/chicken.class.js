@@ -17,11 +17,9 @@ class Chicken extends MovableObject {
    ];
 
    
-  
  
    
-   chicken_Sound = new Audio('audio/chicken_1.mp3')
-   chicken_Sound2= new Audio('audio/chicken_2.mp3')
+  
   
 
    constructor(x){
@@ -31,14 +29,25 @@ class Chicken extends MovableObject {
     /* this.x = 1800 + Math.random() * 800; */
     this.animateChicken();
     this.ifEnemyIsDead();
-   
+
+    this.chicken_Sound = new Audio('audio/chicken_1.mp3')
+    this.chicken_Sound2 = new Audio('audio/chicken_2.mp3')
+    
     this.chicken_Sound.volume = 0.01;
     this.chicken_Sound2.volume = 0.01;
+
+    allSounds.push(this.chicken_Sound, this.chicken_Sound2);
     
     
    }
 
    
+   mutePage(){
+    chicken_Sound.pause()
+    chicken_Sound2.pause()
+    console.log('chciken class sounds  muted');
+    
+   }
 
    animateChicken() {
       let randomSpeed = 0.4 + Math.random() * 0.8;
@@ -80,10 +89,3 @@ class Chicken extends MovableObject {
 
 
 
-/* 
-constructor(){
-   super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png')
-
-   this.x = 250 + Math.random() * 500;
-   
-  } */

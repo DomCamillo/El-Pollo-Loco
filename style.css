@@ -132,6 +132,15 @@ body{
     display: none;
 }
 
+.startButton , .restartButton{
+    border: solid 2px white !important;
+    border-radius: 20px;
+    padding-bottom: 8px;
+}
+.startButton:hover , .restartButton:hover{
+    border: solid 3px yellow !important;
+}
+
 
 
 .storyButton ,.optionsButton ,.legalButton, .startButton,.restartButton{
@@ -315,6 +324,37 @@ canvas{
     }
     .controlButtonSection{
         display: flex;
+    }
+}
+
+@media screen and (orientation:portrait) {
+
+}
+@media screen and (orientation:landscape) {
+
+}
+
+
+@media (max-width: 1000px) and (orientation:landscape){
+    .titleScreen{
+        display: none;
+    }
+
+  
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .Canvasfiller{
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .canvas{
+        justify-content: center;
+        align-items: center;
     }
 }
 

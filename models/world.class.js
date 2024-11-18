@@ -19,20 +19,27 @@ class World {
   coinBar = new StatusbarCoin();
   bossBar = new statusBarBossHealth();
 
-  collectingCoinSound = new Audio("audio/collect-coin.mp3");
-  collectingBottlesSound = new Audio("audio/collectBottles.mp3");
-
+  
+ 
   constructor(canvas, keyboard) {
-    this.ctx = canvas.getContext("2d"); // um den canvas zu bearbeiten
-    this.canvas = canvas;
-    this.keyboard = keyboard;
-    this.draw();
-    this.setWorld();
-    this.run();
-    this.collectingCoinSound.volume = 0.2;
-    this.collectingBottlesSound.volume = 0.1;
+     this.ctx = canvas.getContext("2d"); // um den canvas zu bearbeiten
+     this.canvas = canvas;
+     this.keyboard = keyboard;
+     this.draw();
+     this.setWorld();
+     this.run();
+     this.collectingCoinSound = new Audio("audio/collect-coin.mp3");
+     this.collectingBottlesSound = new Audio("audio/collectBottles.mp3");
+     this.bottleThrowSound = new Audio("audio/throwing-sound.mp3");
+     this.backGroundMusic = new Audio("audio/backgroundmusic.mp3");
+     this.backGroundMusic.volume = 0.05;
+     this.collectingCoinSound.volume = 0.2;
+     this.collectingBottlesSound.volume = 0.1;
+     this.backGroundMusic.play();
+     this.bottleThrowSound.volume = 0.1;
+     allSounds.push(this.collectingBottlesSound,  this.collectingCoinSound, this.bottleThrowSound, this.bottleBreakSound,   this.backGroundMusic)
   }
-
+   
   CheckGameOver() {
     let winScreen = document.getElementById("youWin-screen");
     let loseScreen = document.getElementById("youLose-screen");
@@ -91,9 +98,11 @@ class World {
 
   setWorld() {
     this.character.world = this;
+    
   }
 
   run() {
+     
       this.intervalId = setInterval(() => {
       this.checkCollision();
       this.checkthrowables();
@@ -196,7 +205,7 @@ class World {
       if (this.character.isColliding(bottle)) {
         this.bottleBar.collectedBottles.push(bottle);
         this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
-        this.collectingBottlesSound.volume = 0.1;
+        this.collectingBottlesSound.play();
         this.level.Bottle.splice(index, 1);
       }
     });
@@ -213,6 +222,7 @@ class World {
       this.throwableObjects.push(bottle);
       this.bottleBar.collectedBottles.pop();
       bottle.throw();
+      this.bottleThrowSound.play();
       this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
     }
   }

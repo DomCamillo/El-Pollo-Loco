@@ -35,8 +35,8 @@ direction;
         this.loadImages(this. images_Bottle_onGround);
         this.playAnimation(this.images_Bottle);
         this.direction = direction
-        
-      
+        this.bottleBreakSound = new Audio("audio/bottle-breaking.mp3");
+        this.bottleBreakSound.volume = 0.1;
         this.x = x;
         this.y = y;
        
@@ -72,7 +72,7 @@ direction;
         console.log('Flasche zerbrochen');
         clearInterval(this.rotateInterval);  
         /* clearInterval(this.throwinterval);   */   
-    
+        this.bottleBreakSound.play();
        setInterval(()=>{
         this.playAnimation(this.images_Bottle_Splash);
        },200)

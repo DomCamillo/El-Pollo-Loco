@@ -83,8 +83,7 @@ class Character extends MovableObject {
   ];
 
   world;
-  walking_sound = new Audio("audio/mc-grass-walking.mp3");
-  jumping_sound = new Audio("audio/jump.mp3");
+    
 
   constructor() {
     super().loadImage("img/2_character_pepe/2_walk/W-21.png");
@@ -96,8 +95,20 @@ class Character extends MovableObject {
     this.loadImages(this.imagesJump);
     this.loadImages(this.imagesDead);
     this.animateCharacter();
+   
+   
+    this.walking_sound = new Audio("audio/mc-grass-walking.mp3");
+    this.jumping_sound = new Audio("audio/jump.mp3");
     this.jumping_sound.volume = 0.1;
+    allSounds.push(this.jumping_sound,  this.walking_sound)
   }
+
+  mutePage(){
+    walking_sound.pause()
+    jumping_sound.pause()
+    console.log('charatcer class sounds  muted');
+    
+   }
 
   checkRunning() {
     if (!this.isRunning) {
