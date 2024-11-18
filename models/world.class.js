@@ -32,12 +32,22 @@ class World {
      this.collectingBottlesSound = new Audio("audio/collectBottles.mp3");
      this.bottleThrowSound = new Audio("audio/throwing-sound.mp3");
      this.backGroundMusic = new Audio("audio/backgroundmusic.mp3");
+     this.winSound = new Audio("audio/winning.mp3");
+     this.loseSound = new Audio("audio/losing.mp3");
+     this.hurtSound = new Audio("audio/hurt.mp3");
+     this.extraLifeSound = new Audio("audio/extra-live.mp3")
+     this.extraLifeSound.volume = 0.2;
+     this.hurtSound.volume = 0.2;
+     this.winSound.volume = 0.1;
+     this.loseSound.volume = 0.1;
      this.backGroundMusic.volume = 0.05;
      this.collectingCoinSound.volume = 0.2;
      this.collectingBottlesSound.volume = 0.1;
      this.backGroundMusic.play();
      this.bottleThrowSound.volume = 0.1;
-     allSounds.push(this.collectingBottlesSound,  this.collectingCoinSound, this.bottleThrowSound, this.bottleBreakSound,   this.backGroundMusic)
+     allSounds.push(this.collectingBottlesSound,  this.collectingCoinSound, this.bottleThrowSound, this.bottleBreakSound,   this.backGroundMusic
+      ,  this.winSound ,  this.loseSound, this.hurtSound,
+     );
   }
    
   CheckGameOver() {
@@ -47,12 +57,16 @@ class World {
       setTimeout(() => {
         loseScreen.classList.remove("display-None");
         this.clearAllIntervals();
+        this.backGroundMusic.pause();
+        this.loseSound.play();
       }, 500);
       
     } else if (this.endBoss.health == 0) {
       setTimeout(()=>{
         winScreen.classList.remove("display-None");
         this.clearAllIntervals();
+        this.backGroundMusic.pause();
+        this.winSound.play();
       },500)
     
     }
@@ -117,6 +131,7 @@ class World {
   checkCollision() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
+        this.hurtSound.play();
         this.character.hitDetection();
         this.healthBar.setPercentage(this.character.health);
         console.log("character got hit by chicken");
@@ -127,6 +142,7 @@ class World {
   checkCollisionBoss() {
     if (this.character.isColliding(this.endBoss)) {
       this.character.hitDetection();
+      this.hurtSound.play();
       this.healthBar.setPercentage(this.character.health);
       console.log("character got hit by endboss");
     }
@@ -196,6 +212,10 @@ class World {
         this.coinBar.setCoinStats(this.coinBar.collectedCoins.length);
         this.collectingCoinSound.play();
         this.level.Coin.splice(index, 1);
+      }
+      if(this.coinBar.collectedCoins.length == 10){
+        this.extraLifeSound.play();
+        this.character.health += 25; 
       }
     });
   }
