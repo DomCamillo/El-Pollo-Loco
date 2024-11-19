@@ -69,19 +69,15 @@ direction;
     
     
     breakBottle() {
-        console.log('Flasche zerbrochen');
-        clearInterval(this.rotateInterval);  
-        /* clearInterval(this.throwinterval);   */   
+        clearInterval(this.rotateInterval);    
         this.bottleBreakSound.play();
        setInterval(()=>{
         this.playAnimation(this.images_Bottle_Splash);
        },200)
-       
-    
-     
+
         this.speedY = 0;  
         this.speedX = 1; 
-    
+        
         setInterval(() => {
             this.x -= this.speedX; 
         }, 25);

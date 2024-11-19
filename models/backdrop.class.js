@@ -1,18 +1,11 @@
-class Backdrop extends MovableObject{
+class Backdrop extends MovableObject {
+  width = 720;
+  height = 500;
 
-    
-    width = 720;
-    height = 500;
-    
-    constructor(imagePath, x ){
-        super().loadImage(imagePath)
+  constructor(imagePath, x) {
+    super().loadImage(imagePath);
 
-        this.x = x;
-        this.y = 480 - this.height ;
-       
-
-        
-      
-       }
-
+    this.x = x;
+    this.y = 480 - this.height;
+  }
 }

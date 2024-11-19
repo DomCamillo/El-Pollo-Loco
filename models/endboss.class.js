@@ -1,14 +1,13 @@
-
 class Endboss extends MovableObject {
   height = 400;
   width = 400;
   health = 100;
- 
+
   isCharacterNear = false;
   walking = 10;
   direction = 1;
   bossState = "walking";
-  throwIntervalID  = null;
+  throwIntervalID = null;
   hurtTimeoutID = null;
   hasBeenHit = false;
 
@@ -56,21 +55,20 @@ class Endboss extends MovableObject {
   constructor(character, world) {
     super();
     this.world = world;
-    this.loadImages(this.imagesBossAlert); // Lade das Array mit Bildern
+    this.loadImages(this.imagesBossAlert); 
     this.loadImages(this.imagesBossWalking);
     this.loadImage(this.imagesBossWalking[0]);
     this.loadImages(this.imagesBossAttacking);
     this.loadImages(this.imagesBossHurt);
     this.loadImages(this.imagesBossDead);
-    this.x = 4000; // 4000
+    this.x = 4000; 
     this.y = 70;
     this.animateBoss();
     this.moveBoss();
     this.character = character;
-    this.maxHealth = 100;  
-    this.health = this.maxHealth; 
+    this.maxHealth = 100;
+    this.health = this.maxHealth;
   }
-
 
   animateBoss() {
     setInterval(() => {
@@ -86,48 +84,44 @@ class Endboss extends MovableObject {
         this.playAnimation(this.imagesBossAttacking);
         this.throwInterval();
       }
-    
-      
     }, 200);
   }
 
   moveBoss() {
     setInterval(() => {
-        this.moveBossLeftAndRight();
-        if (this.health <= 0) {
-            this.bossState = "dead";
-             this.Endboss.remove()
-        } else if (this.checkIfCharacterIsNear() && !this.hasBeenHit) {
-            this.bossState = "alert";
-        } else if (this.bossState !== "hurt" && this.hasBeenHit) {
-            this.bossState = "attacking";
-        }
+      this.moveBossLeftAndRight();
+      if (this.health <= 0) {
+        this.bossState = "dead";
+        this.Endboss.remove();
+      } else if (this.checkIfCharacterIsNear() && !this.hasBeenHit) {
+        this.bossState = "alert";
+      } else if (this.bossState !== "hurt" && this.hasBeenHit) {
+        this.bossState = "attacking";
+      }
     }, 100);
   }
 
- 
   moveBossLeftAndRight() {
     if (this.bossState === "walking") {
-        if (this.x >= 4300) {
-            this.direction = -1;
-        } else if (this.x <= 4000) {
-            this.direction = 1;
-        }this.x += this.direction * this.walking;
-       
-        
+      if (this.x >= 4300) {
+        this.direction = -1;
+      } else if (this.x <= 4000) {
+        this.direction = 1;
+      }
+      this.x += this.direction * this.walking;
     }
-}
+  }
 
-registerHit() {
+  registerHit() {
     if (!this.hurtTimeoutID) {
-        this.bossState = "hurt"; 
-        this.hasBeenHit = true;
-        this.hurtTimeoutID = setTimeout(() => {
-            this.bossState = "attacking"; 
-            this.hurtTimeoutID = null;
-        }, 1500); 
+      this.bossState = "hurt";
+      this.hasBeenHit = true;
+      this.hurtTimeoutID = setTimeout(() => {
+        this.bossState = "attacking";
+        this.hurtTimeoutID = null;
+      }, 1500);
     }
-}
+  }
 
   checkIfCharacterIsNear() {
     if (this.character.x > 3850) {
@@ -141,19 +135,12 @@ registerHit() {
     smallChickenInstance.throwAsProjectile(direction);
     world.throwableChicken.push(smallChickenInstance);
   }
-  
 
   throwInterval() {
     if (!this.throwIntervalID) {
-        this.throwIntervalID = setInterval(() => {
-            this.throwSmallChicken();
-        }, 3000); 
+      this.throwIntervalID = setInterval(() => {
+        this.throwSmallChicken();
+      }, 3000);
     }
-}
-
-
-
-
-
-
+  }
 }

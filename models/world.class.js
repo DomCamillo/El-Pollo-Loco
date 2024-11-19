@@ -14,42 +14,58 @@ class World {
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
 
-
-
   coinBar = new StatusbarCoin();
   bossBar = new statusBarBossHealth();
 
-  
- 
   constructor(canvas, keyboard) {
-     this.ctx = canvas.getContext("2d"); // um den canvas zu bearbeiten
-     this.canvas = canvas;
-     this.keyboard = keyboard;
-     this.draw();
-     this.setWorld();
-     this.run();
-     this.collectingCoinSound = new Audio("audio/collect-coin.mp3");
-     this.collectingBottlesSound = new Audio("audio/collectBottles.mp3");
-     this.bottleThrowSound = new Audio("audio/throwing-sound.mp3");
-     this.backGroundMusic = new Audio("audio/backgroundmusic.mp3");
-     this.winSound = new Audio("audio/winning.mp3");
-     this.loseSound = new Audio("audio/losing.mp3");
-     this.hurtSound = new Audio("audio/hurt.mp3");
-     this.extraLifeSound = new Audio("audio/extra-live.mp3")
-     this.extraLifeSound.volume = 0.2;
-     this.hurtSound.volume = 0.2;
-     this.winSound.volume = 0.1;
-     this.loseSound.volume = 0.1;
-     this.backGroundMusic.volume = 0.05;
-     this.collectingCoinSound.volume = 0.2;
-     this.collectingBottlesSound.volume = 0.1;
-     this.backGroundMusic.play();
-     this.bottleThrowSound.volume = 0.1;
-     allSounds.push(this.collectingBottlesSound,  this.collectingCoinSound, this.bottleThrowSound, this.bottleBreakSound,   this.backGroundMusic
-      ,  this.winSound ,  this.loseSound, this.hurtSound,
-     );
+    this.ctx = canvas.getContext("2d"); // um den canvas zu bearbeiten
+    this.canvas = canvas;
+    this.keyboard = keyboard;
+    this.draw();
+    this.setWorld();
+    this.run();
+    this.getAudio();
   }
-   
+
+
+  getAudio(){
+    this.collectingCoinSound = new Audio("audio/collect-coin.mp3");
+    this.collectingBottlesSound = new Audio("audio/collectBottles.mp3");
+    this.bottleThrowSound = new Audio("audio/throwing-sound.mp3");
+    this.backGroundMusic = new Audio("audio/backgroundmusic.mp3");
+    this.winSound = new Audio("audio/winning.mp3");
+    this.loseSound = new Audio("audio/losing.mp3");
+    this.hurtSound = new Audio("audio/hurt.mp3");
+    this.extraLifeSound = new Audio("audio/extra-live.mp3");
+    this.enemyDeadSound = new Audio("audio/enemie-dead-sound.mp3");
+    this.enemyDeadSound.volume = 0.2;
+    this.extraLifeSound.volume = 0.2;
+    this.hurtSound.volume = 0.2;
+    this.winSound.volume = 0.1;
+    this.loseSound.volume = 0.1;
+    this.backGroundMusic.volume = 0.05;
+    this.collectingCoinSound.volume = 0.2;
+    this.collectingBottlesSound.volume = 0.1;
+    this.backGroundMusic.play();
+    this.bottleThrowSound.volume = 0.1;
+
+    this.pushSoundsToArray();
+  }
+
+  pushSoundsToArray(){
+    allSounds.push(
+      this.collectingBottlesSound,
+      this.collectingCoinSound,
+      this.bottleThrowSound,
+      this.bottleBreakSound,
+      this.backGroundMusic,
+      this.winSound,
+      this.loseSound,
+      this.hurtSound,
+      this.enemyDeadSound,
+    );
+  }
+
   CheckGameOver() {
     let winScreen = document.getElementById("youWin-screen");
     let loseScreen = document.getElementById("youLose-screen");
@@ -60,64 +76,26 @@ class World {
         this.backGroundMusic.pause();
         this.loseSound.play();
       }, 500);
-      
     } else if (this.endBoss.health == 0) {
-      setTimeout(()=>{
+      setTimeout(() => {
         winScreen.classList.remove("display-None");
         this.clearAllIntervals();
         this.backGroundMusic.pause();
         this.winSound.play();
-      },500)
-    
+      }, 500);
     }
   }
 
- /*  cloneLevel(level) {
-    return new Level(
-      [...level.enemies],
-      [...level.clouds],
-      [...level.backdrops],
-      [...level.Coin],
-      [...level.Bottle]
-    );
-  }
-
-  restartGame() {
-    this.clearAllIntervals();
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    world = new World(this.canvas, this.keyboard);
-    world.level = this.cloneLevel(level1);
-
-    document.getElementById("youWin-screen").classList.add("display-None");
-    document.getElementById("youLose-screen").classList.add("display-None");
-  } */
-
-    /*  restartGame() {
-      cancelAnimationFrame(world.animationFrameId);
-      clearAllIntervals();
-      clearAllTimeouts();
-      initLevel();
-      world = new World();
-      world.level = 
-      world.run();
-      document.getElementById('end-game-buttons').style.display = 'none';
-  } */
-
   clearAllIntervals() {
-    /*  clearInterval(this.intervalId);
-    this.intervalId = null; */
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
   }
 
   setWorld() {
     this.character.world = this;
-    
   }
 
   run() {
-     
-      this.intervalId = setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.checkCollision();
       this.checkthrowables();
       this.checkCollisionCoin();
@@ -134,7 +112,6 @@ class World {
         this.hurtSound.play();
         this.character.hitDetection();
         this.healthBar.setPercentage(this.character.health);
-        console.log("character got hit by chicken");
       }
     });
   }
@@ -144,13 +121,12 @@ class World {
       this.character.hitDetection();
       this.hurtSound.play();
       this.healthBar.setPercentage(this.character.health);
-      console.log("character got hit by endboss");
+
     }
     this.throwableChicken.forEach((chicken) => {
       if (this.character.isColliding(chicken)) {
         this.character.hitDetection();
         this.healthBar.setPercentage(this.character.health);
-        console.log("Character got hit by thrown chicken");
       }
     });
   }
@@ -159,12 +135,9 @@ class World {
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       if (bottle.isColliding(this.endBoss)) {
         this.endBoss.registerHit();
-
         this.endBoss.health -= 20;
-
         this.bossBar.setPercentage(this.endBoss.health);
         this.throwableObjects.splice(bottleIndex, 1);
-        console.log("Boss got hit by bottle");
       }
     });
   }
@@ -172,13 +145,12 @@ class World {
   checkEnemyHit() {
     const deadEnemies = [];
     const usedBottles = [];
-
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         if (bottle.isColliding(enemy) && !enemy.isAlreadyDead) {
           enemy.isAlreadyDead = true;
           enemy.enemyHitDetection();
-          console.log("Enemy got hit by bottle");
+          this.enemyDeadSound.play();
           enemy.ChickenHealth -= 1;
           bottle.breakBottle();
           deadEnemies.push(enemyIndex);
@@ -191,14 +163,11 @@ class World {
 
   removeDeadEnemies(deadEnemies, usedBottles) {
     usedBottles.reverse().forEach((bottleIndex) => {
-      console.log("Removing used bottle");
       setTimeout(() => {
         this.throwableObjects.splice(bottleIndex, 1);
       }, 500);
     });
-
     deadEnemies.reverse().forEach((enemyIndex) => {
-      console.log("Removing dead enemy");
       setTimeout(() => {
         this.level.enemies.splice(enemyIndex, 1);
       }, 200);
@@ -213,13 +182,10 @@ class World {
         this.collectingCoinSound.play();
         this.level.Coin.splice(index, 1);
       }
-      if(this.coinBar.collectedCoins.length == 10){
+      if (this.coinBar.collectedCoins.length == 10) {
         this.extraLifeSound.play();
-        this.character.health += 25; 
-        console.log(this.character.health);
-        
+        this.character.health += 25;
         this.healthBar.setPercentage(this.character.health);
-        
       }
     });
   }
@@ -252,16 +218,14 @@ class World {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // canvas wird gelöscht
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
     this.ctx.translate(this.camera_x, 0);
-
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.backdrops);
-    this.addToMap(this.healthBar); // elemnte werden zum canvis hinzugefügt
-    this.addToMap(this.bottleBar); // reihenfolge bestimmt den z-index
+    this.addToMap(this.healthBar); 
+    this.addToMap(this.bottleBar); 
     this.addToMap(this.coinBar);
     this.addToMap(this.bossBar);
-
     this.addToMap(this.character);
     this.addToMap(this.endBoss);
     this.addObjectsToMap(this.level.enemies);
@@ -269,10 +233,9 @@ class World {
     this.addObjectsToMap(this.level.Coin);
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.throwableChicken);
-    this.ctx.translate(-this.camera_x, 0); // Draw() wird immer aufgerufen .this kann nicht in dieser funktion verwendet
+    this.ctx.translate(-this.camera_x, 0); 
     this.setStatusbar();
 
-    // werden darum wird this in eine varibale geschpeichert
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
@@ -296,24 +259,21 @@ class World {
     });
   }
 
-  // mo = map Object
+
   addToMap(mo) {
-    this.ctx.save(); // speichert den aktuellen Zustand des Zeichenkontexts
-
-    /*  mo.colisionOutline(this.ctx); */
-
+    this.ctx.save(); 
     if (mo.otherDirection) {
       this.flipImage(mo, this.ctx);
     } else {
-      mo.draw(this.ctx); // zeichne den Charakter ohne Spiegelung
+      mo.draw(this.ctx); 
     }
 
-    this.ctx.restore(); // stelle den Zeichenkontext wieder her
+    this.ctx.restore(); 
   }
 
   flipImage(mo, ctx) {
-    this.ctx.translate(mo.x + mo.width, 0); // verschiebe den Zeichenkontext auf die Position des Charakters
-    this.ctx.scale(-1, 1); // spiegelt das bild
-    this.ctx.drawImage(mo.img, 0, mo.y, mo.width, mo.height); // zeichne den Charakter an der korrekten Position
+    this.ctx.translate(mo.x + mo.width, 0); 
+    this.ctx.scale(-1, 1);
+    this.ctx.drawImage(mo.img, 0, mo.y, mo.width, mo.height); 
   }
 }
