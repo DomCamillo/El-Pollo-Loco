@@ -9,6 +9,14 @@ function init() {
   world = new World(canvas, keyboard);
 }
 
+function callRestartGame() {
+  if (world) {
+      world.restartGame();
+  }
+}
+
+
+
 function mutePage() {
   let muteIMG = document.getElementById("mute-img");
   isMuted = muteIMG.src.includes("volume-off-solid_.png");

@@ -53,3 +53,17 @@
         }
         
     } */
+
+        /*checkCollision() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.hurtSound.play();
+        this.character.hitDetection();
+        this.healthBar.setPercentage(this.character.health);
+      }
+    });
+  } */
+
+
+      
+      

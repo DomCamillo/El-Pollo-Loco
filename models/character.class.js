@@ -101,6 +101,15 @@ class Character extends MovableObject {
     allSounds.push(this.jumping_sound, this.walking_sound);
   }
 
+  isAbove(enemy) {
+    return this.y + this.height < enemy.y + enemy.height && 
+           this.y + this.height > enemy.y &&               
+           Math.abs(this.x - enemy.x) ;                
+}
+jumpAfterStomp() {
+  this.speedY = +10; 
+}
+
 
   checkRunning() {
     if (!this.isRunning) {

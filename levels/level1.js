@@ -1,4 +1,7 @@
-const level1 = new Level(
+let level1;
+
+function initLevel(){
+ level1 = new Level(
   [
       new smallChicken(1000),
       
@@ -6,7 +9,7 @@ const level1 = new Level(
 
         new Chicken(1500),
         new Chicken(3000),
-        new Chicken(2000),      // enemies
+        new Chicken(3700),      // enemies
         new Chicken(4200),      // enemies
         new Chicken(2600),      // enemies
        
@@ -21,30 +24,30 @@ const level1 = new Level(
       ],
 
      [
-        new Backdrop('img/5_background/layers/3_third_layer/2.png', -720 +2),
-        new Backdrop('img/5_background/layers/2_second_layer/2.png', -720 +2),
-        new Backdrop('img/5_background/layers/1_first_layer/2.png', -720 +2),
-         new Backdrop('img/5_background/layers/3_third_layer/1.png', 0 +2),
-         new Backdrop('img/5_background/layers/2_second_layer/1.png', 0 +2),
-         new Backdrop('img/5_background/layers/1_first_layer/1.png', 0 +2),
-         new Backdrop('img/5_background/layers/3_third_layer/2.png', 720 +2), // backdrop
-         new Backdrop('img/5_background/layers/2_second_layer/2.png', 720 +2),
-         new Backdrop('img/5_background/layers/1_first_layer/2.png', 720 +2),
-         new Backdrop('img/5_background/layers/3_third_layer/1.png', 1440 +2),
-         new Backdrop('img/5_background/layers/2_second_layer/1.png', 1440 +2),
-         new Backdrop('img/5_background/layers/1_first_layer/1.png', 1440 +2),
-         new Backdrop('img/5_background/layers/3_third_layer/2.png', 2160 +2),
-         new Backdrop('img/5_background/layers/2_second_layer/2.png', 2160 +2),
-         new Backdrop('img/5_background/layers/1_first_layer/2.png', 2160 +2),
-         new Backdrop('img/5_background/layers/3_third_layer/1.png', 2880 +2),
-         new Backdrop('img/5_background/layers/2_second_layer/1.png', 2880 +2),
-         new Backdrop('img/5_background/layers/1_first_layer/1.png', 2880 +2),
-         new Backdrop('img/5_background/layers/3_third_layer/2.png', 3600 +2),
-         new Backdrop('img/5_background/layers/2_second_layer/2.png', 3600 +2),
-         new Backdrop('img/5_background/layers/1_first_layer/2.png', 3600 +2),
-         new Backdrop('img/5_background/layers/3_third_layer/1.png', 4320 +2),
-         new Backdrop('img/5_background/layers/2_second_layer/1.png', 4320 +2),
-         new Backdrop('img/5_background/layers/1_first_layer/1.png', 4320 +2),
+      new Backdrop('img/5_background/layers/3_third_layer/2.png', -720),
+      new Backdrop('img/5_background/layers/2_second_layer/2.png', -720),
+      new Backdrop('img/5_background/layers/1_first_layer/2.png', -720),
+      new Backdrop('img/5_background/layers/3_third_layer/1.png', 0),
+      new Backdrop('img/5_background/layers/2_second_layer/1.png', 0),
+      new Backdrop('img/5_background/layers/1_first_layer/1.png', 0),
+      new Backdrop('img/5_background/layers/3_third_layer/2.png', 720), // backdrop
+      new Backdrop('img/5_background/layers/2_second_layer/2.png', 720),
+      new Backdrop('img/5_background/layers/1_first_layer/2.png', 720),
+      new Backdrop('img/5_background/layers/3_third_layer/1.png', 1440),
+      new Backdrop('img/5_background/layers/2_second_layer/1.png', 1440),
+      new Backdrop('img/5_background/layers/1_first_layer/1.png', 1440),
+      new Backdrop('img/5_background/layers/3_third_layer/2.png', 2160),
+      new Backdrop('img/5_background/layers/2_second_layer/2.png', 2160),
+      new Backdrop('img/5_background/layers/1_first_layer/2.png', 2160),
+      new Backdrop('img/5_background/layers/3_third_layer/1.png', 2880),
+      new Backdrop('img/5_background/layers/2_second_layer/1.png', 2880),
+      new Backdrop('img/5_background/layers/1_first_layer/1.png', 2880),
+      new Backdrop('img/5_background/layers/3_third_layer/2.png', 3600),
+      new Backdrop('img/5_background/layers/2_second_layer/2.png', 3600),
+      new Backdrop('img/5_background/layers/1_first_layer/2.png', 3600),
+      new Backdrop('img/5_background/layers/3_third_layer/1.png', 4320),
+      new Backdrop('img/5_background/layers/2_second_layer/1.png', 4320),
+      new Backdrop('img/5_background/layers/1_first_layer/1.png', 4320),
      ],
 
      [
@@ -80,13 +83,6 @@ const level1 = new Level(
 
      
     
-     
-
-
-     
-
-     
-
-
 
 )
+}

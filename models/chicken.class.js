@@ -18,15 +18,9 @@ class Chicken extends MovableObject {
     this.x = x;
     this.animateChicken();
     this.ifEnemyIsDead();
-
-    this.chicken_Sound = new Audio("audio/chicken_1.mp3");
-    this.chicken_Sound2 = new Audio("audio/chicken_2.mp3");
-
-    this.chicken_Sound.volume = 0.01;
-    this.chicken_Sound2.volume = 0.01;
-
-    allSounds.push(this.chicken_Sound, this.chicken_Sound2);
+   
   }
+
 
   animateChicken() {
     let randomSpeed = 0.4 + Math.random() * 0.8;
@@ -34,7 +28,7 @@ class Chicken extends MovableObject {
     this.moveInterval = setInterval(() => {
       if (this.ChickenHealth > 0) {
         this.x -= randomSpeed;
-        if (this.x < -200) {
+        if (this.x < -300) {
           this.x = 4400;
         }
       }

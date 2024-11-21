@@ -36,7 +36,7 @@ function initializeGame() {
   let titleImg = document.getElementById("title-img");
   titleImg.classList.add("display-None");
   canvas = document.getElementById("canvas");
-
+  initLevel();
   world = new World(canvas, keyboard);
 }
 
@@ -51,6 +51,9 @@ function startGame() {
   optionContainer.classList.add("display-None");
 }
 
-function restartGame() {
+
+
+/* function restartGame() {
   window.location.reload();
 }
+ */

@@ -35,13 +35,14 @@ direction;
         this.loadImages(this. images_Bottle_onGround);
         this.playAnimation(this.images_Bottle);
         this.direction = direction
-        this.bottleBreakSound = new Audio("audio/bottle-breaking.mp3");
-        this.bottleBreakSound.volume = 0.1;
         this.x = x;
         this.y = y;
-       
+    
         this.animateBottle();
+       
     }
+
+  
 
     animateBottle(){
         setInterval(()=> {
@@ -70,7 +71,7 @@ direction;
     
     breakBottle() {
         clearInterval(this.rotateInterval);    
-        this.bottleBreakSound.play();
+     
        setInterval(()=>{
         this.playAnimation(this.images_Bottle_Splash);
        },200)

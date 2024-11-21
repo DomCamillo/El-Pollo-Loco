@@ -61,6 +61,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.imagesBossAttacking);
     this.loadImages(this.imagesBossHurt);
     this.loadImages(this.imagesBossDead);
+    this.manageBossSounds();
     this.x = 4000; 
     this.y = 70;
     this.animateBoss();
@@ -68,6 +69,13 @@ class Endboss extends MovableObject {
     this.character = character;
     this.maxHealth = 100;
     this.health = this.maxHealth;
+    this.bossChickenSound = new Audio("audio/chicken-honk.mp3")
+    this.bossChickenCry = new Audio("audio/chicken-single-alarm-call-6056.mp3")
+    this.bossChickenPassiv = new Audio("audio/chicken_1.mp3")
+    this.bossChickenSound.volume = 0.2;
+    this.bossChickenPassiv.volume = 0.1;
+    this.bossChickenCry.volume = 0.1;
+    allSounds.push(this.bossChickenSound, this.bossChickenCry, this.bossChickenPassiv);
   }
 
   animateBoss() {
@@ -92,13 +100,25 @@ class Endboss extends MovableObject {
       this.moveBossLeftAndRight();
       if (this.health <= 0) {
         this.bossState = "dead";
-        this.Endboss.remove();
       } else if (this.checkIfCharacterIsNear() && !this.hasBeenHit) {
         this.bossState = "alert";
       } else if (this.bossState !== "hurt" && this.hasBeenHit) {
         this.bossState = "attacking";
       }
     }, 100);
+  }
+
+  manageBossSounds(){
+    if(this.bossState = "alert"){
+      setInterval(()=>{
+        this.bossChickenCry.play();
+      },5000)
+    } else if (this.bossState = "walking"){
+      setTimeout(()=>{
+        this.bossChickenPassiv.play();
+      },2200)
+      
+    }
   }
 
   moveBossLeftAndRight() {
@@ -125,6 +145,7 @@ class Endboss extends MovableObject {
 
   checkIfCharacterIsNear() {
     if (this.character.x > 3850) {
+     
       return true;
     }
   }
@@ -134,6 +155,7 @@ class Endboss extends MovableObject {
     let smallChickenInstance = new smallChicken(this.x, this.y);
     smallChickenInstance.throwAsProjectile(direction);
     world.throwableChicken.push(smallChickenInstance);
+    this.bossChickenSound.play();
   }
 
   throwInterval() {
