@@ -1,5 +1,5 @@
 class Backdrop extends MovableObject {
-  width = 721;
+  width = 720;
   height = 500;
 
   constructor(imagePath, x) {

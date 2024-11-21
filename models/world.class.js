@@ -155,15 +155,15 @@ class World {
     this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
         if (this.character.isAbove(enemy)) {
-          console.log("pepe springt auf gegner"); // above ground funktiuon stimmt wahrscheinlich nicht.
+          
           enemy.isAlreadyDead = true;
           enemy.enemyHitDetection();
           this.enemyDeadSound.play();
           enemy.ChickenHealth -= 1;
-          this.enemyDefeated(enemy, index);
           this.character.jumpAfterStomp();
+          this.enemyDefeated(enemy);
         } else {
-          console.log("pepe colldidiert");
+       
           this.hurtSound.play();
           this.character.hitDetection();
           this.healthBar.setPercentage(this.character.health);
@@ -172,10 +172,16 @@ class World {
     });
   }
 
-  enemyDefeated(enemy, index) {
-    setTimeout(()=>{
-      this.level.enemies.splice(index, 1);
-    },500)
+  enemyDefeated(enemy) {
+    console.log('enemy get removed');
+  setTimeout(() => {
+    const enemyIndex = this.level.enemies.indexOf(enemy); 
+    if (enemyIndex !== -1) {
+      this.level.enemies.splice(enemyIndex, 1); 
+    }
+  }, 500);
+      
+    
  
    
   }
@@ -319,7 +325,7 @@ class World {
       this.bottleBar.x = this.character.x - 100;
       this.bottleBar.y = +70;
       this.bossBar.x = this.endBoss.x;
-    }, 100);
+    }, 1000/60);
   }
 
   addObjectsToMap(objects) {
