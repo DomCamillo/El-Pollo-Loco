@@ -87,6 +87,7 @@ class Endboss extends MovableObject {
       } else if (this.bossState === "hurt") {
         this.playAnimation(this.imagesBossHurt);
       } else if (this.bossState === "dead") {
+        this.health = 0;
         this.playAnimation(this.imagesBossDead);
       } else if (this.bossState === "attacking") {
         this.playAnimation(this.imagesBossAttacking);
@@ -108,6 +109,7 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
+ 
   manageBossSounds(){
     if(this.bossState = "alert"){
       setInterval(()=>{

@@ -10,6 +10,7 @@ class World {
   throwableObjects = [new Bottle()];
   endBoss = new Endboss(this.character, this);
   intervalId;
+  lastThrowTime = 0;
 
   bottleBar = new statusBarBottles();
   healthBar = new StatusbarHealth();
@@ -114,6 +115,27 @@ class World {
     }
   }
 
+  
+
+  setWorld() {
+    this.character.world = this;
+  }
+
+  run() {
+    this.intervalId = setInterval(() => {
+      this.CheckGameOver();
+      this.checkCollision();
+      this.checkthrowables();
+      this.checkCollisionCoin();
+      this.checkCollisionBottles();
+      this.checkEnemyHit();
+      this.checkCollisionBoss();
+      this.checkBossHit();
+    }, 100);
+  }
+
+
+
   CheckGameOver() {
     let winScreen = document.getElementById("youWin-screen");
     let loseScreen = document.getElementById("youLose-screen");
@@ -133,44 +155,25 @@ class World {
       }, 500);
     }
   }
-
-  setWorld() {
-    this.character.world = this;
-  }
-
-  run() {
-    this.intervalId = setInterval(() => {
-      this.checkCollision();
-      this.checkthrowables();
-      this.checkCollisionCoin();
-      this.checkCollisionBottles();
-      this.checkEnemyHit();
-      this.checkCollisionBoss();
-      this.checkBossHit();
-      this.CheckGameOver();
-    }, 200);
-  }
-
-  checkCollision() {
-    this.level.enemies.forEach((enemy, index) => {
-      if (this.character.isColliding(enemy)) {
-        if (this.character.isAbove(enemy)) {
-          
-          enemy.isAlreadyDead = true;
-          enemy.enemyHitDetection();
-          this.enemyDeadSound.play();
-          enemy.ChickenHealth -= 1;
-          this.character.jumpAfterStomp();
-          this.enemyDefeated(enemy);
-        } else {
-       
-          this.hurtSound.play();
-          this.character.hitDetection();
-          this.healthBar.setPercentage(this.character.health);
-        }
+  
+ checkCollision() {
+  this.level.enemies.forEach((enemy, index) => {
+    if (this.character.isColliding(enemy)) {
+      if (this.character.isAbove(enemy)) {
+        enemy.isAlreadyDead = true;
+        enemy.enemyHitDetection();
+        this.enemyDeadSound.play();
+        enemy.ChickenHealth -= 1;
+        this.character.jumpAfterStomp();
+        this.enemyDefeated(enemy);
+      } else {
+        this.hurtSound.play();
+        this.character.hitDetection();
+        this.healthBar.setPercentage(this.character.health);
       }
-    });
-  }
+    }
+  });
+}
 
   enemyDefeated(enemy) {
     console.log('enemy get removed');
@@ -274,9 +277,10 @@ class World {
       }
     });
   }
-
+   
   checkthrowables() {
-    if (this.keyboard.F && this.bottleBar.collectedBottles.length > 0) {
+    const currentTime = Date.now(); 
+    if (this.keyboard.F && this.bottleBar.collectedBottles.length > 0 && (currentTime - this.lastThrowTime) >= 250) {
       let direction = this.character.otherDirection ? -1 : 1;
       let bottle = new Bottle(
         this.character.x + 40 * direction + 10,
@@ -288,6 +292,7 @@ class World {
       bottle.throw();
       this.bottleThrowSound.play();
       this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
+      this.lastThrowTime = currentTime;
     }
   }
 

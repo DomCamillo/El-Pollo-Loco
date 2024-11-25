@@ -44,9 +44,7 @@ canvas {
   );
 }
 
-.canvasContainer {
 
-}
 .canvasFiller {
   max-height: 720px;
   max-width: 420px;
@@ -248,7 +246,7 @@ canvas {
   width: 720px;
   background: linear-gradient(to left, rgb(167, 100, 45), rgb(247, 192, 72));
   position: fixed;
-  bottom: 605px;
+  bottom: 560px;
   color: rgb(2, 2, 2);
   font-family: "marlboro";
   text-align: center;
@@ -267,7 +265,7 @@ canvas {
   width: 720px;
   background: linear-gradient(to right, rgb(167, 100, 45), rgb(247, 192, 72));
   position: fixed;
-  bottom: 605px;
+  bottom: 560px;
   font-size: 20px;
   font-family: "marlboro";
 }
@@ -280,7 +278,7 @@ canvas {
   width: 720px;
   background: linear-gradient(to left, rgb(167, 100, 45), rgb(247, 192, 72));
   position: fixed;
-  bottom: 605px;
+  bottom: 560px;
   font-family: "marlboro";
 }
 
