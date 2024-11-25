@@ -175,13 +175,17 @@ jumpAfterStomp() {
       }
     }, 1000 / 60);
 
+    setInterval(()=>{
+
+    },300)
+
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.imagesDead);
         return;}
       if (this.isHurt()) {
         this.playAnimation(this.imagesHurt);
-      } else if (this.isAboveGround()) {
+      } if (this.isAboveGround()) {
         this.playAnimation(this.imagesJump);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.images);
