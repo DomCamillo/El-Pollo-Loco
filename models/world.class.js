@@ -131,6 +131,7 @@ class World {
       this.checkEnemyHit();
       this.checkCollisionBoss();
       this.checkBossHit();
+      world.character.updateFallingState();
     }, 100);
   }
 
@@ -156,24 +157,24 @@ class World {
     }
   }
   
- checkCollision() {
-  this.level.enemies.forEach((enemy, index) => {
-    if (this.character.isColliding(enemy)) {
-      if (this.character.isAbove(enemy)) {
-        enemy.isAlreadyDead = true;
-        enemy.enemyHitDetection();
-        this.enemyDeadSound.play();
-        enemy.ChickenHealth -= 1;
-        this.character.jumpAfterStomp();
-        this.enemyDefeated(enemy);
-      } else {
-        this.hurtSound.play();
-        this.character.hitDetection();
-        this.healthBar.setPercentage(this.character.health);
+  checkCollision() {
+    this.level.enemies.forEach((enemy, index) => {
+      if (this.character.isColliding(enemy)) {
+        if (this.character.isAbove(enemy) && this.character.isFalling) {
+          enemy.isAlreadyDead = true;
+          enemy.enemyHitDetection();
+          this.enemyDeadSound.play();
+          enemy.ChickenHealth -= 1;
+          this.character.jumpAfterStomp();
+          this.enemyDefeated(enemy);
+        } else {
+          this.hurtSound.play();
+          this.character.hitDetection();
+          this.healthBar.setPercentage(this.character.health);
+        }
       }
-    }
-  });
-}
+    });
+  }
 
   enemyDefeated(enemy) {
     console.log('enemy get removed');

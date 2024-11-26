@@ -3,8 +3,10 @@ let world;
 let keyboard = new Keyboard();
 let isMuted = false;
 allSounds = []; // array für alle sounds
+let gameIsStarted = false;
 
 function init() {
+  gameIsStarted = true;
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
@@ -16,8 +18,9 @@ function callRestartGame() {
 }
 
 
-
 function mutePage() {
+ if(gameIsStarted){
+  
   let muteIMG = document.getElementById("mute-img");
   isMuted = muteIMG.src.includes("volume-off-solid_.png");
   muteIMG.src = isMuted
@@ -30,6 +33,8 @@ function mutePage() {
       sound.muted = isMuted;
     }
   });
+ }
+
 }
 
 document.addEventListener("keydown", (e) => {

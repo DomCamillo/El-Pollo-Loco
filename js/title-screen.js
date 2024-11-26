@@ -33,6 +33,7 @@ function closePage() {
 }
 
 function initializeGame() {
+  gameIsStarted = true;
   let titleImg = document.getElementById("title-img");
   titleImg.classList.add("display-None");
   canvas = document.getElementById("canvas");

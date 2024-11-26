@@ -100,13 +100,23 @@ class Character extends MovableObject {
     this.jumping_sound = new Audio("audio/jump.mp3");
     this.jumping_sound.volume = 0.1;
     allSounds.push(this.jumping_sound, this.walking_sound);
+    this.y = 0;
+    this.previousY = 0; 
+    this.isFalling = false; 
   }
+
+
+  updateFallingState() {
+    this.isFalling = this.y > this.previousY;
+    this.previousY = this.y;
+  }
+  
   
   isAbove(enemy) {
     return (
-      this.y + this.height < enemy.y + enemy.height  &&
+      this.y + this.height < enemy.y + enemy.height &&
       this.y + this.height > enemy.y &&
-      Math.abs(this.x - enemy.x)
+      Math.abs(this.x - enemy.x) < enemy.width 
     );
   }
   
