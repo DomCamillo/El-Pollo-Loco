@@ -111,7 +111,7 @@ class Endboss extends MovableObject {
 
  
   manageBossSounds(){
-    if(this.bossState = "alert"){
+    if(this.bossState === "alert"){
       setInterval(()=>{
         this.bossChickenCry.play();
       },5000)
@@ -146,7 +146,7 @@ class Endboss extends MovableObject {
   }
 
   checkIfCharacterIsNear() {
-    if (this.character.x > 3850) {
+    if (this.character.x > 3900) {
      
       return true;
     }

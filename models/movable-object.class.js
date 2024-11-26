@@ -6,14 +6,15 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   ChickenHealth = 1;
 
-  isColliding(mo) {
+
+  isColliding(mo, offsetX = 10, offsetY = 10) {
     return (
-      this.x < mo.x + mo.width &&
-      this.x + this.width > mo.x &&
-      this.y < mo.y + mo.height &&
-      this.y + this.height > mo.y
+      this.x + offsetX < mo.x + mo.width - offsetX &&
+      this.x + this.width - offsetX > mo.x + offsetX &&
+      this.y + offsetY < mo.y + mo.height - offsetY &&
+      this.y + this.height - offsetY > mo.y + offsetY
     );
-  }
+}
 
   ifEnemyIsDead() {
     if (this.ChickenHealth <= 0) {

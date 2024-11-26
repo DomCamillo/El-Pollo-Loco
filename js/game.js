@@ -17,6 +17,29 @@ function callRestartGame() {
   }
 }
 
+function backToTitleScreen() {
+  gameIsStarted = false;
+  isMuted = false;
+  if (world) {
+    cancelAnimationFrame(world.animationFrameId);
+    world.clearAllIntervals();
+    world.clearAllTimeouts();
+    world.stopAllSounds();
+    world = null;
+  }
+  let canvas = document.getElementById("canvas");
+  let ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  let titleImg = document.getElementById("title-img");
+  titleImg.classList.remove("display-None");
+
+  let backToTitleBtn = document.getElementById("back-to-title-btn");
+  backToTitleBtn.classList.add("display-None");
+  document.getElementById("btn").disabled = false; 
+  applyMuteStatus();
+}
+
 
 function mutePage() {
  if(gameIsStarted){
@@ -35,6 +58,21 @@ function mutePage() {
   });
  }
 
+}
+
+
+function applyMuteStatus() {
+  allSounds.forEach((sound) => {
+    if (sound instanceof Audio) {
+      sound.muted = isMuted; 
+    }
+  });
+
+
+  let muteIMG = document.getElementById("mute-img");
+  muteIMG.src = isMuted
+    ? "img/my_images/volume-off-solid_.png"
+    : "img/my_images/volume-up-solid_.png";
 }
 
 document.addEventListener("keydown", (e) => {

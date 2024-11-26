@@ -39,18 +39,24 @@ function initializeGame() {
   canvas = document.getElementById("canvas");
   initLevel();
   world = new World(canvas, keyboard);
+  applyMuteStatus();
 }
 
 function startGame() {
   initializeGame();
-  let optionContainer = document.getElementById("option-container");
-  let storyContainer = document.getElementById("story-container");
-  let legalContainer = document.getElementById("legal-container");
   document.getElementById("btn").disabled = true;
-  legalContainer.classList.add("display-None");
+ /*  let optionContainer = document.getElementById("option-container");
+  let storyContainer = document.getElementById("story-container");
+  let legalContainer = document.getElementById("legal-container"); */
+  let backToTitleBtn = document.getElementById("back-to-title-btn");
+  
+  /* legalContainer.classList.add("display-None");
   storyContainer.classList.add("display-None");
-  optionContainer.classList.add("display-None");
+  optionContainer.classList.add("display-None"); */
+  backToTitleBtn.classList.remove("display-None");
 }
+
+
 
 
 
