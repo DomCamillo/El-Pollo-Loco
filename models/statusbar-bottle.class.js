@@ -25,7 +25,7 @@ class statusBarBottles extends StatusbarHealth {
   }
 
   resolveImageIndex() {
-    if (this.numberOfBottles == 10) {
+    if (this.numberOfBottles >= 10) {
       return 5;
     } else if (this.numberOfBottles > 8) {
       return 4;

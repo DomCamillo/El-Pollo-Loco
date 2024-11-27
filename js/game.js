@@ -38,6 +38,14 @@ function backToTitleScreen() {
   backToTitleBtn.classList.add("display-None");
   document.getElementById("btn").disabled = false; 
   applyMuteStatus();
+  resetEndScreen();
+}
+
+function resetEndScreen() {
+  let winScreen = document.getElementById("youWin-screen");
+  let loseScreen = document.getElementById("youLose-screen");
+  loseScreen.classList.add("display-None");
+  winScreen.classList.add("display-None");
 }
 
 

@@ -2,12 +2,13 @@ class Character extends MovableObject {
   height = 300;
   width = 200;
   x = 0;
-  y = 30;
+  y = 20;
   speed = 5;
   runSpeed = 5.2;
   jumpHeight = 30;
   isRunning = false;
   isMoving = false;
+  health = 100;
 
   MobileRightBTN = document.getElementById("right-BTN");
   MobileLeftBTN = document.getElementById("left-BTN");
@@ -60,6 +61,10 @@ class Character extends MovableObject {
     "img/2_character_pepe/5_dead/D-57.png",
   ];
 
+  imagesStanding = [
+    "img/2_character_pepe/1_idle/idle/I-1.png",
+  ];
+
   imagesIdle = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
     "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -99,15 +104,31 @@ class Character extends MovableObject {
     this.jumping_sound = new Audio("audio/jump.mp3");
     this.jumping_sound.volume = 0.1;
     allSounds.push(this.jumping_sound, this.walking_sound);
-    this.y = 0;
+    this.y = 142;
     this.previousY = 0;
     this.isFalling = false;
     this.currentAnimation = 0;
+    
+  }
+
+  jump() {
+    this.speedY = 25;
+    this.jumping_sound.play();
   }
 
   updateFallingState() {
     this.isFalling = this.y > this.previousY;
     this.previousY = this.y;
+  }
+
+  CheckYaxis() {
+    return this.y < 140;
+  }
+
+  addHeightAfterJump() {
+    if (this.CheckYaxis()) {
+      this.y = 142;
+    }
   }
 
   isAbove(enemy) {
@@ -120,6 +141,7 @@ class Character extends MovableObject {
 
   jumpAfterStomp() {
     this.speedY = +10;
+    this.playAnimation(this.imagesJump);
   }
 
   checkRunning() {
@@ -131,29 +153,38 @@ class Character extends MovableObject {
   }
 
   animateCharacter() {
-    this.checkCharacterIntervals();
-    this.checkCharacterAimation();
+    this.checkCharacterAimation();  
+    this.checkCharacterIntervals();  
     setInterval(() => {
-      this.handleCharacterWalking();
-      this.checkCharacterJumping();
-      this.handleCharacterRunning();
-      this.world.camera_x = -this.x + 100;
-    }, 1000 / 60);
+        /* if (!this.isMoving && !this.isJumping && !this.isCharacterAboveGround()) {
+            this.playStandingAnimation(); // Nur Standanimation, wenn der Charakter nicht bewegt
+        } */
+        this.handleCharacterWalking();  // Gehbewegung aktivieren
+        this.checkCharacterJumping();  // Sprunganimation prüfen
+        this.handleCharacterRunning(); // Laufanimation prüfen
+        this.world.camera_x = -this.x + 100; // Kamera folgt dem Charakter
+    }, 1000 / 60); // 60 Mal pro Sekunde
+}
+
+p/* layStandingAnimation() {
+  if (!this.isMoving && !this.isJumping && !this.isCharacterAboveGround()) {
+      this.playAnimation(this.imagesStanding); // Nur abspielen, wenn der Charakter steht
   }
+} */
 
   handleCharacterWalking() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end) {
-      this.moveRight();
-      this.walking_sound.play();
-      this.isMoving = true;
+        this.moveRight();
+        this.walking_sound.play();
+        this.isMoving = true;
+    } else if (this.world.keyboard.LEFT && this.x > -610) {
+        this.moveLeft();
+        this.walking_sound.play();
+        this.isMoving = true;
+    } else {
+        this.isMoving = false; 
     }
-    if (this.world.keyboard.LEFT && this.x > -610) {
-      this.moveLeft();
-      this.walking_sound.play();
-      this.isMoving = true;
-    }
-  }
-
+}
   handleCharacterRunning() {
     if (
       this.world.keyboard.SHIFT &&
@@ -173,79 +204,79 @@ class Character extends MovableObject {
       this.isRunning = true;
     }
   }
+
+  isCharacterAboveGround() {
+    return this.y < this.groundLevel;
+  }
+
   checkCharacterJumping() {
-    if (this.world.keyboard.SPACE && !this.isCharacterAboveGround() && !this.isJumping) {
-        this.isJumping = true; 
-        this.jumping_sound.play(); 
-        this.jump(); 
-        this.playJumpAnimationOnce(); 
+    if (
+      this.world.keyboard.SPACE &&
+      !this.isCharacterAboveGround() &&
+      !this.isJumping
+    ) {
+      this.isJumping = true;
+      this.jumping_sound.play();
+      this.jump();
+      this.playJumpAnimationOnce();
     }
     if (!this.isCharacterAboveGround()) {
-        this.isJumping = false; 
+      this.isJumping = false;
     }
-}
+  }
 
-isCharacterAboveGround() {
-  return this.y < this.groundLevel; 
-}
-
-  /* checkCharacterJumping() {
-    if (this.y < 120) {
-      this.walking_sound.pause();
-    }
-    if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-      this.jump();
-    }
-    
-  } */
-
-    playJumpAnimationOnce() {
-      const animationDuration = this.imagesJump.length * 100; 
-      this.playAnimation(this.imagesJump); 
-  
-      setTimeout(() => {
-          this.isJumping = false; 
-          this.currentAnimation = null; 
-      }, animationDuration);
+  playJumpAnimationOnce() {
+    let currentIndex = 0;
+    const jumpInterval = setInterval(() => {
+      if (currentIndex < this.imagesJump.length) {
+        this.img = this.imageCache[this.imagesJump[currentIndex]];
+        currentIndex++;
+      } else {
+        clearInterval(jumpInterval);
+        currentIndex = 0;
+        this.isJumping = false;
+      }
+    }, 150);
   }
 
   checkCharacterIntervals() {
-    let idleTimeout = null;
+    let idleTimeout = null; 
     setInterval(() => {
-      if (!this.isMoving) {
-        if (!idleTimeout) {
-          idleTimeout = setTimeout(() => {
-            this.playAnimation(this.imagesIdle);
+        if (!this.isMoving && !this.isJumping && !this.isCharacterAboveGround() && !this.isDead()) {
+            if (!idleTimeout) {
+                idleTimeout = setTimeout(() => {
+                    this.playAnimation(this.imagesIdle); 
+                    idleTimeout = null; 
+                }, 2000); 
+            }
+        } else {
+            clearTimeout(idleTimeout);
             idleTimeout = null;
-          }, 3000);
         }
-      } else {
-        clearTimeout(idleTimeout);
-        idleTimeout = null;
-      }
-    }, 1000 / 60);
-  }
-
-  checkCharacterAimation() {
-    setInterval(() => {
-      if (this.isDead()) {
-        this.playAnimation(this.imagesDead);
-        return;
-      }
-      if (this.isHurt()) {
-        this.playAnimation(this.imagesHurt);
-      } else if (this.isAboveGround()) {
-        this.playAnimation(this.imagesJump);
-      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        this.playAnimation(this.images);
-      } else if (
-        this.world.keyboard.SHIFT &&
-        (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
-      ) {
-        this.isRunning = true;
-        this.playAnimation(this.imagesRunning);
-      }
-    }, 120);
-  }
+    }, 1000 / 60); 
 }
 
+checkCharacterAimation() {
+  setInterval(() => {
+      if (this.isDead()) {
+          this.playAnimation(this.imagesDead);
+          return;
+      }
+      if (this.isHurt()) {
+          this.playAnimation(this.imagesHurt);
+          return;
+      }
+      if (this.isJumping || this.isCharacterAboveGround()) {
+          return; 
+      }
+      if (this.isMoving) {
+          if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+              this.playAnimation(this.images); 
+          } else if (this.world.keyboard.SHIFT && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
+              this.isRunning = true;
+              this.playAnimation(this.imagesRunning); 
+          }
+      }
+  }, 120);
+}
+}

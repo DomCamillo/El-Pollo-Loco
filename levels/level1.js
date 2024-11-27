@@ -3,11 +3,11 @@ let level1;
 function initLevel() {
   level1 = new Level(
     [
-      new smallChicken(1000),
-
+     
+      new Chicken(1200),
       new smallChicken(1500),
 
-      new Chicken(1500),
+      new Chicken(1900),
       new Chicken(2600), // enemies
       new Chicken(3000),
       new Chicken(3700), // enemies
@@ -78,15 +78,15 @@ function initLevel() {
 
     [
       new Coin(900, 200),
-      new Coin(1050, 140),
+      new Coin(1050, 150),
       new Coin(1200, 200),
 
       new Coin(2100, 200),
-      new Coin(2350, 140),
+      new Coin(2350, 150),
       new Coin(2500, 200),
 
       new Coin(3200, 200),
-      new Coin(3450, 140),
+      new Coin(3450, 150),
       new Coin(3550, 200),
 
       new Coin(3800, 200),

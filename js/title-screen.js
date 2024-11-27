@@ -39,8 +39,9 @@ function initializeGame() {
   canvas = document.getElementById("canvas");
   initLevel();
   world = new World(canvas, keyboard);
-  applyMuteStatus();
 }
+
+
 
 function startGame() {
   initializeGame();

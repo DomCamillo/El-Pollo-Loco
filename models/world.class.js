@@ -128,8 +128,17 @@ class World {
       this.checkEnemyHit();
       this.checkCollisionBoss();
       this.checkBossHit();
+      this.disableRestartBTN();
       world.character.updateFallingState();
     }, 100);
+  }
+
+  disableRestartBTN() {
+    let restartBTN = document.getElementById("restart-btn");
+    restartBTN.disabled = true;
+    if (this.character.health <= 0 || this.endBoss.health <= 0) {
+      restartBTN.disabled = false;
+    }
   }
 
   CheckGameOver() {
@@ -162,7 +171,7 @@ class World {
           enemy.ChickenHealth -= 1;
           this.character.jumpAfterStomp();
           this.enemyDefeated(enemy);
-        }else if (!(this.character.isAbove(enemy) && this.character.isFalling)) {
+        } else if (!this.character.isAbove(enemy)) {
           this.hurtSound.play();
           this.character.hitDetection();
           this.healthBar.setPercentage(this.character.health);
@@ -172,7 +181,6 @@ class World {
   }
 
   enemyDefeated(enemy) {
-    console.log("enemy get removed");
     setTimeout(() => {
       const enemyIndex = this.level.enemies.indexOf(enemy);
       if (enemyIndex !== -1) {
@@ -197,12 +205,12 @@ class World {
 
   checkBossHit() {
     this.throwableObjects.forEach((bottle, bottleIndex) => {
-      if (bottle.isColliding(this.endBoss)) {
+      if (bottle.isColliding(this.endBoss, 40, 40)) {
         setTimeout(() => {
           this.throwableObjects.splice(bottleIndex, 1);
         }, 310);
         this.endBoss.registerHit();
-        this.endBoss.health -= 10;
+        this.endBoss.health -= 5;
         this.bottleBreakSound.play();
         bottle.breakBottle();
         this.bossBar.setPercentage(this.endBoss.health);
@@ -244,8 +252,8 @@ class World {
   }
 
   checkCollisionCoin() {
-    this.level.Coin.forEach((coin, index ) => {
-      if (this.character.isColliding(coin,40 ,40)) {
+    this.level.Coin.forEach((coin, index) => {
+      if (this.character.isColliding(coin, 40, 40)) {
         this.coinBar.collectedCoins.push(coin); // Verwende `coinBar` statt `StatusbarCoin`
         this.coinBar.setCoinStats(this.coinBar.collectedCoins.length);
         this.collectingCoinSound.play();
@@ -261,7 +269,7 @@ class World {
 
   checkCollisionBottles() {
     this.level.Bottle.forEach((bottle, index) => {
-      if (this.character.isColliding(bottle,40 ,40)) {
+      if (this.character.isColliding(bottle, 40, 40)) {
         this.bottleBar.collectedBottles.push(bottle);
         this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
         this.collectingBottlesSound.play();

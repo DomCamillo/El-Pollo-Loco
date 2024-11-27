@@ -1,7 +1,7 @@
 class Endboss extends MovableObject {
   height = 400;
   width = 400;
-  health = 100;
+  health = 200;
 
   isCharacterNear = false;
   walking = 10;
