@@ -99,6 +99,7 @@ class Character extends MovableObject {
     this.loadImages(this.imagesJump);
     this.loadImages(this.imagesDead);
     this.animateCharacter();
+    this.SetIdleIntervall();
     this.groundLevel = 120;
     this.walking_sound = new Audio("audio/mc-grass-walking.mp3");
     this.jumping_sound = new Audio("audio/jump.mp3");
@@ -152,25 +153,24 @@ class Character extends MovableObject {
     }
   }
 
+  SetIdleIntervall(){
+    setInterval(() => {
+      this.checkIfCharacterIsIdle();  
+    }, 200);
+  }
+
   animateCharacter() {
     this.checkCharacterAimation();  
-    this.checkCharacterIntervals();  
     setInterval(() => {
-        /* if (!this.isMoving && !this.isJumping && !this.isCharacterAboveGround()) {
-            this.playStandingAnimation(); // Nur Standanimation, wenn der Charakter nicht bewegt
-        } */
-        this.handleCharacterWalking();  // Gehbewegung aktivieren
-        this.checkCharacterJumping();  // Sprunganimation prüfen
-        this.handleCharacterRunning(); // Laufanimation prüfen
-        this.world.camera_x = -this.x + 100; // Kamera folgt dem Charakter
-    }, 1000 / 60); // 60 Mal pro Sekunde
+      
+        this.handleCharacterWalking();  
+        this.handleCharacterJumping();  
+        this.handleCharacterRunning(); 
+        this.world.camera_x = -this.x + 100; 
+    }, 1000 / 60);
 }
 
-p/* layStandingAnimation() {
-  if (!this.isMoving && !this.isJumping && !this.isCharacterAboveGround()) {
-      this.playAnimation(this.imagesStanding); // Nur abspielen, wenn der Charakter steht
-  }
-} */
+
 
   handleCharacterWalking() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end) {
@@ -209,21 +209,21 @@ p/* layStandingAnimation() {
     return this.y < this.groundLevel;
   }
 
-  checkCharacterJumping() {
-    if (
-      this.world.keyboard.SPACE &&
-      !this.isCharacterAboveGround() &&
-      !this.isJumping
-    ) {
-      this.isJumping = true;
-      this.jumping_sound.play();
-      this.jump();
-      this.playJumpAnimationOnce();
+  handleCharacterJumping() {
+    if (this.world.keyboard.SPACE && !this.isCharacterAboveGround() && !this.isJumping) {
+      this.isJumping = true; 
+      this.jumping_sound.play(); 
+      this.jump(); 
+      this.playJumpAnimationOnce(); 
+    }
+    if (!this.isCharacterAboveGround() && !this.isJumping) {
+      this.addHeightAfterJump(); 
     }
     if (!this.isCharacterAboveGround()) {
-      this.isJumping = false;
+      this.isJumping = false; 
     }
   }
+
 
   playJumpAnimationOnce() {
     let currentIndex = 0;
@@ -239,21 +239,38 @@ p/* layStandingAnimation() {
     }, 150);
   }
 
-  checkCharacterIntervals() {
-    let idleTimeout = null; 
-    setInterval(() => {
-        if (!this.isMoving && !this.isJumping && !this.isCharacterAboveGround() && !this.isDead()) {
-            if (!idleTimeout) {
-                idleTimeout = setTimeout(() => {
-                    this.playAnimation(this.imagesIdle); 
-                    idleTimeout = null; 
-                }, 2000); 
-            }
-        } else {
-            clearTimeout(idleTimeout);
-            idleTimeout = null;
+  idleTimeout = null; 
+  idleAnimationInterval = null; 
+  checkIfCharacterIsIdle() {
+    if (!this.isMoving && !this.isJumping && !this.isCharacterAboveGround() && !this.isDead()) {
+        if (!this.idleTimeout) { 
+            this.idleTimeout = setTimeout(() => {
+                this.startIdleAnimation(); 
+                this.idleTimeout = null; 
+            }, 2000); 
         }
-    }, 1000 / 60); 
+    } else {
+        if (this.idleTimeout) {
+            clearTimeout(this.idleTimeout); 
+            this.idleTimeout = null;
+        }
+        this.stopIdleAnimation(); 
+    }
+}
+
+startIdleAnimation() {
+  if (!this.idleAnimationInterval) { 
+      this.idleAnimationInterval = setInterval(() => {
+          this.playAnimation(this.imagesIdle); 
+      }, 200); 
+  }
+}
+
+stopIdleAnimation() {
+  if (this.idleAnimationInterval) {
+      clearInterval(this.idleAnimationInterval); // Laufendes Interval stoppen
+      this.idleAnimationInterval = null;
+  }
 }
 
 checkCharacterAimation() {
