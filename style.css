@@ -117,12 +117,13 @@ canvas {
   overflow: hidden; 
 }
 
+
 .turnDevice {
   position: fixed; 
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: none; 
   color: white;
   background-color: rgba(0, 0, 0, 1); 
@@ -177,7 +178,7 @@ canvas {
   height: 80px;
   display: none;
   justify-content: space-around;
-
+  width: 100%;
   align-items: flex-start;
 }
 
@@ -185,6 +186,8 @@ canvas {
 .jumpBTN,
 .leftBTN,
 .throwBTN {
+  display: flex;
+  justify-content: center;
   font-family: "quentin";
   width: 120px;
   font-size: 26px;
@@ -398,14 +401,15 @@ canvas {
   .controlButtonSection {
     display: flex;
   }
+  
 }
 
 @media screen and (orientation: portrait) and (max-width: 730px) {
   .turnDevice {
     z-index: 900000;
     display: flex;
-    min-width: 150vw;
-    min-height: 150vh;
+    width: 151vw;
+    height: 152vh;
     overflow: hidden;
   }
 
@@ -502,14 +506,15 @@ canvas {
     z-index: 2;
     position: absolute;
     top: 400px;
-    left: 80px;
+   /*  left: 80px; */
+
   }
 
   .startButtonSection{
     display: flex;
     z-index: 2;
     position: absolute;
-    top: -20px;
+    top: 10px;
     left: 240px;
   }
 
@@ -554,7 +559,7 @@ canvas {
     z-index: 2;
     position: absolute;
     top: 385px;
-    left: 80px;
+   /*  left: 80px; */
   }
 
   .muteContainer{
@@ -596,7 +601,7 @@ canvas {
     z-index: 2;
     position: absolute;
     top: 380px;
-    left: 80px;
+    /* left: 80px; */
   }
  
 
@@ -645,7 +650,7 @@ canvas {
     z-index: 2;
     position: absolute;
     top: 360px;
-    left: 80px;
+    /* left: 80px; */
   }
 
   .startButtonSection{
@@ -669,6 +674,8 @@ canvas {
   .turnDevice {
     z-index: 900000;
     display: flex;
+    min-width: 150vw;
+    min-height: 160vw;
   }
 }
 
@@ -685,7 +692,7 @@ canvas {
     z-index: 2;
     position: absolute;
     top: 330px;
-    left: 80px;
+    
   }
 }
 
@@ -743,12 +750,17 @@ canvas {
     position: absolute;
     top: 345px;
     width: 650px;
-    left: 10px;
+    
   }
 
     .titleScreen{
       border: none;
     }
 
+   
+
+}
+@media(max-width: 344px) and (max-height: 882px) and (orientation: portrait){
+  
 }
 
