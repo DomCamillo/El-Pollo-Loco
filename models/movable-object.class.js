@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
   acceleration = 1.5;
   health = 100;
   lastHit = 0;
+  isInvincible = false;
   ChickenHealth = 1;
 
 
@@ -26,13 +27,22 @@ class MovableObject extends DrawableObject {
   }
 
   hitDetection() {
-    this.health -= 5;
-    if (this.health < 0) {
-      this.health = 0;
-    } else {
-      this.lastHit = new Date().getTime();
+    if (!this.isInvincible) {
+        this.health -= 10;
+        if (this.health < 0) {
+            this.health = 0;
+        }
+        this.lastHit = new Date().getTime();
+        this.setInvincibility(); 
     }
-  }
+}
+
+setInvincibility() {
+  this.isInvincible = true; 
+  setTimeout(() => {
+      this.isInvincible = false;
+  }, 2000);
+}
 
   enemyHitDetection() {
     this.ChickenHealth -= 5;
@@ -54,7 +64,7 @@ class MovableObject extends DrawableObject {
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
-    return timepassed < 0.5;
+    return timepassed < 0.75;
   }
 
   applyGravity() {

@@ -2,13 +2,14 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let isMuted = false;
-allSounds = []; // array für alle sounds
+allSounds = [];     // array für alle sounds
 let gameIsStarted = false;
 
 function init() {
   gameIsStarted = true;
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
+  
 }
 
 function callRestartGame() {
@@ -37,6 +38,8 @@ function backToTitleScreen() {
   let backToTitleBtn = document.getElementById("back-to-title-btn");
   backToTitleBtn.classList.add("display-None");
   document.getElementById("btn").disabled = false; 
+  let mute = document.getElementById('muteCon')
+  mute.classList.add('display-None')
   applyMuteStatus();
   resetEndScreen();
 }
@@ -49,39 +52,51 @@ function resetEndScreen() {
 }
 
 
-function mutePage() {
- if(gameIsStarted){
-  
-  let muteIMG = document.getElementById("mute-img");
-  isMuted = muteIMG.src.includes("volume-off-solid_.png");
-  muteIMG.src = isMuted
-    ? "img/my_images/volume-up-solid_.png"
-    : "img/my_images/volume-off-solid_.png";
 
-  isMuted = !isMuted;
+function mutePage() {
+  if (gameIsStarted) {
+    let muteIMG = document.getElementById("mute-img");
+    isMuted = muteIMG.src.includes("volume-off-solid_.png");
+    muteIMG.src = isMuted
+      ? "img/my_images/volume-up-solid_.png"
+      : "img/my_images/volume-off-solid_.png";
+
+    isMuted = !isMuted;
+
+    allSounds.forEach((sound) => {
+      if (sound instanceof Audio) {
+        sound.muted = isMuted;
+      }
+    });
+
+    localStorage.setItem("isMuted", isMuted);
+  }
+}
+
+function applyMuteStatus() {
   allSounds.forEach((sound) => {
     if (sound instanceof Audio) {
       sound.muted = isMuted;
     }
   });
- }
-
-}
-
-
-function applyMuteStatus() {
-  allSounds.forEach((sound) => {
-    if (sound instanceof Audio) {
-      sound.muted = isMuted; 
-    }
-  });
-
 
   let muteIMG = document.getElementById("mute-img");
   muteIMG.src = isMuted
     ? "img/my_images/volume-off-solid_.png"
     : "img/my_images/volume-up-solid_.png";
 }
+
+
+
+window.onload = function () {
+  const storedMuteStatus = localStorage.getItem("isMuted");
+  isMuted = storedMuteStatus === "true";
+  applyMuteStatus(); 
+};
+
+ 
+
+
 
 document.addEventListener("keydown", (e) => {
   if (e.keyCode == 68) {

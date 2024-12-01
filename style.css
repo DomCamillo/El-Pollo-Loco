@@ -21,11 +21,13 @@
 
 body {
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
   margin: 0;
+  padding: 0;
   background-image: url("img/my_images/desert2.webp");
   background-size: cover;
   background-position: center;
@@ -36,67 +38,108 @@ body {
 }
 
 canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
 
   background-image: linear-gradient(
     rgb(10, 173, 238),
     rgb(209, 145, 103),
-    rgba(221, 224, 43, 0.849)
-  );
-}
-
-
-.canvasFiller {
-  max-height: 720px;
-  max-width: 420px;
+    rgba(221, 224, 43, 0.849) );
 }
 
 .titleScreen {
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
-  margin-bottom: 100px !important;
   height: 900px;
   width: 720px;
   background-image: url("img/my_images/cowboytitlescreen.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  z-index: 999;
+  z-index: 9;
   border-radius: 5px;
   border: solid 2px rgb(153, 95, 9);
 }
 
+.titleImg  .Endscreen{
+  z-index: 10 !important;
+  position: absolute; 
+  top: 0;
+  left: 0;
+}
+
 .titleImg {
-  height: 480px;
+  min-height: 480px;
   max-width: 720px;
 }
 
-.turnDevice {
-  min-height: 200%;
-  min-width: 200%;
-  display: none;
-  color: white;
-  background-color: rgb(0, 0, 0);
-  z-index: 9999;
-  justify-content: center;
-  font-size: 30px;
-  /* overflow: hidden; */
+.Endscreen{
+  /* max-height: 590px; */
+  /* max-width: 100vw; */
+  overflow: hidden;
 }
 
-.turnDeviceText {
-  margin-top: 300px;
-  margin-left: 170px;
+.headline{
+
 }
 
-.Endscreen {
-  height: 480px;
-  width: 720px;
+
+.muteContainer {
+  width: 80px;
+  height: 80px;
+  z-index: 20; 
+  position: absolute;
+  top: 10px; 
+  right: 10px; 
 }
+
+.muteButton {
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+}
+
 
 .title-endScreenImgContainer{
   max-width: 100vw;
-  position: fixed;
-  top: 273px;
+  max-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 480px; 
+  width: 720px; 
+  overflow: hidden; 
 }
+
+.turnDevice {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none; 
+  color: white;
+  background-color: rgba(0, 0, 0, 1); 
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  overflow: hidden; 
+  text-align: center; 
+}
+
+.turnDeviceText {
+ 
+}
+
+
+
 
 .display-None {
   display: none !important;
@@ -108,20 +151,7 @@ canvas {
 .backgroundImg {
   z-index: -1;
 }
-.muteContainer {
-  width: 80px;
-  z-index: 9;
-  
-  position: relative ;
-  top: 50px;
-  left: 620px;
-}
 
-.muteButton {
-  height: 35px;
-  width: 35px;
-  cursor: pointer;
-}
 
 .backButton {
   font-weight: 800;
@@ -156,7 +186,7 @@ canvas {
 .leftBTN,
 .throwBTN {
   font-family: "quentin";
-  width: 150px;
+  width: 120px;
   font-size: 26px;
   background-color: rgba(240, 248, 255, 0);
   border: none;
@@ -339,6 +369,11 @@ canvas {
   color: transparent;
 }
 
+
+@media(max-width: 1080px) and (min-width: 1100px) {
+
+}
+
 @media only screen and (max-width: 720px) {
   canvas {
     max-height: 100vh;
@@ -369,33 +404,54 @@ canvas {
   .turnDevice {
     z-index: 900000;
     display: flex;
-    min-width: 210vw;
+    min-width: 150vw;
+    min-height: 150vh;
+    overflow: hidden;
   }
 
   
 }
+
+@media(max-height:600px ) {
+  .title{
+    display: none;
+  }
+
+ 
+
+  .titleScreen{
+    margin-top: 10px;
+  }
+
+  .startButtonSection{
+    margin: 0px;
+    
+  }
+
+  .controlButtonSection{
+    height: 20px;
+    display: none;
+  }
+
+  .startButton, .restartButton{
+    height: 38px;
+    
+  }
+
+}
+
 
 @media (max-width: 1000px) and (orientation: landscape) {
   .titleScreen {
     background-image: none;
     margin: 0px;
     flex-direction: column;
-    height: 30px !important;
     position: absolute;
     top: 00px;
   }
 
 
-  .title {
-    display: none !important;
-  }
 
-  .title-endScreenImgContainer {
-    max-height: 430px !important;
-    max-width: 720px;
-    position: absolute;
-    top: 0px;
-  }
 
   .Canvasfiller {
     justify-content: center;
@@ -424,9 +480,9 @@ canvas {
     top: -216px;
   }
 
-  .title{
+ /*  .title{
     display: none;
-  }
+  } */
 
 }
 
@@ -436,7 +492,10 @@ canvas {
 /*iphone 14*/
 @media(max-width: 932px) and (max-height: 430px) and (orientation: landscape){
 
-
+  .menueButtonSection{
+    display: none;
+  }
+  
 
   .controlButtonSection{
     display: flex;
@@ -506,6 +565,10 @@ canvas {
     min-width: 80vw;
    
   }
+  .menueButtonSection{
+    display: none;
+  }
+  
 
 
 }
@@ -516,9 +579,7 @@ canvas {
 
 
 @media(max-width: 1200px){
-  .title{
-    margin: 0px;
-  }
+ 
 }
 
 
@@ -526,7 +587,7 @@ canvas {
 /*Iphone XR*/
 @media(max-width: 896px) and (max-height: 414px) and (orientation: landscape){
   .titleImg{
-    height: 108vh;
+    height: 100vh;
     min-width: 80vw;
    
   }
@@ -543,7 +604,7 @@ canvas {
     display: flex;
     z-index: 2;
     position: absolute;
-    top: -20px;
+    top: 10px;
     left: 240px;
   }
 
@@ -567,6 +628,10 @@ canvas {
   .muteContainer{
     top: 10px;
   }
+  .menueButtonSection{
+    display: none;
+  }
+  
 
 
 }
@@ -583,6 +648,17 @@ canvas {
     left: 80px;
   }
 
+  .startButtonSection{
+    display: flex;
+    z-index: 2;
+    position: absolute;
+    top: 10px;
+    left: 240px;
+  }
+
+  .menueButtonSection{
+    display: none;
+  }
   
 
 
@@ -619,33 +695,40 @@ canvas {
 
 /*Iphone SE*/
 @media(max-width: 667px) and (max-height: 375px) and (orientation: landscape){
-  canvas{
-    min-width: 104vw;
-    min-height: 105vh;
-    position: absolute;
-    left: 27px;
-    top: 0px;
-    padding: 0px;
-    
+ 
+
+  .startButtonSection {
+    top: 5px;
+    left: 50%; 
+    transform: translateX(-50%); 
   }
 
-  .title-endScreenImgContainer{
-    width: 100vw !important;
-    height: 100vh !important;
-   
+  body{
+    display: block;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .canvas{
+   min-width: 108vw !important;
+  }
+
+  
+  .title-endScreenImgContainer {
+    max-height: 100vh !important;
+    max-width: 100vw;
+    position: absolute;
+    top: 0px;
+  }
+
+  .titleScreen{
+    width: 100vw;
+    height: 100vh;
   }
 
   .titleImg{
-    height: 105vh;
-    min-width: 108vw;
-  }
-
-  .startButtonSection{
-    display: flex;
-    z-index: 2;
-    position: absolute;
-    top: -20px;
-    left: 240px;
+    height: 667px;
+    
   }
 
   .startButton, .restartButton{
@@ -655,10 +738,12 @@ canvas {
 
   .controlButtonSection{
     display: flex;
+    justify-content: space-between;
     z-index: 2;
     position: absolute;
-    top: 360px !important;
-    left: 80px;
+    top: 345px;
+    width: 650px;
+    left: 10px;
   }
 
     .titleScreen{

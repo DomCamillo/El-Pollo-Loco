@@ -23,6 +23,10 @@ function openLegal() {
   optionContainer.classList.add("display-None");
 }
 
+
+
+
+
 function closePage() {
   let optionContainer = document.getElementById("option-container");
   let storyContainer = document.getElementById("story-container");
@@ -39,6 +43,8 @@ function initializeGame() {
   canvas = document.getElementById("canvas");
   initLevel();
   world = new World(canvas, keyboard);
+  let mute = document.getElementById('muteCon')
+  mute.classList.remove('display-None')
 }
 
 
@@ -46,14 +52,7 @@ function initializeGame() {
 function startGame() {
   initializeGame();
   document.getElementById("btn").disabled = true;
- /*  let optionContainer = document.getElementById("option-container");
-  let storyContainer = document.getElementById("story-container");
-  let legalContainer = document.getElementById("legal-container"); */
   let backToTitleBtn = document.getElementById("back-to-title-btn");
-  
-  /* legalContainer.classList.add("display-None");
-  storyContainer.classList.add("display-None");
-  optionContainer.classList.add("display-None"); */
   backToTitleBtn.classList.remove("display-None");
 }
 
@@ -61,7 +60,3 @@ function startGame() {
 
 
 
-/* function restartGame() {
-  window.location.reload();
-}
- */

@@ -31,42 +31,48 @@
     
     
 <script>
+    
  
 </script>
     
 </head>
-<body> 
+<body > 
    
-    <div class="turnDevice "><p class="turnDeviceText">PLEASE TURN YOUR DEVICE</p></div>
+
+
+
+
+
+
+   
+    <div class="turnDevice ">
+        <p class="turnDeviceText">PLEASE TURN YOUR DEVICE</p>
+    </div>
 
     <div class="titleScreen" id="title-screen">
   
-    <h1 class="title">El Pollo Loco</h1>
-    <div class="muteContainer">
+  <div class="headLine"><h1 class="title">El Pollo Loco</h1>
+
+   </div> 
+
+
+   <div class="title-endScreenImgContainer"> 
+    <div id="muteCon" class="muteContainer display-None">
         <img onclick="mutePage()" class="muteButton" id="mute-img" src="img/my_images/volume-up-solid_.png" alt="">
         <img class="muteButton" onclick="callRestartGame()" src="img/my_images/replay.png" alt="">
-    </div>
-
-   
-    <div class="canvasContainer Canvasfiller "> 
-        <canvas  id="canvas" width="720" height="480">
-        </canvas class="canvas" >
-        </div> 
-    
-   <div class="title-endScreenImgContainer"> 
+     </div>
     <img id="title-img" class="titleImg" src="img/9_intro_outro_screens/start/startscreen_1.png" alt="">
+    <canvas  id="canvas" width="720" height="480"> </canvas class="canvas" >
     <img id="youWin-screen" class="Endscreen display-None" src="img/9_intro_outro_screens/win/won_2.png" alt="">
     <img id="youLose-screen" class="Endscreen display-None" src="img/9_intro_outro_screens/game_over/game over.png" alt="">
    </div>
 
-    <div class="controlButtonSection">
-
-        <button id="left-BTN" class="leftBTN" ontouchstart="keyboard.LEFT = true" ontouchend="keyboard.LEFT = false">Left</button>
-        <button id="jump-BTN" class="jumpBTN" ontouchstart="keyboard.SPACE = true" ontouchend="keyboard.SPACE = false">Jump</button>
-        <button id="throw-BTN" class="throwBTN" ontouchstart="keyboard.F = true" ontouchend="keyboard.F = false">Throw</button>
-        <button id="right-BTN" class="rightBTN" ontouchstart="keyboard.RIGHT = true" ontouchend="keyboard.RIGHT = false">Right</button>
-
-    </div>
+   <div class="controlButtonSection">
+    <button id="left-BTN" class="leftBTN" ontouchstart="keyboard.LEFT = true" ontouchend="keyboard.LEFT = false" oncontextmenu="return false;">Left</button>
+    <button id="jump-BTN" class="jumpBTN" ontouchstart="keyboard.SPACE = true" ontouchend="keyboard.SPACE = false" oncontextmenu="return false;">Jump</button>
+    <button id="throw-BTN" class="throwBTN" ontouchstart="keyboard.F = true" ontouchend="keyboard.F = false" oncontextmenu="return false;">Throw</button>
+    <button id="right-BTN" class="rightBTN" ontouchstart="keyboard.RIGHT = true" ontouchend="keyboard.RIGHT = false" oncontextmenu="return false;">Right</button>
+ </div>
 
     <div class="startButtonSection">
         <button id="btn" onclick="startGame()" class="startButton"> Start </button>

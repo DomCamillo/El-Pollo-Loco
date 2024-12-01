@@ -141,7 +141,7 @@ class Endboss extends MovableObject {
       this.hurtTimeoutID = setTimeout(() => {
         this.bossState = "attacking";
         this.hurtTimeoutID = null;
-      }, 1500);
+      }, 1000);
     }
   }
 
@@ -164,7 +164,7 @@ class Endboss extends MovableObject {
     if (!this.throwIntervalID) {
       this.throwIntervalID = setInterval(() => {
         this.throwSmallChicken();
-      }, 3000);
+      }, 2000);
     }
   }
 }

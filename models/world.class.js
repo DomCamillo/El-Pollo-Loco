@@ -39,6 +39,16 @@ class World {
     this.hurtSound = new Audio("audio/hurt.mp3");
     this.extraLifeSound = new Audio("audio/extra-live.mp3");
     this.enemyDeadSound = new Audio("audio/enemie-dead-sound.mp3");
+    this.bottleBreakSound = new Audio("audio/bottle-breaking.mp3");
+    this.pushSoundsToArray();
+    this.manageSoundVolume();
+    applyMuteStatus();
+
+  }
+
+
+
+   manageSoundVolume(){
     this.enemyDeadSound.volume = 0.2;
     this.extraLifeSound.volume = 0.2;
     this.hurtSound.volume = 0.2;
@@ -47,11 +57,9 @@ class World {
     this.backGroundMusic.volume = 0.05;
     this.collectingCoinSound.volume = 0.2;
     this.collectingBottlesSound.volume = 0.1;
-    this.backGroundMusic.play();
     this.bottleThrowSound.volume = 0.1;
-    this.bottleBreakSound = new Audio("audio/bottle-breaking.mp3");
     this.bottleBreakSound.volume = 0.1;
-    this.pushSoundsToArray();
+    this.backGroundMusic.play();
   }
 
   pushSoundsToArray() {
@@ -121,7 +129,7 @@ class World {
   run() {
     this.intervalId = setInterval(() => {
       this.CheckGameOver();
-      this.checkCollision();
+      this.checkCollisionWithEnemy();
       this.checkthrowables();
       this.checkCollisionCoin();
       this.checkCollisionBottles();
@@ -132,6 +140,9 @@ class World {
       world.character.updateFallingState();
     }, 100);
   }
+  /**
+   * 
+   */
 
   disableRestartBTN() {
     let restartBTN = document.getElementById("restart-btn");
@@ -161,21 +172,21 @@ class World {
     }
   }
 
-  checkCollision() {
+  checkCollisionWithEnemy() {
     this.level.enemies.forEach((enemy, index) => {
-      if (this.character.isColliding(enemy, 10, 10)) {
-        if (this.character.isAbove(enemy) && this.character.isFalling) {
-          enemy.isAlreadyDead = true;
-          enemy.enemyHitDetection();
-          this.enemyDeadSound.play();
-          enemy.ChickenHealth -= 1;
-          this.character.jumpAfterStomp();
-          this.enemyDefeated(enemy);
-        } else if (!this.character.isAbove(enemy)) {
-          this.hurtSound.play();
-          this.character.hitDetection();
-          this.healthBar.setPercentage(this.character.health);
-        }
+    if (this.character.isColliding(enemy, 10, 10)) {
+    if (this.character.isAbove(enemy) && this.character.isFalling) {
+       enemy.isAlreadyDead = true;
+       enemy.enemyHitDetection();
+       this.enemyDeadSound.play();
+       enemy.ChickenHealth -= 1;
+       this.character.jumpAfterStomp();
+       this.enemyDefeated(enemy);
+    } else if (!this.character.isAbove(enemy)) {
+       this.hurtSound.play();
+       this.character.hitDetection();
+       this.healthBar.setPercentage(this.character.health);
+       }
       }
     });
   }
@@ -297,6 +308,11 @@ class World {
       this.bottleThrowSound.play();
       this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
       this.lastThrowTime = currentTime;
+       // Charakter wird für kurze Zeit als aktiv markiert
+       this.character.isThrowingBottle = true;
+       setTimeout(() => {
+           this.character.isThrowingBottle = false;
+       }, 300); // Nach 300 ms wird der Zustand zurückgesetzt
     }
   }
 
