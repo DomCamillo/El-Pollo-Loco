@@ -1,4 +1,7 @@
 let level1;
+/**
+ * adds speciffic elements on speciffic coordinates 
+ */
 
 function initLevel() {
   level1 = new Level(

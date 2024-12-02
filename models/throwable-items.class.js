@@ -44,7 +44,9 @@ class Bottle extends MovableObject {
       this.playAnimation(this.images_Bottle_onGround);
     }, 500);
   }
-
+/**
+ * handles bottle throw 
+ */
   throw() {
     this.speedY = 20;
     this.speedX = 15 * this.direction;
@@ -60,6 +62,10 @@ class Bottle extends MovableObject {
     }, 25);
   }
 
+  /**
+   * handles the bottle break
+   */
+
   breakBottle() {
     clearInterval(this.rotateInterval);
 
@@ -74,6 +80,9 @@ class Bottle extends MovableObject {
       this.x -= this.speedX;
     }, 25);
   }
+  /**
+   * rotate the bottle in a throw 
+   */
 
   rotateBottle() {
     this.rotationInterval = setInterval(() => {

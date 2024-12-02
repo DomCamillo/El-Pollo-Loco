@@ -1,3 +1,8 @@
+
+/**
+ * functions to toggle ui elements like options and story 
+ */
+
 function openStory() {
   let legalContainer = document.getElementById("legal-container");
   let optionContainer = document.getElementById("option-container");
@@ -36,7 +41,12 @@ function closePage() {
   optionContainer.classList.add("display-None");
 }
 
+/**
+ * helper function to restart the game 
+ */
+
 function initializeGame() {
+  world = null;
   gameIsStarted = true;
   let titleImg = document.getElementById("title-img");
   titleImg.classList.add("display-None");
@@ -47,7 +57,9 @@ function initializeGame() {
   mute.classList.remove('display-None')
 }
 
-
+/**
+ * starts the game 
+ */
 
 function startGame() {
   initializeGame();

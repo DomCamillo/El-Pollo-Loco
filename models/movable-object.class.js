@@ -7,7 +7,13 @@ class MovableObject extends DrawableObject {
   isInvincible = false;
   ChickenHealth = 1;
 
-
+/**
+ * 
+ * @param {*} mo 
+ * @param {*} offsetX 
+ * @param {*} offsetY 
+ * @returns checks if 2 objects are colliding and returns true or false
+ */
   isColliding(mo, offsetX = 10, offsetY = 10) {
     return (
       this.x + offsetX < mo.x + mo.width - offsetX &&
@@ -16,6 +22,10 @@ class MovableObject extends DrawableObject {
       this.y + this.height - offsetY > mo.y + offsetY
     );
 }
+/**
+ * checks if an ememy is dead 
+ * @returns ture false 
+ */
 
   ifEnemyIsDead() {
     if (this.ChickenHealth <= 0) {
@@ -25,6 +35,9 @@ class MovableObject extends DrawableObject {
     }
     return false;
   }
+  /**
+   * handles the hit detection on the character and removes health 
+   */
 
   hitDetection() {
     if (!this.isInvincible) {
@@ -36,6 +49,9 @@ class MovableObject extends DrawableObject {
         this.setInvincibility(); 
     }
 }
+/**
+ * checks if the character got hit and makes him invincible for 2 seconds 
+ */
 
 setInvincibility() {
   this.isInvincible = true; 
@@ -43,6 +59,10 @@ setInvincibility() {
       this.isInvincible = false;
   }, 2000);
 }
+
+/**
+ * checks if a enemy got hit 
+ */
 
   enemyHitDetection() {
     this.ChickenHealth -= 5;
@@ -60,12 +80,20 @@ setInvincibility() {
   isBossDead() {
     return this.level.endboss.health == 0;
   }
+  /**
+   * A helper function for playing the hurt animtion on the character 
+   * @returns 
+   */
 
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
     return timepassed < 0.75;
   }
+
+  /**
+   * Helper function used for applaying gravity 
+   */
 
   applyGravity() {
     setInterval(() => {
@@ -76,6 +104,10 @@ setInvincibility() {
     }, 1000 / 25);
   }
 
+  /**
+   * checks if the bottle is above ground 
+   * @returns 
+   */
   isAboveGround() {
     if (this instanceof Bottle) {
       return true;
@@ -83,6 +115,11 @@ setInvincibility() {
       return this.y < 130;
     }
   }
+  /**
+   * function playAnimation handles all the animation in the game 
+   * takes a array as argument and plays the images after oneother 
+   * @param {array} images 
+   */
 
   playAnimation(images) {
     let i = this.currentImage % images.length; // let i = 0 % 6
@@ -91,11 +128,18 @@ setInvincibility() {
     this.currentImage++;
   }
 
+  /**
+   * helper function for playing an enemy animations
+   * @param {images} arr 
+   */
+
   playEnemieAnimation(arr) {
     this.currentImage = (this.currentImage + 1) % arr.length;
     this.loadImage(arr[this.currentImage]);
   }
-
+  /**
+   * move the clouds from left to right 
+   */
   animateClouds() {
     setInterval(() => {
       this.x -= this.CloudSpeed;
@@ -104,6 +148,10 @@ setInvincibility() {
       }
     }, 50);
   }
+
+  /**
+   * this function handles the movement of objects 
+   */
 
   moveLeft() {
     this.x -= this.speed;

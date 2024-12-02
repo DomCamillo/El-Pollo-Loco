@@ -28,6 +28,9 @@ class World {
     this.getAudio();
     this.animationFrameId = null;
   }
+  /** 
+   * saves all the sounds in variables 
+  */
 
   getAudio() {
     this.collectingCoinSound = new Audio("audio/collect-coin.mp3");
@@ -46,7 +49,9 @@ class World {
 
   }
 
-
+/**
+ * manageSoundVolume() sets the volume of all sounds in the game
+ */
 
    manageSoundVolume(){
     this.enemyDeadSound.volume = 0.2;
@@ -61,6 +66,9 @@ class World {
     this.bottleBreakSound.volume = 0.1;
     this.backGroundMusic.play();
   }
+  /**
+   * pushes all the sounds into a array to mute it when the button is pressd 
+   */
 
   pushSoundsToArray() {
     allSounds.push(
@@ -77,6 +85,10 @@ class World {
       this.bottleBreakSound
     );
   }
+/**
+ * stops all sounds when the world has been set 
+ * and the sounds loaded in 
+ */
 
   stopAllSounds() {
     this.backGroundMusic.pause();
@@ -90,6 +102,10 @@ class World {
     }
     this.allSounds = [];
   }
+   /**
+    * the restartGame() function handles the restart of game
+    * delets the old world and sets an new one 
+    */
 
   restartGame() {
     cancelAnimationFrame(world.animationFrameId);
@@ -109,6 +125,9 @@ class World {
     loseScreen.classList.add("display-None");
     winScreen.classList.add("display-None");
   }
+  /**
+   * this 2 functions clear all the timouts and intervals 
+   */
 
   clearAllIntervals() {
     for (let i = 1; i < 9999; i++) {
@@ -125,6 +144,10 @@ class World {
   setWorld() {
     this.character.world = this;
   }
+  /**
+   * The run() function is a central control function of the game.
+   *  It is invoked at regular time intervals (every 100 milliseconds) and performs various checks to control gameplay
+   */
 
   run() {
     this.intervalId = setInterval(() => {
@@ -140,37 +163,54 @@ class World {
       world.character.updateFallingState();
     }, 100);
   }
-  /**
-   * 
-   */
+/**
+ * disables the restart button until the game is over 
+ */
 
   disableRestartBTN() {
     let restartBTN = document.getElementById("restart-btn");
     restartBTN.disabled = true;
+    restartBTN.classList.add('display-None')
     if (this.character.health <= 0 || this.endBoss.health <= 0) {
       restartBTN.disabled = false;
+      restartBTN.classList.remove('display-None')
+    }
+  }
+  /**
+   * CheckGameOver() is resposible for handling the game over screen if the chacarter or the boss is defetead 
+   */
+ 
+  CheckGameOver() {
+    if (this.character.health == 0) {
+      this.displayLoseScreen();
+    } else if (this.endBoss.health == 0) {
+      this.displayWinScreen();
     }
   }
 
-  CheckGameOver() {
-    let winScreen = document.getElementById("youWin-screen");
-    let loseScreen = document.getElementById("youLose-screen");
-    if (this.character.health == 0) {
-      setTimeout(() => {
-        loseScreen.classList.remove("display-None");
-        this.clearAllIntervals();
-        this.backGroundMusic.pause();
-        this.loseSound.play();
-      }, 500);
-    } else if (this.endBoss.health == 0) {
-      setTimeout(() => {
-        winScreen.classList.remove("display-None");
+      displayWinScreen(){
+        let winScreen = document.getElementById("youWin-screen");
+        setTimeout(() => {
+          winScreen.classList.remove("display-None");
         this.clearAllIntervals();
         this.backGroundMusic.pause();
         this.winSound.play();
-      }, 500);
-    }
-  }
+        }, 500);
+      }
+
+      displayLoseScreen(){
+        let loseScreen = document.getElementById("youLose-screen");
+        setTimeout(() => {
+          loseScreen.classList.remove("display-None");
+          this.clearAllIntervals();
+          this.backGroundMusic.pause();
+          this.loseSound.play();
+        }, 500);
+      }
+  /**
+   * checkCollisionWithEnemy()
+   * checks if character has collided with an enemy, and if the character has jumped on a enemy 
+   */
 
   checkCollisionWithEnemy() {
     this.level.enemies.forEach((enemy, index) => {
@@ -186,9 +226,7 @@ class World {
        this.hurtSound.play();
        this.character.hitDetection();
        this.healthBar.setPercentage(this.character.health);
-       }
-      }
-    });
+       }} });
   }
 
   enemyDefeated(enemy) {
@@ -199,6 +237,9 @@ class World {
       }
     }, 500);
   }
+  /**
+   * checks if boss has hit the character 
+   */
 
   checkCollisionBoss() {
     if (this.character.isColliding(this.endBoss)) {
@@ -210,10 +251,11 @@ class World {
       if (this.character.isColliding(chicken)) {
         this.character.hitDetection();
         this.healthBar.setPercentage(this.character.health);
-      }
-    });
-  }
-
+      }});
+    }
+/**
+ *  checkBossHit() check if boss was hit with a bottle
+ */
   checkBossHit() {
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       if (bottle.isColliding(this.endBoss, 40, 40)) {
@@ -225,9 +267,11 @@ class World {
         this.bottleBreakSound.play();
         bottle.breakBottle();
         this.bossBar.setPercentage(this.endBoss.health);
-      }
-    });
-  }
+      }});
+    }
+ /**
+  *checkEnemyHit() checks if an enemy got hit by a bottle
+  */
 
   checkEnemyHit() {
     const deadEnemies = [];
@@ -243,11 +287,15 @@ class World {
           bottle.breakBottle();
           deadEnemies.push(enemyIndex);
           usedBottles.push(bottleIndex);
-        }
+        }});
       });
-    });
     this.removeDeadEnemies(deadEnemies, usedBottles);
   }
+  /**
+   * removes dead enemys and throwen bottles from the canvas 
+   * @param {*} deadEnemies 
+   * @param {*} usedBottles 
+   */
 
   removeDeadEnemies(deadEnemies, usedBottles) {
     usedBottles.reverse().forEach((bottleIndex) => {
@@ -262,10 +310,15 @@ class World {
     });
   }
 
+   /**
+   * checks if the character collided with a coin 
+   */
+
+
   checkCollisionCoin() {
     this.level.Coin.forEach((coin, index) => {
       if (this.character.isColliding(coin, 40, 40)) {
-        this.coinBar.collectedCoins.push(coin); // Verwende `coinBar` statt `StatusbarCoin`
+        this.coinBar.collectedCoins.push(coin);
         this.coinBar.setCoinStats(this.coinBar.collectedCoins.length);
         this.collectingCoinSound.play();
         this.level.Coin.splice(index, 1);
@@ -277,6 +330,9 @@ class World {
       }
     });
   }
+  /**
+   * checks if the character collided with a bottle 
+   */
 
   checkCollisionBottles() {
     this.level.Bottle.forEach((bottle, index) => {
@@ -289,35 +345,58 @@ class World {
     });
   }
 
+  throwBottle(){
+
+  }
+
+  /**
+   * checks if the character has any bottles to throw and hadles the keypress
+   */
   checkthrowables() {
     const currentTime = Date.now();
-    if (
+    if (this.canThrowBottle(currentTime)) {
+      this.throwBottle();
+      this.updateBottleStatus();
+    }
+  }
+  
+  canThrowBottle(currentTime) {
+    return (
       this.keyboard.F &&
       this.bottleBar.collectedBottles.length > 0 &&
       currentTime - this.lastThrowTime >= 250
-    ) {
-      let direction = this.character.otherDirection ? -1 : 1;
-      let bottle = new Bottle(
-        this.character.x + 40 * direction + 10,
-        this.character.y + 100,
-        direction
-      );
-      this.throwableObjects.push(bottle);
-      this.bottleBar.collectedBottles.pop();
-      bottle.throw();
-      this.bottleThrowSound.play();
-      this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
-      this.lastThrowTime = currentTime;
-       // Charakter wird für kurze Zeit als aktiv markiert
-       this.character.isThrowingBottle = true;
-       setTimeout(() => {
-           this.character.isThrowingBottle = false;
-       }, 300); // Nach 300 ms wird der Zustand zurückgesetzt
-    }
+    );
+  }
+  
+  throwBottle() {
+    let direction = this.character.otherDirection ? -1 : 1;
+    let bottle = new Bottle(
+      this.character.x + 40 * direction + 10,
+      this.character.y + 100,
+      direction);
+    this.throwableObjects.push(bottle);
+    this.bottleBar.collectedBottles.pop();
+    bottle.throw();
+    this.bottleThrowSound.play();
+    this.character.isThrowingBottle = true;
+    setTimeout(() => {
+      this.character.isThrowingBottle = false;
+    }, 300);
+  }
+  
+  updateBottleStatus() {
+    this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
+    this.lastThrowTime = Date.now();
   }
 
+
+  /**
+   * The draw() function is responsible for rendering the current game state in a 2D canvas element
+   * this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+   * This line clears the contents of the canvas, removing the previous frame.
+   */
+
   draw() {
-    /* this.animationFrameId = requestAnimationFrame(() => this.draw()); */
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.clouds);
@@ -335,12 +414,15 @@ class World {
     this.addObjectsToMap(this.throwableChicken);
     this.ctx.translate(-this.camera_x, 0);
     this.setStatusbar();
-
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
     });
   }
+ 
+  /**
+   * handles the postion of the statusbars 
+   */
 
   setStatusbar() {
     setInterval(() => {
@@ -352,6 +434,9 @@ class World {
       this.bossBar.x = this.endBoss.x;
     }, 1000 / 60);
   }
+  /**
+   * adds elements to the canvas
+   */
 
   addObjectsToMap(objects) {
     objects.forEach((o) => {
@@ -369,6 +454,9 @@ class World {
 
     this.ctx.restore();
   }
+  /**
+   * flips the image of a drwan object 
+   */
 
   flipImage(mo, ctx) {
     this.ctx.translate(mo.x + mo.width, 0);

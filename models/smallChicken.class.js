@@ -21,6 +21,10 @@ class smallChicken extends MovableObject {
     this.y = y || 350;
     this.animateChicken();
   }
+  /**
+   * a function that allows the small chicken to be thrown as a projectile 
+   * @param {*} direction 
+   */
 
   throwAsProjectile(direction) {
     this.speedY = 15 * Math.random() * 1;
@@ -32,6 +36,9 @@ class smallChicken extends MovableObject {
       this.y -= this.speedY;
     }, 50);
   }
+  /**
+   * animate the chicken 
+   */
 
   animateChicken() {
     let randomSpeed = 0.4 + Math.random() * 0.8;

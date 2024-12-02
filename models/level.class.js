@@ -5,7 +5,9 @@ class Level {
     Coin;
     Bottle;
     
-   
+   /** 
+    * adds different objhects to the level 
+    */
 
     level_end = 4100;
 

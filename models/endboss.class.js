@@ -1,7 +1,7 @@
 class Endboss extends MovableObject {
   height = 400;
   width = 400;
-  health = 200;
+  health = 150;
 
   isCharacterNear = false;
   walking = 10;
@@ -78,6 +78,10 @@ class Endboss extends MovableObject {
     allSounds.push(this.bossChickenSound, this.bossChickenCry, this.bossChickenPassiv);
   }
 
+  /**
+   * The feature automatically switches between different animations 
+   * to dynamically represent the boss's behavior.
+   */
   animateBoss() {
     setInterval(() => {
       if (this.bossState === "walking") {
@@ -109,7 +113,9 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
- 
+  /**
+   * plays different sounds based on the boss behavior 
+   */
   manageBossSounds(){
     if(this.bossState === "alert"){
       setInterval(()=>{
@@ -122,6 +128,9 @@ class Endboss extends MovableObject {
       
     }
   }
+  /**
+   * moves the boss from left to right in a certain area 
+   */
 
   moveBossLeftAndRight() {
     if (this.bossState === "walking") {
@@ -133,6 +142,9 @@ class Endboss extends MovableObject {
       this.x += this.direction * this.walking;
     }
   }
+  /**
+   * changes the behavior to attaking once the boss is attackt 
+   */
 
   registerHit() {
     if (!this.hurtTimeoutID) {
@@ -144,6 +156,10 @@ class Endboss extends MovableObject {
       }, 1000);
     }
   }
+  /**
+   * checks if the character is near the boss
+   * @returns true
+   */
 
   checkIfCharacterIsNear() {
     if (this.character.x > 3900) {
@@ -151,7 +167,9 @@ class Endboss extends MovableObject {
       return true;
     }
   }
-
+/**
+ * handles the throw of small chicken enemies 
+ */
   throwSmallChicken() {
     let direction = this.x > this.character.x ? -1 : 1;
     let smallChickenInstance = new smallChicken(this.x, this.y);
@@ -159,6 +177,9 @@ class Endboss extends MovableObject {
     world.throwableChicken.push(smallChickenInstance);
     this.bossChickenSound.play();
   }
+  /**
+   * handles the throw interval 
+   */
 
   throwInterval() {
     if (!this.throwIntervalID) {

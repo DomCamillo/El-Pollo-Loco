@@ -17,7 +17,11 @@ class StatusbarCoin extends StatusbarHealth {
     this.img = this.imageCache[this.imagesStatsCoin[0]];
     this.setCoinStats(this.numberOfCoins);
   }
-
+ /**
+   * These two functions work together to adjust an object's health based on a 
+   * percentage and select the appropriate image (e.g. for a status indicator like health, coins, bottles).
+   * @param {100} percentage 
+   */
   setCoinStats(numberOfCoins) {
     this.numberOfCoins = numberOfCoins;
     let path = this.imagesStatsCoin[this.resolveImageIndex()];

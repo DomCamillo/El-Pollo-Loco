@@ -20,6 +20,11 @@ class statusBarBossHealth extends DrawableObject {
     this.setPercentage(100);
     this.x = -100;
   }
+   /**
+   * These two functions work together to adjust an object's health based on a 
+   * percentage and select the appropriate image (e.g. for a status indicator like health, coins, bottles).
+   * @param {100} percentage 
+   */
 
   setPercentage(percentage) {
     this.percentage = percentage;

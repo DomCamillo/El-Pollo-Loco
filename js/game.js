@@ -2,9 +2,11 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let isMuted = false;
-allSounds = [];     // array für alle sounds
+allSounds = [];     // array for all sounds
 let gameIsStarted = false;
-
+/**
+ * creats a new world 
+ */
 function init() {
   gameIsStarted = true;
   canvas = document.getElementById("canvas");
@@ -17,6 +19,9 @@ function callRestartGame() {
       world.restartGame();
   }
 }
+/**
+ * fucntion to reset the game and go to title screen 
+ */
 
 function backToTitleScreen() {
   gameIsStarted = false;
@@ -28,20 +33,26 @@ function backToTitleScreen() {
     world.stopAllSounds();
     world = null;
   }
-  let canvas = document.getElementById("canvas");
-  let ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  let titleImg = document.getElementById("title-img");
-  titleImg.classList.remove("display-None");
-
-  let backToTitleBtn = document.getElementById("back-to-title-btn");
-  backToTitleBtn.classList.add("display-None");
-  document.getElementById("btn").disabled = false; 
-  let mute = document.getElementById('muteCon')
-  mute.classList.add('display-None')
+  resetTitlescreen();
   applyMuteStatus();
   resetEndScreen();
+}
+
+/**
+ * resets the canvas and ui elements
+ */
+
+ function resetTitlescreen(){
+  let canvas = document.getElementById("canvas");
+  let ctx = canvas.getContext("2d");
+  let titleImg = document.getElementById("title-img");
+  let mute = document.getElementById('muteCon')
+  let backToTitleBtn = document.getElementById("back-to-title-btn");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  titleImg.classList.remove("display-None");
+  backToTitleBtn.classList.add("display-None");
+  mute.classList.add('display-None')
+  document.getElementById("btn").disabled = false; 
 }
 
 function resetEndScreen() {
@@ -51,7 +62,13 @@ function resetEndScreen() {
   winScreen.classList.add("display-None");
 }
 
+ 
 
+
+/**
+ * mutes all the sounds if the icon is pressed, changes the icon 
+ * save the preset in local storage 
+ */
 
 function mutePage() {
   if (gameIsStarted) {
@@ -72,6 +89,10 @@ function mutePage() {
     localStorage.setItem("isMuted", isMuted);
   }
 }
+
+/**
+ * if the page was muted bevore it will be muted after reloding the page
+ */
 
 function applyMuteStatus() {
   allSounds.forEach((sound) => {
@@ -95,7 +116,10 @@ window.onload = function () {
 };
 
  
-
+/** 
+ * if a certain key is pressed the key will be true 
+ * used for movement of the charatcer 
+ */
 
 
 document.addEventListener("keydown", (e) => {
