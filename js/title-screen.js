@@ -2,6 +2,8 @@
 /**
  * functions to toggle ui elements like options and story 
  */
+let restartBTN = document.getElementById('restart-btn')
+
 
 function openStory() {
   let legalContainer = document.getElementById("legal-container");
@@ -46,6 +48,7 @@ function closePage() {
  */
 
 function initializeGame() {
+  
   world = null;
   gameIsStarted = true;
   let titleImg = document.getElementById("title-img");
@@ -55,6 +58,7 @@ function initializeGame() {
   world = new World(canvas, keyboard);
   let mute = document.getElementById('muteCon')
   mute.classList.remove('display-None')
+  
 }
 
 /**
@@ -63,9 +67,12 @@ function initializeGame() {
 
 function startGame() {
   initializeGame();
-  document.getElementById("btn").disabled = true;
+  let startBTN = document.getElementById('btn')
+  startBTN.classList.add('display-None')
+/*   document.getElementById("btn").disabled = true; */
   let backToTitleBtn = document.getElementById("back-to-title-btn");
   backToTitleBtn.classList.remove("display-None");
+  
 }
 
 

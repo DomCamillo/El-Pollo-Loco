@@ -100,7 +100,6 @@ class Character extends MovableObject {
     this.animateCharacter();
     this.SetIdleIntervall();
     this.groundLevel = 120;
-    
     this.walking_sound = new Audio("audio/mc-grass-walking.mp3");
     this.jumping_sound = new Audio("audio/jump.mp3");
     this.jumping_sound.volume = 0.1;
@@ -110,16 +109,16 @@ class Character extends MovableObject {
     this.isFalling = false;
     this.currentAnimation = 0;
   }
-/**
- * handles jump of the character 
- */
+  /**
+   * handles jump of the character
+   */
   jump() {
     this.speedY = 25;
     this.jumping_sound.play();
   }
   /**
-   * checks if the character is falling 
-   * to avoid hitting enemys from the ground 
+   * checks if the character is falling
+   * to avoid hitting enemys from the ground
    */
 
   updateFallingState() {
@@ -137,9 +136,9 @@ class Character extends MovableObject {
     }
   }
   /**
-   * checks if the character is above a enemy 
-   * @param {*} enemy 
-   * @returns 
+   * checks if the character is above a enemy
+   * @param {*} enemy
+   * @returns
    */
 
   isAbove(enemy) {
@@ -149,25 +148,25 @@ class Character extends MovableObject {
       Math.abs(this.x - enemy.x) < enemy.width
     );
   }
-/**
- * adds a little jump after the character jumped on a enemy 
- */
+  /**
+   * adds a little jump after the character jumped on a enemy
+   */
   jumpAfterStomp() {
     this.speedY = +10;
     this.playAnimation(this.imagesJump);
   }
 
   /**
-   * checks all 200 miliseconds if the character is idle 
+   * checks all 200 miliseconds if the character is idle
    */
 
   SetIdleIntervall() {
     setInterval(() => {
       this.checkIfCharacterIsIdle();
-    },200);
+    }, 200);
   }
   /**
-   * handles the character 
+   * handles the character
    */
 
   animateCharacter() {
@@ -180,7 +179,7 @@ class Character extends MovableObject {
     }, 1000 / 60);
   }
   /**
-   * handles the walking of the character  
+   * handles the walking of the character
    */
 
   handleCharacterWalking() {
@@ -197,53 +196,54 @@ class Character extends MovableObject {
     }
   }
   /**
-   * handles the running of the character 
+   * handles the running of the character
    */
   handleCharacterRunning() {
     if (
-      this.world.keyboard.SHIFT &&
-      this.world.keyboard.RIGHT &&
+      this.world.keyboard.SHIFT &&this.world.keyboard.RIGHT &&
       !this.isAboveGround()
     ) {
       this.runningRight();
       this.isMoving = true;
-    } if (
-      this.world.keyboard.SHIFT &&
-      this.world.keyboard.LEFT &&
+    }if (
+      this.world.keyboard.SHIFT &&this.world.keyboard.LEFT &&
       !this.isAboveGround()
     ) {
       this.runningLeft();
       this.isMoving = true;
       this.isRunning = true;
-    }
-  }
-/**
- * checks if the character is above the ground level 
- * @returns 
- */
+    }}
+  /**
+   * checks if the character is above the ground level
+   * @returns
+   */
   isCharacterAboveGround() {
     return this.y < this.groundLevel;
   }
   /**
-   * hadles jumping of the character 
+   * hadles jumping of the character
    */
 
   handleCharacterJumping() {
     if (
       this.world.keyboard.SPACE &&
       !this.isCharacterAboveGround() &&
-      !this.isJumping ) {
+      !this.isJumping
+    ) {
       this.isJumping = true;
       this.jumping_sound.play();
       this.jump();
-      this.playJumpAnimationOnce();}
+      this.playJumpAnimationOnce();
+    }
     if (!this.isCharacterAboveGround() && !this.isJumping) {
-      this.addHeightAfterJump();}
+      this.addHeightAfterJump();
+    }
     if (!this.isCharacterAboveGround()) {
-      this.isJumping = false;}
+      this.isJumping = false;
+    }
   }
   /**
-   * plays the animation only once in a jump 
+   * plays the animation only once in a jump
    */
 
   playJumpAnimationOnce() {
@@ -265,119 +265,125 @@ class Character extends MovableObject {
   isIdleAnimating = false;
 
   /**
-   * all these function below handle idle timout 
-   * checks if the character doesent move for a certin amount of time 
-   * and starts the idle animation 
+   * all these function below handle idle timout
+   * checks if the character doesent move for a certin amount of time
+   * and starts the idle animation
    */
-
 
   checkIfCharacterIsIdle() {
     if (this.shouldIdle()) {
-        this.handleIdleState();
+      this.handleIdleState();
     } else {
-        this.resetIdleState();
+      this.resetIdleState();
     }
-}
-/**
- * checks if the character should idle 
- * @returns 
- */
-shouldIdle() {
+  }
+
+  shouldIdle() {
     return (
-        !this.isMoving &&
-        !this.isJumping &&
-        !this.isCharacterAboveGround() &&
-        !this.isDead() &&
-        !this.isThrowingBottle &&
-        !this.isHurt()
+      !this.isMoving &&
+      !this.isJumping &&
+      !this.isCharacterAboveGround() &&
+      !this.isDead() &&
+      !this.isThrowingBottle &&
+      !this.isHurt()
     );
-}
+  }
 
-handleIdleState() {
+  handleIdleState() {
     if (!this.isIdleAnimating) {
-        this.loadImage(this.imageStanding[0]);
+      this.loadImage(this.imageStanding[0]);
+      this.setIdleTimeout();
     }
-    this.setIdleTimeout();
-}
+  }
 
-setIdleTimeout() {
+  setIdleTimeout() {
     if (!this.idleTimeout) {
-        this.idleTimeout = setTimeout(() => {
-            this.startIdleAnimation();
-            this.idleTimeout = null;
-        }, 4000);
-    }
-}
-
-resetIdleState() {
-    if (this.idleTimeout) {
-        clearTimeout(this.idleTimeout);
+      this.idleTimeout = setTimeout(() => {
+        this.startIdleAnimation();
         this.idleTimeout = null;
+      }, 4000);
+    }
+  }
+
+  resetIdleState() {
+    if (this.idleTimeout) {
+      clearTimeout(this.idleTimeout);
+      this.idleTimeout = null;
     }
     this.stopIdleAnimation();
-}
-
-
-/**
- * helper function for starting the idle animation 
- */
-startIdleAnimation() {
-  if (!this.idleAnimationInterval) {
-      this.isIdleAnimating = true; 
-      this.idleAnimationInterval = setInterval(() => {
-          this.playAnimation(this.imagesIdle);
-      }, 200);
   }
-}
-/**
- * helper function for stopping the idle animation 
- */
-stopIdleAnimation() {
-  if (this.idleAnimationInterval) {
+
+  /**
+   * helper function for starting the idle animation
+   */
+  startIdleAnimation() {
+    if (!this.idleAnimationInterval) {
+      this.isIdleAnimating = true;
+      this.idleAnimationInterval = setInterval(() => {
+        this.playAnimation(this.imagesIdle);
+      }, 200);
+    }
+  }
+  /**
+   * helper function for stopping the idle animation
+   */
+  stopIdleAnimation() {
+    if (this.idleAnimationInterval) {
       clearInterval(this.idleAnimationInterval);
       this.idleAnimationInterval = null;
+    }
+    this.isIdleAnimating = false;
   }
-  this.isIdleAnimating = false; 
-}
   /**
-   * plays and handles the animation based on the characters aktion 
+   * these functions  plays and handles the animation based on the characters aktion
    */
+
   checkCharacterAnimation() {
     setInterval(() => {
-      if (this.isDead()) {
-        this.handleDeathAnimation();
-      } else if (this.isHurt()) {
-        this.handleHurtAnimation();
-      } else if (this.isJumping || this.isCharacterAboveGround()) {
-        return;
-      } else {
-        this.handleMovementAnimation();
-      }
+      if (this.handleDeathAnimation()) return;
+      if (this.handleHurtAnimation()) return;
+      if (this.handleJumpAnimation()) return;
+      this.handleMovementAnimation();
     }, 120);
   }
-  
+
   handleDeathAnimation() {
-    this.playAnimation(this.imagesDead);
+    if (this.isDead()) {
+      this.playAnimation(this.imagesDead);
+      return true;
+    }
+    return false;
   }
-  
+
   handleHurtAnimation() {
-    this.playAnimation(this.imagesHurt);
+    if (this.isHurt()) {
+      this.playAnimation(this.imagesHurt);
+      return true;
+    }
+    return false;
   }
-  
+
+  handleJumpAnimation() {
+    if (this.isJumping || this.isCharacterAboveGround()) {
+      return true;
+    }
+    return false;
+  }
+
   handleMovementAnimation() {
     if (this.isMoving) {
-      if (this.isMovingHorizontally()) {
+      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.images);
-      } else if (this.checkRunning()) {
+      } else if (
+        this.world.keyboard.SHIFT &&
+        (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
+      ) {
+        this.isRunning = true;
         this.playAnimation(this.imagesRunning);
       }
     }
   }
-  
-  isMovingHorizontally() {
-    return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
-  }
-  
+
   checkRunning() {
     if (!this.isRunning) {
       setInterval(() => {

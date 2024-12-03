@@ -1,5 +1,5 @@
 class Chicken extends MovableObject {
-  y = 320;
+  y = 330;
   height = 100;
   width = 100;
   isAlreadyDead = false;
@@ -18,13 +18,17 @@ class Chicken extends MovableObject {
     this.x = x;
     this.animateChicken();
     this.ifEnemyIsDead();
-   
   }
 
 
   animateChicken() {
+    this.startMovement();
+    this.startAnimation();
+  }
+  
+  startMovement() {
     let randomSpeed = 0.4 + Math.random() * 0.8;
-
+  
     this.moveInterval = setInterval(() => {
       if (this.ChickenHealth > 0) {
         this.x -= randomSpeed;
@@ -33,7 +37,9 @@ class Chicken extends MovableObject {
         }
       }
     }, 10);
-
+  }
+  
+  startAnimation() {
     this.animationInterval = setInterval(() => {
       if (this.ChickenHealth > 0) {
         this.playEnemieAnimation(this.imagesChickenWalking);

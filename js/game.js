@@ -2,30 +2,30 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let isMuted = false;
-allSounds = [];     // array for all sounds
+allSounds = []; // array for all sounds
 let gameIsStarted = false;
+
+/* let restartBTN = document.getElementById('restart-btn') */
 /**
- * creats a new world 
+ * creats a new world
  */
 function init() {
   gameIsStarted = true;
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
-  
 }
 
 function callRestartGame() {
   if (world) {
-      world.restartGame();
+    world.restartGame();
   }
 }
 /**
- * fucntion to reset the game and go to title screen 
+ * fucntion to reset the game and go to title screen
  */
 
 function backToTitleScreen() {
   gameIsStarted = false;
-  isMuted = false;
   if (world) {
     cancelAnimationFrame(world.animationFrameId);
     world.clearAllIntervals();
@@ -33,8 +33,8 @@ function backToTitleScreen() {
     world.stopAllSounds();
     world = null;
   }
-  resetTitlescreen();
   applyMuteStatus();
+  resetTitlescreen();
   resetEndScreen();
 }
 
@@ -42,17 +42,21 @@ function backToTitleScreen() {
  * resets the canvas and ui elements
  */
 
- function resetTitlescreen(){
+function resetTitlescreen() {
+  let restartBTN = document.getElementById("restart-btn");
+  let startBTN = document.getElementById("btn");
   let canvas = document.getElementById("canvas");
   let ctx = canvas.getContext("2d");
   let titleImg = document.getElementById("title-img");
-  let mute = document.getElementById('muteCon')
+  let mute = document.getElementById("muteCon");
   let backToTitleBtn = document.getElementById("back-to-title-btn");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   titleImg.classList.remove("display-None");
+  startBTN.classList.remove("display-None");
   backToTitleBtn.classList.add("display-None");
-  mute.classList.add('display-None')
-  document.getElementById("btn").disabled = false; 
+  mute.classList.add("display-None");
+  document.getElementById("btn").disabled = false;
+  restartBTN.classList.add("display-None");
 }
 
 function resetEndScreen() {
@@ -62,12 +66,9 @@ function resetEndScreen() {
   winScreen.classList.add("display-None");
 }
 
- 
-
-
 /**
- * mutes all the sounds if the icon is pressed, changes the icon 
- * save the preset in local storage 
+ * mutes all the sounds if the icon is pressed, changes the icon
+ * save the preset in local storage
  */
 
 function mutePage() {
@@ -107,20 +108,16 @@ function applyMuteStatus() {
     : "img/my_images/volume-up-solid_.png";
 }
 
-
-
 window.onload = function () {
   const storedMuteStatus = localStorage.getItem("isMuted");
   isMuted = storedMuteStatus === "true";
-  applyMuteStatus(); 
+  applyMuteStatus();
 };
 
- 
-/** 
- * if a certain key is pressed the key will be true 
- * used for movement of the charatcer 
+/**
+ * if a certain key is pressed the key will be true
+ * used for movement of the charatcer
  */
-
 
 document.addEventListener("keydown", (e) => {
   if (e.keyCode == 68) {

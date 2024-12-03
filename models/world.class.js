@@ -17,6 +17,8 @@ class World {
 
   coinBar = new StatusbarCoin();
   bossBar = new statusBarBossHealth();
+  
+  restartBTN = document.getElementById("restart-btn");
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d"); // um den canvas zu bearbeiten
@@ -27,6 +29,7 @@ class World {
     this.run();
     this.getAudio();
     this.animationFrameId = null;
+    /* this.disableRestartBTN(); */
   }
   /** 
    * saves all the sounds in variables 
@@ -108,6 +111,8 @@ class World {
     */
 
   restartGame() {
+   
+    this.restartBTN.classList.add('display-None')
     cancelAnimationFrame(world.animationFrameId);
     this.clearAllIntervals();
     this.clearAllTimeouts();
@@ -159,23 +164,22 @@ class World {
       this.checkEnemyHit();
       this.checkCollisionBoss();
       this.checkBossHit();
-      this.disableRestartBTN();
-      world.character.updateFallingState();
+      this.character.updateFallingState();
     }, 100);
   }
 /**
  * disables the restart button until the game is over 
  */
 
-  disableRestartBTN() {
-    let restartBTN = document.getElementById("restart-btn");
-    restartBTN.disabled = true;
+  /* disableRestartBTN() {
+    restartBTN = document.getElementById("restart-btn");
+    
     restartBTN.classList.add('display-None')
     if (this.character.health <= 0 || this.endBoss.health <= 0) {
       restartBTN.disabled = false;
       restartBTN.classList.remove('display-None')
     }
-  }
+  } */
   /**
    * CheckGameOver() is resposible for handling the game over screen if the chacarter or the boss is defetead 
    */
@@ -183,13 +187,16 @@ class World {
   CheckGameOver() {
     if (this.character.health == 0) {
       this.displayLoseScreen();
+      
     } else if (this.endBoss.health == 0) {
       this.displayWinScreen();
     }
   }
 
+
       displayWinScreen(){
         let winScreen = document.getElementById("youWin-screen");
+        this.restartBTN.classList.remove('display-None')
         setTimeout(() => {
           winScreen.classList.remove("display-None");
         this.clearAllIntervals();
@@ -200,6 +207,7 @@ class World {
 
       displayLoseScreen(){
         let loseScreen = document.getElementById("youLose-screen");
+        this.restartBTN.classList.remove('display-None')
         setTimeout(() => {
           loseScreen.classList.remove("display-None");
           this.clearAllIntervals();
