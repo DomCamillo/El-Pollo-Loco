@@ -11,18 +11,18 @@ function initLevel() {
       new smallChicken(1500),
 
       new Chicken(1900),
-      new Chicken(2600), // enemies
+      new Chicken(2600), 
       new Chicken(3000),
-      new Chicken(3700), // enemies
+      new Chicken(3700), 
       new Chicken(4200),
-      new smallChicken(4400), // enemies
+      new smallChicken(4400), 
     ],
 
     [
       new Cloud(500),
-      new Cloud(1500), // clouds
+      new Cloud(1500), 
       new Cloud(3000),
-      new Cloud(4200), // clouds
+      new Cloud(4200), 
     ],
 
     [
@@ -32,7 +32,7 @@ function initLevel() {
       new Backdrop('img/5_background/layers/3_third_layer/1.png', -1),
       new Backdrop('img/5_background/layers/2_second_layer/1.png', -1),
       new Backdrop('img/5_background/layers/1_first_layer/1.png', -1),
-      new Backdrop('img/5_background/layers/3_third_layer/2.png', 719), // backdrop
+      new Backdrop('img/5_background/layers/3_third_layer/2.png', 719), 
       new Backdrop('img/5_background/layers/2_second_layer/2.png', 719),
       new Backdrop('img/5_background/layers/1_first_layer/2.png', 719),
       new Backdrop('img/5_background/layers/3_third_layer/1.png', 1439),
@@ -52,32 +52,6 @@ function initLevel() {
       new Backdrop('img/5_background/layers/1_first_layer/1.png', 4319),
     ],
 
-    /* [
-      new Backdrop("img/5_background/layers/3_third_layer/2.png", -720),
-      new Backdrop("img/5_background/layers/2_second_layer/2.png", -720),
-      new Backdrop("img/5_background/layers/1_first_layer/2.png", -720),
-      new Backdrop("img/5_background/layers/3_third_layer/1.png", 0),
-      new Backdrop("img/5_background/layers/2_second_layer/1.png", 0),
-      new Backdrop("img/5_background/layers/1_first_layer/1.png", 0),
-      new Backdrop("img/5_background/layers/3_third_layer/2.png", 720), // backdrop
-      new Backdrop("img/5_background/layers/2_second_layer/2.png", 720),
-      new Backdrop("img/5_background/layers/1_first_layer/2.png", 720),
-      new Backdrop("img/5_background/layers/3_third_layer/1.png", 1440),
-      new Backdrop("img/5_background/layers/2_second_layer/1.png", 1440),
-      new Backdrop("img/5_background/layers/1_first_layer/1.png", 1440),
-      new Backdrop("img/5_background/layers/3_third_layer/2.png", 2160),
-      new Backdrop("img/5_background/layers/2_second_layer/2.png", 2160),
-      new Backdrop("img/5_background/layers/1_first_layer/2.png", 2160),
-      new Backdrop("img/5_background/layers/3_third_layer/1.png", 2880),
-      new Backdrop("img/5_background/layers/2_second_layer/1.png", 2880),
-      new Backdrop("img/5_background/layers/1_first_layer/1.png", 2880),
-      new Backdrop("img/5_background/layers/3_third_layer/2.png", 3600),
-      new Backdrop("img/5_background/layers/2_second_layer/2.png", 3600),
-      new Backdrop("img/5_background/layers/1_first_layer/2.png", 3600),
-      new Backdrop("img/5_background/layers/3_third_layer/1.png", 4320),
-      new Backdrop("img/5_background/layers/2_second_layer/1.png", 4320),
-      new Backdrop("img/5_background/layers/1_first_layer/1.png", 4320),
-    ], */
 
     [
       new Coin(900, 200),

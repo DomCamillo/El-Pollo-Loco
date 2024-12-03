@@ -24,7 +24,6 @@ class StatusbarHealth extends DrawableObject {
    * percentage and select the appropriate image (e.g. for a status indicator like health).
    * @param {100} percentage 
    */
-
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.imagesStatsHealth[this.resolveImageIndex()];

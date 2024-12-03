@@ -1,4 +1,7 @@
 class Cloud extends MovableObject{
+    /** 
+     * class for clouds in the level
+     */
     
     y = -50;
     height = 500;

@@ -152,7 +152,6 @@ setInvincibility() {
   /**
    * this function handles the movement of objects 
    */
-
   moveLeft() {
     this.x -= this.speed;
     this.otherDirection = true;

@@ -13,6 +13,7 @@ function openStory() {
   optionContainer.classList.add("display-None");
   legalContainer.classList.add("display-None");
 }
+
 function openControls() {
   let legalContainer = document.getElementById("legal-container");
   let storyContainer = document.getElementById("story-container");
@@ -21,6 +22,7 @@ function openControls() {
   storyContainer.classList.add("display-None");
   legalContainer.classList.add("display-None");
 }
+
 function openLegal() {
   let optionContainer = document.getElementById("option-container");
   let storyContainer = document.getElementById("story-container");
@@ -29,10 +31,6 @@ function openLegal() {
   storyContainer.classList.add("display-None");
   optionContainer.classList.add("display-None");
 }
-
-
-
-
 
 function closePage() {
   let optionContainer = document.getElementById("option-container");
@@ -46,9 +44,7 @@ function closePage() {
 /**
  * helper function to restart the game 
  */
-
 function initializeGame() {
-  
   world = null;
   gameIsStarted = true;
   let titleImg = document.getElementById("title-img");
@@ -64,12 +60,10 @@ function initializeGame() {
 /**
  * starts the game 
  */
-
 function startGame() {
   initializeGame();
   let startBTN = document.getElementById('btn')
   startBTN.classList.add('display-None')
-/*   document.getElementById("btn").disabled = true; */
   let backToTitleBtn = document.getElementById("back-to-title-btn");
   backToTitleBtn.classList.remove("display-None");
   

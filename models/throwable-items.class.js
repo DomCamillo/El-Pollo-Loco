@@ -65,7 +65,6 @@ class Bottle extends MovableObject {
   /**
    * handles the bottle break
    */
-
   breakBottle() {
     clearInterval(this.rotateInterval);
 
@@ -83,7 +82,6 @@ class Bottle extends MovableObject {
   /**
    * rotate the bottle in a throw 
    */
-
   rotateBottle() {
     this.rotationInterval = setInterval(() => {
       this.playAnimation(this.images_Bottle);

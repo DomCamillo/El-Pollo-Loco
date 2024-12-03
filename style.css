@@ -550,7 +550,7 @@ canvas {
     display: flex;
     z-index: 2;
     position: absolute;
-    top: -20px;
+    top: 10px;
     left: 240px;
   }
 

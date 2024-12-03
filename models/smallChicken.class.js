@@ -39,12 +39,13 @@ class smallChicken extends MovableObject {
   /**
    * animate the chicken 
    */
-
   animateChicken() {
     this.startMovement();
     this.startAnimation();
   }
-  
+  /**
+   * moves the chicken from reight to left 
+   */
   startMovement() {
     let randomSpeed = 0.4 + Math.random() * 0.8;
   
@@ -57,7 +58,9 @@ class smallChicken extends MovableObject {
       }
     }, 10);
   }
-  
+  /**
+   * animates the chicken 
+   */
   startAnimation() {
     this.animationInterval = setInterval(() => {
       if (this.ChickenHealth > 0) {

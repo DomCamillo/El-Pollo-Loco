@@ -17,11 +17,11 @@ class World {
 
   coinBar = new StatusbarCoin();
   bossBar = new statusBarBossHealth();
-  
+
   restartBTN = document.getElementById("restart-btn");
 
   constructor(canvas, keyboard) {
-    this.ctx = canvas.getContext("2d"); // um den canvas zu bearbeiten
+    this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
@@ -29,12 +29,10 @@ class World {
     this.run();
     this.getAudio();
     this.animationFrameId = null;
-    /* this.disableRestartBTN(); */
   }
-  /** 
-   * saves all the sounds in variables 
-  */
-
+  /**
+   * saves all the sounds in variables
+   */
   getAudio() {
     this.collectingCoinSound = new Audio("audio/collect-coin.mp3");
     this.collectingBottlesSound = new Audio("audio/collectBottles.mp3");
@@ -49,14 +47,12 @@ class World {
     this.pushSoundsToArray();
     this.manageSoundVolume();
     applyMuteStatus();
-
   }
 
-/**
- * manageSoundVolume() sets the volume of all sounds in the game
- */
-
-   manageSoundVolume(){
+  /**
+   * manageSoundVolume() sets the volume of all sounds in the game
+   */
+  manageSoundVolume() {
     this.enemyDeadSound.volume = 0.2;
     this.extraLifeSound.volume = 0.2;
     this.hurtSound.volume = 0.2;
@@ -70,9 +66,8 @@ class World {
     this.backGroundMusic.play();
   }
   /**
-   * pushes all the sounds into a array to mute it when the button is pressd 
+   * pushes all the sounds into a array to mute it when the button is pressd
    */
-
   pushSoundsToArray() {
     allSounds.push(
       this.collectingBottlesSound,
@@ -88,11 +83,11 @@ class World {
       this.bottleBreakSound
     );
   }
-/**
- * stops all sounds when the world has been set 
- * and the sounds loaded in 
- */
 
+  /**
+   * stops all sounds when the world has been set
+   * and the sounds loaded in
+   */
   stopAllSounds() {
     this.backGroundMusic.pause();
     if (this.allSounds) {
@@ -105,14 +100,13 @@ class World {
     }
     this.allSounds = [];
   }
-   /**
-    * the restartGame() function handles the restart of game
-    * delets the old world and sets an new one 
-    */
 
+  /**
+   * the restartGame() function handles the restart of game
+   * delets the old world and sets an new one
+   */
   restartGame() {
-   
-    this.restartBTN.classList.add('display-None')
+    this.restartBTN.classList.add("display-None");
     cancelAnimationFrame(world.animationFrameId);
     this.clearAllIntervals();
     this.clearAllTimeouts();
@@ -130,10 +124,10 @@ class World {
     loseScreen.classList.add("display-None");
     winScreen.classList.add("display-None");
   }
-  /**
-   * this 2 functions clear all the timouts and intervals 
-   */
 
+  /**
+   * this 2 functions clear all the timouts and intervals
+   */
   clearAllIntervals() {
     for (let i = 1; i < 9999; i++) {
       window.clearInterval(i);
@@ -149,11 +143,11 @@ class World {
   setWorld() {
     this.character.world = this;
   }
+
   /**
    * The run() function is a central control function of the game.
    *  It is invoked at regular time intervals (every 100 milliseconds) and performs various checks to control gameplay
    */
-
   run() {
     this.intervalId = setInterval(() => {
       this.CheckGameOver();
@@ -167,76 +161,69 @@ class World {
       this.character.updateFallingState();
     }, 100);
   }
-/**
- * disables the restart button until the game is over 
- */
 
-  /* disableRestartBTN() {
-    restartBTN = document.getElementById("restart-btn");
-    
-    restartBTN.classList.add('display-None')
-    if (this.character.health <= 0 || this.endBoss.health <= 0) {
-      restartBTN.disabled = false;
-      restartBTN.classList.remove('display-None')
-    }
-  } */
   /**
-   * CheckGameOver() is resposible for handling the game over screen if the chacarter or the boss is defetead 
+   * CheckGameOver() is resposible for handling the game over screen if the chacarter or the boss is defetead
    */
- 
   CheckGameOver() {
     if (this.character.health == 0) {
       this.displayLoseScreen();
-      
     } else if (this.endBoss.health == 0) {
       this.displayWinScreen();
     }
   }
 
-
-      displayWinScreen(){
-        let winScreen = document.getElementById("youWin-screen");
-        this.restartBTN.classList.remove('display-None')
-        setTimeout(() => {
-          winScreen.classList.remove("display-None");
-        this.clearAllIntervals();
-        this.backGroundMusic.pause();
-        this.winSound.play();
-        }, 500);
-      }
-
-      displayLoseScreen(){
-        let loseScreen = document.getElementById("youLose-screen");
-        this.restartBTN.classList.remove('display-None')
-        setTimeout(() => {
-          loseScreen.classList.remove("display-None");
-          this.clearAllIntervals();
-          this.backGroundMusic.pause();
-          this.loseSound.play();
-        }, 500);
-      }
+  /**
+   * shows the winning endscreen if the boss is dead
+   */
+  displayWinScreen() {
+    let winScreen = document.getElementById("youWin-screen");
+    this.restartBTN.classList.remove("display-None");
+    setTimeout(() => {
+      winScreen.classList.remove("display-None");
+      this.clearAllIntervals();
+      this.backGroundMusic.pause();
+      this.winSound.play();
+    }, 500);
+  }
+  /**
+   * shows the losing endscreen if the character is dead
+   */
+  displayLoseScreen() {
+    let loseScreen = document.getElementById("youLose-screen");
+    this.restartBTN.classList.remove("display-None");
+    setTimeout(() => {
+      loseScreen.classList.remove("display-None");
+      this.clearAllIntervals();
+      this.backGroundMusic.pause();
+      this.loseSound.play();
+    }, 500);
+  }
   /**
    * checkCollisionWithEnemy()
-   * checks if character has collided with an enemy, and if the character has jumped on a enemy 
+   * checks if character has collided with an enemy, and if the character has jumped on a enemy
    */
-
   checkCollisionWithEnemy() {
     this.level.enemies.forEach((enemy, index) => {
-    if (this.character.isColliding(enemy, 10, 10)) {
-    if (this.character.isAbove(enemy) && this.character.isFalling) {
-       enemy.isAlreadyDead = true;
-       enemy.enemyHitDetection();
-       this.enemyDeadSound.play();
-       enemy.ChickenHealth -= 1;
-       this.character.jumpAfterStomp();
-       this.enemyDefeated(enemy);
-    } else if (!this.character.isAbove(enemy)) {
-       this.hurtSound.play();
-       this.character.hitDetection();
-       this.healthBar.setPercentage(this.character.health);
-       }} });
-  }
-
+      if (this.character.isColliding(enemy, 10, 10)) {
+        if (this.character.isAbove(enemy) && this.character.isFalling) {
+          enemy.isAlreadyDead = true;
+          enemy.enemyHitDetection();
+          this.enemyDeadSound.play();
+          enemy.ChickenHealth -= 1;
+          this.character.jumpAfterStomp();
+          this.enemyDefeated(enemy);
+        } else if (!this.character.isAbove(enemy)) {
+          this.hurtSound.play();
+          this.character.hitDetection();
+          this.healthBar.setPercentage(this.character.health);
+        }
+      }});}
+      
+  /**
+   *
+   * @param  enemy removes dead enemies from the world
+   */
   enemyDefeated(enemy) {
     setTimeout(() => {
       const enemyIndex = this.level.enemies.indexOf(enemy);
@@ -245,10 +232,10 @@ class World {
       }
     }, 500);
   }
-  /**
-   * checks if boss has hit the character 
-   */
 
+  /**
+   * checks if boss has hit the character
+   */
   checkCollisionBoss() {
     if (this.character.isColliding(this.endBoss)) {
       this.character.hitDetection();
@@ -259,11 +246,13 @@ class World {
       if (this.character.isColliding(chicken)) {
         this.character.hitDetection();
         this.healthBar.setPercentage(this.character.health);
-      }});
-    }
-/**
- *  checkBossHit() check if boss was hit with a bottle
- */
+      }
+    });
+  }
+
+  /**
+   *  checkBossHit() check if boss was hit with a bottle
+   */
   checkBossHit() {
     this.throwableObjects.forEach((bottle, bottleIndex) => {
       if (bottle.isColliding(this.endBoss, 40, 40)) {
@@ -275,12 +264,13 @@ class World {
         this.bottleBreakSound.play();
         bottle.breakBottle();
         this.bossBar.setPercentage(this.endBoss.health);
-      }});
-    }
- /**
-  *checkEnemyHit() checks if an enemy got hit by a bottle
-  */
+      }
+    });
+  }
 
+  /**
+   *checkEnemyHit() checks if an enemy got hit by a bottle
+   */
   checkEnemyHit() {
     const deadEnemies = [];
     const usedBottles = [];
@@ -295,16 +285,15 @@ class World {
           bottle.breakBottle();
           deadEnemies.push(enemyIndex);
           usedBottles.push(bottleIndex);
-        }});
-      });
-    this.removeDeadEnemies(deadEnemies, usedBottles);
+        }
+      });});this.removeDeadEnemies(deadEnemies, usedBottles);
   }
-  /**
-   * removes dead enemys and throwen bottles from the canvas 
-   * @param {*} deadEnemies 
-   * @param {*} usedBottles 
-   */
 
+  /**
+   * removes dead enemys and throwen bottles from the canvas
+   * @param {*} deadEnemies
+   * @param {*} usedBottles
+   */
   removeDeadEnemies(deadEnemies, usedBottles) {
     usedBottles.reverse().forEach((bottleIndex) => {
       setTimeout(() => {
@@ -314,15 +303,13 @@ class World {
     deadEnemies.reverse().forEach((enemyIndex) => {
       setTimeout(() => {
         this.level.enemies.splice(enemyIndex, 1);
-      }, 200);
+      }, 150);
     });
   }
 
-   /**
-   * checks if the character collided with a coin 
+  /**
+   * checks if the character collided with a coin
    */
-
-
   checkCollisionCoin() {
     this.level.Coin.forEach((coin, index) => {
       if (this.character.isColliding(coin, 40, 40)) {
@@ -339,9 +326,8 @@ class World {
     });
   }
   /**
-   * checks if the character collided with a bottle 
+   * checks if the character collided with a bottle
    */
-
   checkCollisionBottles() {
     this.level.Bottle.forEach((bottle, index) => {
       if (this.character.isColliding(bottle, 40, 40)) {
@@ -351,10 +337,6 @@ class World {
         this.level.Bottle.splice(index, 1);
       }
     });
-  }
-
-  throwBottle(){
-
   }
 
   /**
@@ -367,7 +349,7 @@ class World {
       this.updateBottleStatus();
     }
   }
-  
+
   canThrowBottle(currentTime) {
     return (
       this.keyboard.F &&
@@ -375,13 +357,17 @@ class World {
       currentTime - this.lastThrowTime >= 250
     );
   }
-  
+  /**
+   * handles the bottle throw
+   */
+
   throwBottle() {
     let direction = this.character.otherDirection ? -1 : 1;
     let bottle = new Bottle(
       this.character.x + 40 * direction + 10,
       this.character.y + 100,
-      direction);
+      direction
+    );
     this.throwableObjects.push(bottle);
     this.bottleBar.collectedBottles.pop();
     bottle.throw();
@@ -389,37 +375,27 @@ class World {
     this.character.isThrowingBottle = true;
     setTimeout(() => {
       this.character.isThrowingBottle = false;
-    }, 300);
+    }, 600);
   }
-  
+
   updateBottleStatus() {
     this.bottleBar.setBottleStat(this.bottleBar.collectedBottles.length);
     this.lastThrowTime = Date.now();
   }
-
 
   /**
    * The draw() function is responsible for rendering the current game state in a 2D canvas element
    * this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
    * This line clears the contents of the canvas, removing the previous frame.
    */
-
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.backdrops);
-    this.addToMap(this.healthBar);
-    this.addToMap(this.bottleBar);
-    this.addToMap(this.coinBar);
-    this.addToMap(this.bossBar);
+    this.drawBackdrop();
+    this.drawStatusbars();
     this.addToMap(this.character);
     this.addToMap(this.endBoss);
-    this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.level.Bottle);
-    this.addObjectsToMap(this.level.Coin);
-    this.addObjectsToMap(this.throwableObjects);
-    this.addObjectsToMap(this.throwableChicken);
+    this.drawLevelObjects();
     this.ctx.translate(-this.camera_x, 0);
     this.setStatusbar();
     let self = this;
@@ -427,11 +403,30 @@ class World {
       self.draw();
     });
   }
- 
-  /**
-   * handles the postion of the statusbars 
-   */
 
+  drawBackdrop() {
+    this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.backdrops);
+  }
+
+  drawStatusbars() {
+    this.addToMap(this.healthBar);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.coinBar);
+    this.addToMap(this.bossBar);
+  }
+
+  drawLevelObjects() {
+    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.Bottle);
+    this.addObjectsToMap(this.level.Coin);
+    this.addObjectsToMap(this.throwableObjects);
+    this.addObjectsToMap(this.throwableChicken);
+  }
+
+  /**
+   * handles the postion of the statusbars
+   */
   setStatusbar() {
     setInterval(() => {
       this.healthBar.x = this.character.x - 100;
@@ -445,7 +440,6 @@ class World {
   /**
    * adds elements to the canvas
    */
-
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
@@ -463,9 +457,8 @@ class World {
     this.ctx.restore();
   }
   /**
-   * flips the image of a drwan object 
+   * flips the image of a drwan object
    */
-
   flipImage(mo, ctx) {
     this.ctx.translate(mo.x + mo.width, 0);
     this.ctx.scale(-1, 1);

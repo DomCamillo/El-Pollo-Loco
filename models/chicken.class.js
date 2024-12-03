@@ -25,7 +25,9 @@ class Chicken extends MovableObject {
     this.startMovement();
     this.startAnimation();
   }
-  
+  /**
+   * moves the chicken from reight to left 
+   */
   startMovement() {
     let randomSpeed = 0.4 + Math.random() * 0.8;
   
@@ -38,7 +40,9 @@ class Chicken extends MovableObject {
       }
     }, 10);
   }
-  
+  /**
+   * animates the chicken 
+   */
   startAnimation() {
     this.animationInterval = setInterval(() => {
       if (this.ChickenHealth > 0) {

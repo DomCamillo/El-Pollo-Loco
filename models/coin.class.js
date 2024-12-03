@@ -1,5 +1,7 @@
 class Coin extends MovableObject{
 
+    /** class for  coins in the level */
+
     height = 150;
     width = 150;
     x = 200;

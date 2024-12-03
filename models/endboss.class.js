@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
   health = 150;
 
   isCharacterNear = false;
+  angryWalking = 5;
   walking = 10;
   direction = 1;
   bossState = "walking";
@@ -96,13 +97,18 @@ class Endboss extends MovableObject {
       } else if (this.bossState === "attacking") {
         this.playAnimation(this.imagesBossAttacking);
         this.throwInterval();
+        this.moveBossInAttackMode(); 
       }
     }, 200);
   }
 
   moveBoss() {
     setInterval(() => {
-      this.moveBossLeftAndRight();
+      if (this.bossState !== "attacking") {
+        this.moveBossLeftAndRight();  // Gehmodus
+      } else {
+        this.moveBossInAttackMode();  // Angriffmodus
+      }
       if (this.health <= 0) {
         this.bossState = "dead";
       } else if (this.checkIfCharacterIsNear() && !this.hasBeenHit) {
@@ -129,9 +135,18 @@ class Endboss extends MovableObject {
     }
   }
   /**
+   * moves the boss in the attack state
+   */
+ moveBossInAttackMode() {
+  if (this.bossState === "attacking") {
+      this.direction = 1; 
+    }
+    this.x -= this.direction * this.angryWalking;
+  }
+
+  /**
    * moves the boss from left to right in a certain area 
    */
-
   moveBossLeftAndRight() {
     if (this.bossState === "walking") {
       if (this.x >= 4300) {
@@ -142,10 +157,10 @@ class Endboss extends MovableObject {
       this.x += this.direction * this.walking;
     }
   }
+
   /**
    * changes the behavior to attaking once the boss is attackt 
    */
-
   registerHit() {
     if (!this.hurtTimeoutID) {
       this.bossState = "hurt";
@@ -156,17 +171,18 @@ class Endboss extends MovableObject {
       }, 1000);
     }
   }
+
   /**
    * checks if the character is near the boss
    * @returns true
    */
-
   checkIfCharacterIsNear() {
     if (this.character.x > 3900) {
      
       return true;
     }
   }
+
 /**
  * handles the throw of small chicken enemies 
  */
@@ -180,7 +196,6 @@ class Endboss extends MovableObject {
   /**
    * handles the throw interval 
    */
-
   throwInterval() {
     if (!this.throwIntervalID) {
       this.throwIntervalID = setInterval(() => {

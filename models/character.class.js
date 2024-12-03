@@ -73,8 +73,10 @@ class Character extends MovableObject {
     "img/2_character_pepe/1_idle/idle/I-7.png",
     "img/2_character_pepe/1_idle/idle/I-8.png",
     "img/2_character_pepe/1_idle/idle/I-9.png",
-    "img/2_character_pepe/1_idle/idle/I-10.png",
+    "img/2_character_pepe/1_idle/idle/I-10.png"
+];
 
+imagesIdleLong = [
     "img/2_character_pepe/1_idle/long_idle/I-11.png",
     "img/2_character_pepe/1_idle/long_idle/I-12.png",
     "img/2_character_pepe/1_idle/long_idle/I-13.png",
@@ -83,14 +85,15 @@ class Character extends MovableObject {
     "img/2_character_pepe/1_idle/long_idle/I-16.png",
     "img/2_character_pepe/1_idle/long_idle/I-17.png",
     "img/2_character_pepe/1_idle/long_idle/I-18.png",
-    "img/2_character_pepe/1_idle/long_idle/I-19.png",
-  ];
+    "img/2_character_pepe/1_idle/long_idle/I-19.png"
+];
 
   world;
 
   constructor() {
-    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
+    super().loadImage(this.imageStanding);
     this.applyGravity();
+    this.loadImages(this.imagesIdleLong)
     this.loadImages(this.imagesIdle);
     this.loadImages(this.imagesRunning);
     this.loadImages(this.images);
@@ -178,10 +181,10 @@ class Character extends MovableObject {
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
   }
+
   /**
    * handles the walking of the character
    */
-
   handleCharacterWalking() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end) {
       this.moveRight();
@@ -195,24 +198,28 @@ class Character extends MovableObject {
       this.isMoving = false;
     }
   }
+
   /**
    * handles the running of the character
    */
   handleCharacterRunning() {
     if (
-      this.world.keyboard.SHIFT &&this.world.keyboard.RIGHT &&
+      this.world.keyboard.SHIFT &&
+      this.world.keyboard.RIGHT &&
       !this.isAboveGround()
     ) {
       this.runningRight();
       this.isMoving = true;
-    }if (
-      this.world.keyboard.SHIFT &&this.world.keyboard.LEFT &&
+    } if (
+      this.world.keyboard.SHIFT &&
+      this.world.keyboard.LEFT &&
       !this.isAboveGround()
     ) {
       this.runningLeft();
       this.isMoving = true;
       this.isRunning = true;
     }}
+
   /**
    * checks if the character is above the ground level
    * @returns
@@ -220,10 +227,10 @@ class Character extends MovableObject {
   isCharacterAboveGround() {
     return this.y < this.groundLevel;
   }
+
   /**
    * hadles jumping of the character
    */
-
   handleCharacterJumping() {
     if (
       this.world.keyboard.SPACE &&
@@ -245,7 +252,6 @@ class Character extends MovableObject {
   /**
    * plays the animation only once in a jump
    */
-
   playJumpAnimationOnce() {
     let currentIndex = 0;
     const jumpInterval = setInterval(() => {
@@ -269,7 +275,6 @@ class Character extends MovableObject {
    * checks if the character doesent move for a certin amount of time
    * and starts the idle animation
    */
-
   checkIfCharacterIsIdle() {
     if (this.shouldIdle()) {
       this.handleIdleState();
@@ -301,7 +306,7 @@ class Character extends MovableObject {
       this.idleTimeout = setTimeout(() => {
         this.startIdleAnimation();
         this.idleTimeout = null;
-      }, 4000);
+      }, 3000);
     }
   }
 
@@ -319,8 +324,23 @@ class Character extends MovableObject {
   startIdleAnimation() {
     if (!this.idleAnimationInterval) {
       this.isIdleAnimating = true;
-      this.idleAnimationInterval = setInterval(() => {
-        this.playAnimation(this.imagesIdle);
+      let idleIndex = 0;
+      const idleAnimationInterval = setInterval(() => {
+        if (idleIndex < this.imagesIdle.length) {
+          this.loadImage(this.imagesIdle[idleIndex]);
+          idleIndex++;
+        } else {
+          clearInterval(idleAnimationInterval);  // Stoppe die kurze Idle-Animation
+          this.startLongIdleAnimation();  // Starte die lange Idle-Animation
+        }
+      }, 200);
+    }
+  }
+
+  startLongIdleAnimation() {
+    if (!this.longIdleAnimationInterval) {
+      this.longIdleAnimationInterval = setInterval(() => {
+        this.playAnimation(this.imagesIdleLong); 
       }, 200);
     }
   }
@@ -332,12 +352,16 @@ class Character extends MovableObject {
       clearInterval(this.idleAnimationInterval);
       this.idleAnimationInterval = null;
     }
+    if (this.longIdleAnimationInterval) {
+      clearInterval(this.longIdleAnimationInterval);
+      this.longIdleAnimationInterval = null;
+    }
     this.isIdleAnimating = false;
   }
+
   /**
    * these functions  plays and handles the animation based on the characters aktion
    */
-
   checkCharacterAnimation() {
     setInterval(() => {
       if (this.handleDeathAnimation()) return;

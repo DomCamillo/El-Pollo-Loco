@@ -101,11 +101,7 @@ function applyMuteStatus() {
       sound.muted = isMuted;
     }
   });
-
-  let muteIMG = document.getElementById("mute-img");
-  muteIMG.src = isMuted
-    ? "img/my_images/volume-off-solid_.png"
-    : "img/my_images/volume-up-solid_.png";
+  toggleMuteImg();
 }
 
 window.onload = function () {
@@ -113,6 +109,13 @@ window.onload = function () {
   isMuted = storedMuteStatus === "true";
   applyMuteStatus();
 };
+
+ function toggleMuteImg(){
+  let muteIMG = document.getElementById("mute-img");
+  muteIMG.src = isMuted
+    ? "img/my_images/volume-off-solid_.png"
+    : "img/my_images/volume-up-solid_.png";
+}
 
 /**
  * if a certain key is pressed the key will be true
