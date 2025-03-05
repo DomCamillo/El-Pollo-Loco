@@ -135,12 +135,6 @@ canvas {
   text-align: center; 
 }
 
-.turnDeviceText {
- 
-}
-
-
-
 
 .display-None {
   display: none !important;
@@ -408,8 +402,7 @@ canvas {
   .turnDevice {
     z-index: 900000;
     display: flex;
-    width: 151vw;
-    height: 152vh;
+ 
     overflow: hidden;
   }
 
@@ -696,7 +689,11 @@ canvas {
   }
 }
 
-
+ @media only screen and  (max-height: 430px) and (orientation: landscape){
+  body{
+    padding: 20px;
+  }
+ }
 
 
 

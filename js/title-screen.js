@@ -4,6 +4,19 @@
  */
 let restartBTN = document.getElementById('restart-btn')
 
+function requestFullScreen(element) {
+  if (element.requestFullscreen) {
+      element.requestFullscreen();
+  } else if (element.mozRequestFullScreen) { // Firefox
+      element.mozRequestFullScreen();
+  } else if (element.webkitRequestFullscreen) { // Chrome, Safari und Opera
+      element.webkitRequestFullscreen();
+  } else if (element.msRequestFullscreen) { // IE/Edge
+      element.msRequestFullscreen();
+  }
+}
+
+requestFullScreen(document.documentElement);
 
 function openStory() {
   let legalContainer = document.getElementById("legal-container");
